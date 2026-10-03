@@ -1,0 +1,52 @@
+{
+  "name": "Alfa Beckham",
+  "short_name": "Alfa Beckham",
+  "description": "Sacred spiritual guidance, protection, and product offerings.",
+  "lang": "en",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "display_override": ["window-controls-overlay", "standalone"],
+  "background_color": "#0B0906",
+  "theme_color": "#0B0906",
+  "orientation": "portrait-primary",
+  "categories": ["business", "shopping", "lifestyle"],
+  "icons": [
+    {
+      "src": "icons/favicon-32.png",
+      "sizes": "32x32",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/favicon-16.png",
+      "sizes": "16x16",
+      "type": "image/png"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Shop offerings",
+      "short_name": "Shop",
+      "url": "/",
+      "icons": [
+        {
+          "src": "icons/favicon-32.png",
+          "sizes": "32x32",
+          "type": "image/png"
+        }
+      ]
+    },
+    {
+      "name": "Admin dashboard",
+      "short_name": "Admin",
+      "url": "/admin.html",
+      "icons": [
+        {
+          "src": "icons/favicon-32.png",
+          "sizes": "32x32",
+          "type": "image/png"
+        }
+      ]
+    }
+  ]
+}
