@@ -22,28 +22,20 @@
     <meta name="theme-color" content="#FAF6EE" media="(prefers-color-scheme: light)">
     <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="icons/favicon-16.png">
-    <link rel="manifest" href="./manifest.webmanifest">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="Alfa Beckham">
 
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome 6 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts: Fraunces (display) + Inter (body) + Space Mono (utility) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     <!-- AOS scroll animations -->
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
 
     <!-- Set theme before first paint to avoid flash -->
     <script>
-        window.ALFA_SUPABASE_CONFIG = window.ALFA_SUPABASE_CONFIG || {
-            url: 'https://zthwejocysocsgkdcmxx.supabase.co',
-            anonKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Inp0aHdlam9jeXNvY3Nna2RjbXh4Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA1MTg5NDMsImV4cCI6MjEwNjA5NDk0M30.b8zew5mF9oOSb8pZQC5pneBh-t1jkeiwe7q0JoOPjOI'
-        };
         (function () {
             try {
                 const saved = localStorage.getItem('alfa_theme');
@@ -89,7 +81,7 @@
         "description": "Sacred spiritual guidance, cleansing rituals, protection work and spiritual soaps rooted in African and Middle Eastern ancestral traditions.",
         "telephone": "+2347017721183",
         "email": "alfabeckham74@gmail.com",
-        "priceRange": "₦15,000 - ₦100,000",
+        "priceRange": "₦25,000 - ₦100,000",
         "openingHoursSpecification": [
             { "@type": "OpeningHoursSpecification", "dayOfWeek": ["Monday","Tuesday","Wednesday","Thursday","Friday"], "opens": "09:00", "closes": "19:00" }
         ],
@@ -760,47 +752,40 @@
         .hero-reveal .hr-item:nth-child(5) { animation-delay: 0.6s; }
         @keyframes hrIn { to { opacity: 1; transform: translateY(0); } }
 
+        /* Temple bell */
+        #templeBellBtn { position: relative; overflow: visible; }
+        .bell-ripple { position: absolute; inset: -8px; border-radius: 999px; border: 1.5px solid var(--brass-light); opacity: 0; pointer-events: none; }
+        .bell-ripple.animate { animation: bellRipple 1.1s ease-out; }
+        @keyframes bellRipple { 0% { opacity: 0.8; transform: scale(0.7); } 100% { opacity: 0; transform: scale(2.4); } }
+        #bellBlessing { min-height: 1.3em; }
+
+        /* Daily oracle */
+        .oracle-card { max-width: 30rem; margin: 0 auto; }
+        .oracle-symbol { width: 92px; height: 92px; margin: 0 auto 1.1rem; border-radius: 50%; background: radial-gradient(circle, rgba(142,155,184,0.18), transparent 70%); border: 1px solid var(--hairline); display: flex; align-items: center; justify-content: center; font-size: 2.1rem; color: var(--brass-text); transition: transform 0.4s ease; }
+        .oracle-symbol.flip { animation: oracleFlip 0.6s ease; }
+        @keyframes oracleFlip { 0% { transform: rotateY(0deg) scale(0.9); } 50% { transform: rotateY(90deg) scale(1); } 100% { transform: rotateY(0deg) scale(1); } }
+        .moon-chip { margin-bottom: 1.2rem; }
+
+        /* Hidden sigil easter egg */
+        #sigilTrigger { cursor: pointer; }
+        #easterEggOverlay { position: fixed; inset: 0; z-index: 100010; display: none; align-items: center; justify-content: center; background: radial-gradient(circle at center, rgba(75,85,104,0.55), rgba(7,8,12,0.92)); backdrop-filter: blur(6px); text-align: center; padding: 2rem; }
+        #easterEggOverlay.show { display: flex; animation: eggIn 0.5s ease; }
+        @keyframes eggIn { from { opacity: 0; } to { opacity: 1; } }
+        #easterEggOverlay .egg-inner { max-width: 26rem; }
+        #easterEggOverlay .egg-sigil { font-size: 3rem; color: var(--brass-light); margin-bottom: 1rem; animation: eggSpin 3s linear infinite; display: inline-block; }
+        @keyframes eggSpin { to { transform: rotate(360deg); } }
+        #easterEggOverlay button { margin-top: 1.5rem; }
+
         /* Burst particles (checkout celebration) */
         .burst-mote { position: fixed; width: 6px; height: 6px; border-radius: 50%; pointer-events: none; z-index: 100005; animation: burstMote 1.1s ease-out forwards; }
         @keyframes burstMote { 0% { opacity: 1; transform: translate(0,0) scale(1); } 100% { opacity: 0; transform: translate(var(--bx), var(--by)) scale(0.3); } }
 
+        /* Ambient toggle */
+        .ambient-toggle.active { border-color: var(--verdigris-light); color: var(--verdigris-light); }
+
         @media (prefers-reduced-motion: reduce) {
-            .burst-mote { animation: none !important; }
+            .bell-ripple, .oracle-symbol.flip, #easterEggOverlay .egg-sigil, .burst-mote { animation: none !important; }
         }
-    
-        /* ===== Combo Deal section ===== */
-        .combo-wrap { position: relative; }
-        .combo-date-chip {
-            display: inline-flex; align-items: center; gap: 0.5rem;
-            background: rgba(181, 80, 47, 0.14); border: 1px solid rgba(181, 80, 47, 0.45);
-            color: var(--ember-light); font-weight: 700; font-size: 0.85rem;
-            padding: 0.5rem 1.1rem; border-radius: 999px; margin-bottom: 1.25rem;
-        }
-        .combo-card { position: relative; display: flex; flex-direction: column; height: 100%; border-top: 2px solid var(--ember); }
-        .combo-card .combo-body { padding: 2rem 1.5rem; text-align: center; display: flex; flex-direction: column; flex: 1; align-items: center; }
-        .combo-card.combo-feature { border: 1px solid var(--brass); border-top: 3px solid var(--ember-light); }
-        .combo-ribbon {
-            position: absolute; top: 0; left: 50%; transform: translate(-50%, -50%);
-            background: linear-gradient(100deg, var(--ember), var(--ember-light));
-            color: #fff; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase;
-            padding: 0.3rem 0.85rem; border-radius: 999px; white-space: nowrap;
-        }
-        .combo-list { list-style: none; padding: 0; margin: 1rem 0 0.5rem; width: 100%; text-align: left; }
-        .combo-list li {
-            display: flex; align-items: center; gap: 0.75rem;
-            padding: 0.6rem 0.25rem; border-bottom: 1px solid var(--hairline);
-            font-size: 0.95rem; color: var(--txt-soft);
-        }
-        .combo-list li:last-child { border-bottom: 0; }
-        .combo-list .ci { width: 1.6rem; text-align: center; font-size: 1.1rem; }
-        .combo-card .add-to-cart-btn { margin-top: auto; width: 100%; }
-        .combo-card .price-tag { font-size: 1.9rem; }
-        .combo-urgency {
-            margin: 2.5rem auto 0; max-width: 40rem; text-align: center;
-            border: 1px dashed rgba(181, 80, 47, 0.55); border-radius: 14px;
-            padding: 1rem 1.25rem; background: rgba(181, 80, 47, 0.08);
-        }
-        .combo-urgency strong { color: var(--ember-light); }
     </style>
 </head>
 <body class="antialiased">
@@ -819,39 +804,23 @@
             <p class="eyebrow">Awakening the Sacred</p>
         </div>
     </div>
-    <script>
-    // Failsafe: never let a slow or blocked CDN keep visitors stuck on the loading screen
-    (function () {
-        function hidePre() {
-            var pre = document.getElementById('preloader');
-            if (!pre || pre.dataset.done) return;
-            pre.dataset.done = '1';
-            pre.style.opacity = '0';
-            pre.style.visibility = 'hidden';
-            pre.style.pointerEvents = 'none';
-        }
-        document.addEventListener('DOMContentLoaded', function () { setTimeout(hidePre, 600); });
-        setTimeout(hidePre, 3000);
-        window.__hidePre = hidePre;
-    })();
-    </script>
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 nav-surface backdrop-blur-xl border-b border-soft">
         <div id="launchCountdownBar" class="countdown-bar">
             <i class="fas fa-hourglass-half cb-icon"></i>
-            <span class="cb-label">🔥 COMBO DEAL IS BACK! Starts October 11th — ends October 18th</span>
+            <span class="cb-label">🔥 Breakthrough &amp; Eyonu Awon Agba — only 200 pieces — opens Monday 12am!</span>
             <span class="cb-timer" id="countdownTimer">
                 <div class="cb-unit"><span id="cdDays" class="cb-num">--</span><span class="cb-lbl">Days</span></div>
                 <div class="cb-unit"><span id="cdHours" class="cb-num">--</span><span class="cb-lbl">Hrs</span></div>
                 <div class="cb-unit"><span id="cdMins" class="cb-num">--</span><span class="cb-lbl">Min</span></div>
                 <div class="cb-unit"><span id="cdSecs" class="cb-num">--</span><span class="cb-lbl">Sec</span></div>
             </span>
-            <a href="#combo" class="cb-cta">See the deal</a>
+            <a href="#services" class="cb-cta">View offering</a>
         </div>
         <div class="container mx-auto px-6 lg:px-12 py-3">
             <div class="flex justify-between items-center">
-                <div class="flex items-center gap-3" title="Alfa Beckham">
+                <div class="flex items-center gap-3" id="sigilTrigger" title="Alfa Beckham">
                     <svg width="42" height="42" viewBox="0 0 42 42" aria-hidden="true">
                         <circle cx="21" cy="21" r="19" fill="none" stroke="#8E9BB8" stroke-width="1.4"/>
                         <circle cx="21" cy="21" r="12" fill="none" stroke="#8E9BB8" stroke-width="1" opacity="0.6"/>
@@ -863,10 +832,16 @@
                     </div>
                 </div>
                 <div class="hidden lg:flex items-center gap-6">
-                    <a id="navComboLink" href="#combo" class="text-sm font-bold txt-ember-light hover-brass transition">🔥 Combo Deal</a>
+                    <a href="#home" class="text-sm font-medium txt-soft hover-brass transition">Home</a>
+                    <a href="#about" class="text-sm font-medium txt-soft hover-brass transition">Sacred Path</a>
                     <a href="#services" class="text-sm font-medium txt-soft hover-brass transition">Offerings</a>
+                    <a href="#oracle" class="text-sm font-medium txt-soft hover-brass transition">Daily Sign</a>
                     <a href="#quiz" class="text-sm font-medium txt-soft hover-brass transition">Find Your Path</a>
+                    <a href="#testimonials" class="text-sm font-medium txt-soft hover-brass transition">Soul Stories</a>
                     <a href="#faq" class="text-sm font-medium txt-soft hover-brass transition">FAQ</a>
+                    <button id="ambientToggle" class="theme-toggle ambient-toggle" aria-label="Toggle sacred ambience sound" title="Sacred ambience (off)" aria-pressed="false">
+                        <i class="fas fa-volume-xmark"></i>
+                    </button>
                     <button id="themeToggle" class="theme-toggle" aria-label="Toggle light and dark mode" title="Toggle light / dark mode">
                         <i class="fas fa-moon"></i><i class="fas fa-sun"></i>
                     </button>
@@ -882,9 +857,12 @@
                 </div>
             </div>
             <div id="mobileMenu" class="hidden lg:hidden flex-col mt-5 space-y-4 pb-4 text-center">
-                <a id="navComboLinkM" href="#combo" class="block py-2 font-bold txt-ember-light hover-brass">🔥 Combo Deal</a>
+                <a href="#home" class="block py-2 txt-soft hover-brass">Home</a>
+                <a href="#about" class="block py-2 txt-soft hover-brass">About</a>
                 <a href="#services" class="block py-2 txt-soft hover-brass">Services</a>
+                <a href="#oracle" class="block py-2 txt-soft hover-brass">Daily Sign</a>
                 <a href="#quiz" class="block py-2 txt-soft hover-brass">Find Your Path</a>
+                <a href="#testimonials" class="block py-2 txt-soft hover-brass">Testimonials</a>
                 <a href="#faq" class="block py-2 txt-soft hover-brass">FAQ</a>
                 <a href="#booking" class="btn-brass justify-center">Book Consultation</a>
             </div>
@@ -896,7 +874,6 @@
         <div class="container mx-auto px-6 lg:px-12 content">
             <div class="grid lg:grid-cols-5 gap-14 items-center max-w-7xl mx-auto">
                 <div class="lg:col-span-3 hero-reveal">
-                    <a href="#combo" id="heroComboPill" class="combo-date-chip hr-item" style="text-decoration:none;">🔥 COMBO DEAL · OCT 11–18 · See offers →</a>
                     <p class="eyebrow mb-5 hr-item">Guardian of Ancestral Light</p>
                     <h1 class="text-5xl md:text-6xl lg:text-7xl font-semibold leading-[1.03] mb-6 hr-item">
                         Cleansing darkness.<br>
@@ -908,8 +885,7 @@
                         clear, personal discernment.
                     </p>
                     <div class="flex flex-wrap gap-4 mb-14 hr-item">
-                        <a id="heroComboBtn" href="#combo" class="btn-brass text-base px-8"><i class="fas fa-fire"></i> Get the Combo Deal</a>
-                        <a href="#booking" class="btn-outline text-base"><i class="fas fa-hand-sparkles"></i> Begin Your Session</a>
+                        <a href="#booking" class="btn-brass text-base px-8"><i class="fas fa-hand-sparkles"></i> Begin Your Session</a>
                         <a href="#quiz" class="btn-outline text-base"><i class="fas fa-compass"></i> Find Your Path</a>
                     </div>
                     <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 max-w-xl hr-item">
@@ -918,8 +894,12 @@
                         <div class="panel px-4 py-4"><span class="text-2xl font-bold brass-text font-['Fraunces']">100%</span><p class="txt-mute text-xs mt-1">Devotion</p></div>
                         <div class="panel px-4 py-4"><span class="text-2xl font-bold brass-text font-['Fraunces']">24/7</span><p class="txt-mute text-xs mt-1">Alignment</p></div>
                     </div>
+                    <div class="hr-item mt-8 flex flex-wrap items-center gap-4">
+                        <button type="button" id="templeBellBtn" class="btn-verdigris text-sm"><span class="bell-ripple" id="bellRipple"></span><i class="fas fa-bell"></i> Ring the Sacred Bell</button>
+                        <p id="bellBlessing" class="txt-mute text-xs italic"></p>
+                    </div>
                 </div>
-                <div class="lg:col-span-2 relative hidden lg:flex items-center justify-center" data-aos="fade-left" data-aos-delay="250" id="compassSigil">
+                <div class="lg:col-span-2 relative hidden lg:flex items-center justify-center" data-aos="fade-left" data-aos-delay="250" id="compassSigil" style="cursor:pointer" title="Ring the sacred bell">
                     <svg width="360" height="360" viewBox="0 0 360 360" aria-hidden="true">
                         <circle cx="180" cy="180" r="170" fill="none" stroke="#4B5568" stroke-width="1" opacity="0.35"/>
                         <circle cx="180" cy="180" r="132" fill="none" stroke="#8E9BB8" stroke-width="1" opacity="0.5"/>
@@ -1025,48 +1005,23 @@
         </div>
     </section>
 
-    <!-- Combo Deal -->
-    <section id="combo" class="section combo-wrap">
+    <!-- Daily Oracle -->
+    <section id="oracle" class="section relative">
+        <div class="adire-watermark"></div>
         <div class="container mx-auto px-6 lg:px-12 text-center content">
-            <div class="combo-date-chip">📅 OCTOBER 11TH – 18TH ONLY ⏳</div>
-            <h2 class="text-4xl md:text-5xl font-semibold brass-text mb-4">🔥 Combo Deal Is Back! 🔥</h2>
+            <p class="eyebrow mb-3">Today's Whisper</p>
+            <h2 class="text-4xl md:text-5xl font-semibold brass-text mb-4">Your Daily Ancestral Sign</h2>
             <div class="sigil-divider"><span class="line"></span><i class="fas fa-star-of-life txt-brass text-xs"></i><span class="line right"></span></div>
-            <p class="txt-mute max-w-xl mx-auto mb-12 text-lg">Three special packages. Eight days only. Don't miss out!</p>
-            <div class="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto text-left items-stretch">
-                <div class="card combo-card" id="combo-card-cashout" data-aos="fade-up">
-                    
-                    <div class="combo-body">
-                        <h3 class="text-xl font-semibold brass-text">💸 Cashout Combo</h3>
-                        <span class="lock-badge" id="lockBadge-combo-cashout"><i class="fas fa-lock"></i> <span class="lock-badge-text">Opens Oct 11</span></span>
-                        <div class="price-tag">₦100,000</div>
-                        <ul class="combo-list"><li><span class="ci">✨</span><span>Badluck Cleansing</span></li><li><span class="ci">💰</span><span>Cashout Soap</span></li></ul>
-                        <button type="button" class="add-to-cart-btn btn-brass" data-id="combo-cashout" data-name="Cashout Combo" data-price="100000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
-                    </div>
+            <div class="moon-chip flex justify-center"><span class="rating-chip" id="moonChip"><i class="fas fa-moon"></i> Calculating tonight's moon…</span></div>
+            <p class="txt-mute max-w-xl mx-auto mb-10">One sign, drawn fresh each day. A small reflection to carry with you — not a substitute for a full consultation.</p>
+            <div class="oracle-card panel p-8">
+                <div class="oracle-symbol" id="oracleSymbol"><i class="fas fa-star-of-life"></i></div>
+                <h3 id="oracleTitle" class="text-xl font-semibold brass-text mb-2">Draw to reveal today's sign</h3>
+                <p id="oracleMessage" class="txt-soft text-sm mb-6">Tap below — your sign is fixed for today and will change tomorrow.</p>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button type="button" id="oracleDrawBtn" class="btn-brass text-sm"><i class="fas fa-hand-sparkles"></i> Draw Today's Sign</button>
+                    <button type="button" id="oracleBookBtn" class="btn-outline text-sm" style="display:none;"><i class="fas fa-feather-alt"></i> Discuss This Sign</button>
                 </div>
-                <div class="card combo-card combo-feature" id="combo-card-cashout-plus" data-aos="fade-up">
-                    <span class="combo-ribbon">Most items</span>
-                    <div class="combo-body">
-                        <h3 class="text-xl font-semibold brass-text">💸➕ Cashout Combo Plus</h3>
-                        <span class="lock-badge" id="lockBadge-combo-cashout-plus"><i class="fas fa-lock"></i> <span class="lock-badge-text">Opens Oct 11</span></span>
-                        <div class="price-tag">₦150,000</div>
-                        <ul class="combo-list"><li><span class="ci">✨</span><span>Badluck Cleansing</span></li><li><span class="ci">🫧</span><span>Cleansing Soap</span></li><li><span class="ci">📿</span><span>Bead</span></li></ul>
-                        <button type="button" class="add-to-cart-btn btn-brass" data-id="combo-cashout-plus" data-name="Cashout Combo Plus" data-price="150000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
-                    </div>
-                </div>
-                <div class="card combo-card" id="combo-card-big-bag" data-aos="fade-up">
-                    
-                    <div class="combo-body">
-                        <h3 class="text-xl font-semibold brass-text">👑 Big Bag Package</h3>
-                        <span class="lock-badge" id="lockBadge-combo-big-bag"><i class="fas fa-lock"></i> <span class="lock-badge-text">Opens Oct 11</span></span>
-                        <div class="price-tag">₦350,000</div>
-                        <ul class="combo-list"><li><span class="ci">🧼</span><span>Premium Big Bag Soap Package</span></li></ul>
-                        <button type="button" class="add-to-cart-btn btn-brass" data-id="combo-big-bag" data-name="Big Bag Package 🛍️" data-price="350000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
-                    </div>
-                </div>
-            </div>
-            <div class="combo-urgency">
-                <p class="text-lg">🚨 <strong>8 DAYS ONLY!</strong></p>
-                <p class="txt-soft">⏳ October 11–18 &nbsp;·&nbsp; 🔥 Don’t miss out!</p>
             </div>
         </div>
     </section>
@@ -1094,8 +1049,8 @@
                     <div class="w-16 h-16 mx-auto rounded-full bg-[#8E9BB8]/10 flex items-center justify-center mb-5 border border-[#8E9BB8]/30"><i class="fas fa-comments txt-brass text-2xl"></i></div>
                     <h3 class="text-xl font-semibold brass-text mb-3">Sacred Consultation</h3>
                     <p class="txt-mute text-sm">A private one-on-one session with Alfa Beckham to discern your spiritual path and needs.</p>
-                    <div class="price-tag">₦15,000</div>
-                    <button type="button" class="add-to-cart-btn" data-id="consultation" data-name="Sacred Consultation" data-price="15000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+                    <div class="price-tag">₦25,000</div>
+                    <button type="button" class="add-to-cart-btn" data-id="consultation" data-name="Sacred Consultation" data-price="25000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
                     <div class="mt-5 eyebrow text-[10px] border-t border-[#8E9BB8]/20 inline-block pt-3">Personal discernment</div>
                     </div>
                 </div>
@@ -1104,8 +1059,8 @@
                     <div class="w-16 h-16 mx-auto rounded-full bg-[#8E9BB8]/10 flex items-center justify-center mb-5 border border-[#8E9BB8]/30"><i class="fas fa-soap txt-brass text-2xl"></i></div>
                     <h3 class="text-xl font-semibold brass-text mb-3">Cleansing After Sex</h3>
                     <p class="txt-mute text-sm">Spiritual soap to purify energetic ties, remove attachments &amp; restore aura harmony.</p>
-                    <div class="price-tag">₦50,000</div>
-                    <button type="button" class="add-to-cart-btn" data-id="cleansing-after-sex" data-name="Cleansing After Sex" data-price="50000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+                    <div class="price-tag">₦100,000</div>
+                    <button type="button" class="add-to-cart-btn" data-id="cleansing-after-sex" data-name="Cleansing After Sex" data-price="100000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
                     <div class="mt-5 eyebrow text-[10px] border-t border-[#8E9BB8]/20 inline-block pt-3">Sacred assistance</div>
                     </div>
                 </div>
@@ -1188,6 +1143,8 @@
                         <div>
                             <h3 class="text-xl font-semibold brass-text mb-2">Badluck Cleansing</h3>
                             <p class="txt-mute text-sm max-w-2xl">Comprehensive removal of misfortune, blockages, and stagnant energy — opening doors to blessings.</p>
+                            <div class="price-tag">₦150,000</div>
+                            <button type="button" class="add-to-cart-btn" data-id="badluck-cleansing" data-name="Badluck Cleansing" data-price="150000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
                         </div>
                         <div class="md:ml-auto eyebrow text-[10px] whitespace-nowrap">Energetic renewal</div>
                     </div>
@@ -1344,9 +1301,6 @@
                                 <option>Soap for Market Selling</option>
                                 <option>Badluck Cleansing</option>
                                 <option>Breakthrough and Eyonu Awon Agba</option>
-                                <option>Cashout Combo (Oct 11–18)</option>
-                                <option>Cashout Combo Plus (Oct 11–18)</option>
-                                <option>Big Bag Package (Oct 11–18)</option>
                                 <option>Eyonu</option>
                                 <option>Oshole</option>
                                 <option>CL Locking</option>
@@ -1464,6 +1418,16 @@
     </footer>
 
     <button id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+
+    <!-- Hidden sigil easter egg -->
+    <div id="easterEggOverlay" role="dialog" aria-modal="true" aria-label="Hidden blessing">
+        <div class="egg-inner">
+            <span class="egg-sigil"><i class="fas fa-star-of-life"></i></span>
+            <h3 class="text-2xl font-semibold brass-text mb-2">You Have Found the Hidden Sigil</h3>
+            <p class="txt-soft text-sm">Ancestral favor is with you today. Few who pass through notice the mark of the elders.</p>
+            <button type="button" id="eggCloseBtn" class="btn-outline text-sm"><i class="fas fa-check"></i> Carry the Blessing</button>
+        </div>
+    </div>
 
     <!-- Sticky mobile action bar -->
     <div id="mobileActionBar">
@@ -1594,15 +1558,15 @@
             }).catch(() => {});
         }
 
-        if (window.AOS) {
-            AOS.init({ duration: 700, once: true, offset: 40 });
-        } else {
-            // AOS failed to load (blocked/slow CDN): show everything instead of leaving it hidden
-            const st = document.createElement('style');
-            st.textContent = '[data-aos]{opacity:1!important;transform:none!important;pointer-events:auto!important;}';
-            document.head.appendChild(st);
-        }
-        if (window.__hidePre) window.__hidePre();
+        AOS.init({ duration: 700, once: true, offset: 40 });
+
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                const pre = document.getElementById('preloader');
+                pre.style.opacity = '0';
+                pre.style.visibility = 'hidden';
+            }, 500);
+        });
 
         // Light / dark mode toggle
         function setTheme(theme) {
@@ -1772,7 +1736,6 @@
         if (form) form.addEventListener('submit', (e) => {
             e.preventDefault();
             const isLight = document.documentElement.getAttribute('data-theme') === 'light';
-            if (!window.Swal) { alert('Request received — Alfa Beckham will connect within 24 hours.'); return; }
             Swal.fire({
                 icon: 'success',
                 title: '✨ Request Received',
@@ -1790,9 +1753,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
     (function () {
-        const SUPABASE_URL = window.ALFA_SUPABASE_CONFIG?.url || 'https://YOUR-PROJECT.supabase.co';
-        const SUPABASE_KEY = window.ALFA_SUPABASE_CONFIG?.anonKey || 'YOUR-ANON-KEY';
-        const sb = (typeof supabase !== 'undefined') ? supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+        const SUPABASE_URL = "https://eqqvxmmaatnsgsphijwb.supabase.co";
+        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxcXZ4bW1hYXRuc2dzcGhpandiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5NTM4ODEsImV4cCI6MjEwMzUyOTg4MX0.vugQPI2EESNPf1b_PbR0eNRkYAQD3sJ4ldVqO2QMNlA";
+        const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         const STOCK_IDS = ['breakthrough-eyonu-agba'];
 
         // Products locked from ordering until a set date/time (Africa/Lagos time)
@@ -1805,13 +1768,6 @@
         const CLOSES_AT = {
             'breakthrough-eyonu-agba': new Date('2026-09-06T00:00:00+01:00') // closes tonight at 12am
         };
-
-        // Combo Deal: October 11 – 18 (closes at 12am Oct 19, Lagos time)
-        const COMBO_IDS = ['combo-cashout', 'combo-cashout-plus', 'combo-big-bag'];
-        COMBO_IDS.forEach(id => {
-            LOCKED_UNTIL[id] = new Date('2026-10-11T00:00:00+01:00');
-            CLOSES_AT[id] = new Date('2026-10-19T00:00:00+01:00');
-        });
 
         function isLocked(id) {
             const unlockDate = LOCKED_UNTIL[id];
@@ -1831,18 +1787,14 @@
             const btn = document.querySelector(`.add-to-cart-btn[data-id="${id}"]`);
 
             if (badge) badge.classList.toggle('show', locked || closed);
-            const isCombo = COMBO_IDS.includes(id);
-            if (badgeText) badgeText.textContent = closed ? (isCombo ? 'Deal ended' : 'Sales closed') : (isCombo ? 'Opens Oct 11' : 'Locked until Monday');
+            if (badgeText) badgeText.textContent = closed ? 'Sales closed' : 'Locked until Monday';
 
             if (btn && locked) {
                 btn.disabled = true;
-                btn.innerHTML = isCombo ? '<i class="fas fa-lock"></i> Opens Oct 11' : '<i class="fas fa-lock"></i> Locked till Monday';
+                btn.innerHTML = '<i class="fas fa-lock"></i> Locked till Monday';
             } else if (btn && closed) {
                 btn.disabled = true;
-                btn.innerHTML = isCombo ? '<i class="fas fa-lock"></i> Deal Ended' : '<i class="fas fa-lock"></i> Sales Closed';
-            } else if (btn && isCombo) {
-                btn.disabled = false;
-                btn.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Cart';
+                btn.innerHTML = '<i class="fas fa-lock"></i> Sales Closed';
             } else if (btn && !locked && !closed && typeof stock === 'number') {
                 btn.disabled = stock <= 0;
                 if (stock <= 0) btn.innerHTML = '<i class="fas fa-ban"></i> Sold Out';
@@ -1853,7 +1805,7 @@
 
         async function refreshStock(id) {
             const el = document.getElementById('stock-' + id);
-            const { data, error } = sb ? await sb.from('product_stock').select('stock').eq('id', id).single() : { data: null, error: true };
+            const { data, error } = await sb.from('product_stock').select('stock').eq('id', id).single();
             if (error || !data) {
                 if (el) el.textContent = '';
                 applyLockState(id);
@@ -1874,23 +1826,23 @@
             return stock;
         }
 
-        window.alfaStock = { sb, STOCK_IDS, refreshStock, isLocked, isClosed, LOCKED_UNTIL, CLOSES_AT, COMBO_IDS };
+        window.alfaStock = { sb, STOCK_IDS, refreshStock, isLocked, isClosed, LOCKED_UNTIL, CLOSES_AT };
 
         document.addEventListener('DOMContentLoaded', () => {
             STOCK_IDS.forEach(refreshStock);
-            Object.keys(LOCKED_UNTIL).forEach(id => applyLockState(id));
+            Object.keys(LOCKED_UNTIL).forEach(applyLockState);
             // Re-check every minute so a locked/closed item updates live if the tab stays open past the deadline
             setInterval(() => {
                 STOCK_IDS.forEach(id => refreshStock(id));
-                COMBO_IDS.forEach(id => applyLockState(id));
             }, 60000);
         });
     })();
     </script>
 
-    <!-- Combo Deal Countdown Bar -->
+    <!-- Launch Countdown Bar -->
     <script>
     (function () {
+        const LAUNCH_ID = 'breakthrough-eyonu-agba';
         const bar = document.getElementById('launchCountdownBar');
         if (!bar) return;
         const dEl = document.getElementById('cdDays');
@@ -1899,27 +1851,26 @@
         const sEl = document.getElementById('cdSecs');
         const nav = bar.closest('nav');
         const hero = document.getElementById('home');
-        const OPENS = new Date('2026-10-11T00:00:00+01:00');   // Lagos time
-        const CLOSES = new Date('2026-10-19T00:00:00+01:00');  // end of Oct 18
 
-        const combo = document.getElementById('combo');
-        const comboEls = [combo, document.getElementById('heroComboPill'), document.getElementById('heroComboBtn'),
-            document.getElementById('navComboLink'), document.getElementById('navComboLinkM')];
-
-        // Whichever section is first on the page needs room under the fixed nav
         function adjustHeroOffset() {
-            if (!nav) return;
-            const first = document.querySelector('nav ~ section');
-            const pad = (nav.offsetHeight + 24) + 'px';
-            if (hero) hero.style.paddingTop = pad;
-            if (first && first !== hero) first.style.paddingTop = pad;
+            if (nav && hero) hero.style.paddingTop = (nav.offsetHeight + 24) + 'px';
         }
-        // During the live window the combo deal sits above everything else
-        function setComboOnTop(onTop) {
-            if (!combo || !hero) return;
-            const isTop = combo.nextElementSibling === hero || combo.compareDocumentPosition(hero) & Node.DOCUMENT_POSITION_FOLLOWING;
-            if (onTop && !isTop) hero.parentNode.insertBefore(combo, hero);
+
+        function getOpenTarget() {
+            // Prefer the shared lock date from the stock script; fall back to the known launch time.
+            if (window.alfaStock && window.alfaStock.LOCKED_UNTIL && window.alfaStock.LOCKED_UNTIL[LAUNCH_ID]) {
+                return window.alfaStock.LOCKED_UNTIL[LAUNCH_ID];
+            }
+            return new Date('2026-08-31T00:00:00+01:00');
         }
+
+        function getCloseTarget() {
+            if (window.alfaStock && window.alfaStock.CLOSES_AT && window.alfaStock.CLOSES_AT[LAUNCH_ID]) {
+                return window.alfaStock.CLOSES_AT[LAUNCH_ID];
+            }
+            return new Date('2026-09-06T00:00:00+01:00');
+        }
+
         function renderTime(diff) {
             const days = Math.floor(diff / 86400000);
             const hours = Math.floor((diff % 86400000) / 3600000);
@@ -1930,34 +1881,42 @@
             mEl.textContent = String(mins).padStart(2, '0');
             sEl.textContent = String(secs).padStart(2, '0');
         }
-        const label = bar.querySelector('.cb-label');
-        const timerEl = bar.querySelector('.cb-timer');
-        let timer;
 
         function tick() {
             const now = new Date();
-            if (now < OPENS) {
-                bar.classList.remove('is-live', 'is-closing', 'is-closed', 'is-hidden');
-                label.textContent = '🔥 COMBO DEAL IS BACK! Starts October 11th — ends October 18th';
-                timerEl.style.display = '';
-                renderTime(OPENS - now);
-                setComboOnTop(false);
-            } else if (now < CLOSES) {
-                bar.classList.remove('is-closed', 'is-live', 'is-hidden');
-                bar.classList.add('is-closing');
-                label.textContent = '⏳ COMBO DEAL IS LIVE — ends October 18th. Don’t miss out!';
-                timerEl.style.display = '';
-                renderTime(CLOSES - now);
-                setComboOnTop(true);
-            } else {
-                // Deal is over — hide the bar and every combo element
-                bar.classList.add('is-hidden');
-                comboEls.forEach(el => { if (el) el.style.display = 'none'; });
-                if (timer) clearInterval(timer);
+            const openTarget = getOpenTarget();
+            const closeTarget = getCloseTarget();
+
+            if (now < openTarget) {
+                // Phase 1: not open yet — counting down to opening
+                bar.classList.remove('is-live', 'is-closing', 'is-closed');
+                bar.querySelector('.cb-label').textContent = '🔥 Breakthrough & Eyonu Awon Agba — only 200 pieces — opens Monday 12am!';
+                bar.querySelector('.cb-timer').style.display = '';
+                renderTime(openTarget - now);
+                return;
             }
+
+            if (now < closeTarget) {
+                // Phase 2: open — counting down to closing
+                bar.classList.remove('is-closed');
+                bar.classList.add('is-closing');
+                bar.classList.remove('is-live');
+                bar.querySelector('.cb-label').textContent = '⏳ Breakthrough & Eyonu Awon Agba closes at 12am — order before it\'s gone:';
+                bar.querySelector('.cb-timer').style.display = '';
+                renderTime(closeTarget - now);
+                return;
+            }
+
+            // Phase 3: closed
+            bar.classList.remove('is-closing');
+            bar.classList.add('is-closed');
+            bar.querySelector('.cb-label').textContent = '🔒 Breakthrough & Eyonu Awon Agba — sales are now closed.';
+            bar.querySelector('.cb-timer').style.display = 'none';
+            if (timer) clearInterval(timer);
             adjustHeroOffset();
         }
 
+        let timer;
         tick();
         timer = setInterval(tick, 1000);
         window.addEventListener('load', adjustHeroOffset);
@@ -2083,16 +2042,6 @@
 
         function openCheckout() {
             if (!cart.length) return;
-            const st = window.alfaStock;
-            if (st) {
-                const stale = cart.filter(i => st.isLocked(i.id) || st.isClosed(i.id));
-                if (stale.length) {
-                    cart = cart.filter(i => !stale.includes(i));
-                    saveCart(); renderCart();
-                    showToast('Some offers are no longer available and were removed from your cart', 'fa-circle-info');
-                    if (!cart.length) return;
-                }
-            }
             closeCart();
             currentOrderRef = genOrderRef();
             const chip = document.getElementById('orderRefChip');
@@ -2188,7 +2137,7 @@
                 }
 
                 // Reserve/decrement stock for any limited-quantity items in the cart
-                if (window.alfaStock && window.alfaStock.sb) {
+                if (window.alfaStock) {
                     const trackedItems = cart.filter(i => window.alfaStock.STOCK_IDS.includes(i.id));
                     for (const item of trackedItems) {
                         const { data, error } = await window.alfaStock.sb.rpc('decrement_stock', { p_id: item.id, p_qty: item.qty });
@@ -2234,9 +2183,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
     (function () {
-      const SUPABASE_URL = window.ALFA_SUPABASE_CONFIG?.url || 'https://YOUR-PROJECT.supabase.co';
-      const SUPABASE_KEY = window.ALFA_SUPABASE_CONFIG?.anonKey || 'YOUR-ANON-KEY';
-      if (typeof supabase === 'undefined') return; // library blocked — chat simply stays unavailable
+      const SUPABASE_URL = "https://eqqvxmmaatnsgsphijwb.supabase.co";
+      const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxcXZ4bW1hYXRuc2dzcGhpandiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5NTM4ODEsImV4cCI6MjEwMzUyOTg4MX0.vugQPI2EESNPf1b_PbR0eNRkYAQD3sJ4ldVqO2QMNlA";
       const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
       const LS = "alfa_chat_conversation";
       let conv = null, messages = [], lastSeen = null, unread = 0, open = false;
@@ -2360,10 +2308,172 @@
     })();
     </script>
 
-    <!-- Save-as-Image, Celebration Burst -->
+    <!-- Sacred Bell, Daily Oracle, Moon Phase, Hidden Sigil, Save-as-Image, Ambience, Celebration Burst -->
     <script>
     (function () {
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+        // ---------- Shared: light Web Audio tone helper ----------
+        let audioCtx = null;
+        function getAudioCtx() {
+            try {
+                audioCtx = audioCtx || new (window.AudioContext || window.webkitAudioContext)();
+                if (audioCtx.state === 'suspended') audioCtx.resume();
+                return audioCtx;
+            } catch (e) { return null; }
+        }
+
+        function playBellTone() {
+            const ctx = getAudioCtx();
+            if (!ctx) return;
+            const now = ctx.currentTime;
+            [1, 1.5, 2.41, 3.2].forEach((mult, i) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = 220 * mult;
+                gain.gain.setValueAtTime(0, now);
+                gain.gain.linearRampToValueAtTime(0.16 / (i + 1), now + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.0001, now + 2.4);
+                osc.connect(gain).connect(ctx.destination);
+                osc.start(now);
+                osc.stop(now + 2.5);
+            });
+        }
+
+        // ---------- Temple Bell ----------
+        const BLESSINGS = [
+            'May your path be lit by ancestral fire.',
+            'Darkness bows where devotion stands.',
+            'Protection surrounds you this hour.',
+            'The elders nod in approval.',
+            'What was blocked begins to move.',
+            'Your prayer has been heard.',
+            'Light travels faster than doubt.'
+        ];
+        function ringBell() {
+            playBellTone();
+            const ripple = document.getElementById('bellRipple');
+            if (ripple && !reduceMotion) {
+                ripple.classList.remove('animate');
+                void ripple.offsetWidth;
+                ripple.classList.add('animate');
+            }
+            const blessingEl = document.getElementById('bellBlessing');
+            if (blessingEl) blessingEl.textContent = BLESSINGS[Math.floor(Math.random() * BLESSINGS.length)];
+            if (typeof gtag !== 'undefined') gtag('event', 'ring_bell', { event_category: 'engagement' });
+        }
+        document.getElementById('templeBellBtn')?.addEventListener('click', ringBell);
+        document.getElementById('compassSigil')?.addEventListener('click', ringBell);
+
+        // ---------- Hidden sigil easter egg ----------
+        let sigilClicks = 0, sigilTimer = null;
+        document.getElementById('sigilTrigger')?.addEventListener('click', () => {
+            sigilClicks++;
+            clearTimeout(sigilTimer);
+            sigilTimer = setTimeout(() => { sigilClicks = 0; }, 2500);
+            if (sigilClicks >= 5) {
+                sigilClicks = 0;
+                document.getElementById('easterEggOverlay')?.classList.add('show');
+                if (typeof gtag !== 'undefined') gtag('event', 'easter_egg_found', { event_category: 'engagement' });
+            }
+        });
+        document.getElementById('eggCloseBtn')?.addEventListener('click', () => {
+            document.getElementById('easterEggOverlay')?.classList.remove('show');
+        });
+        document.getElementById('easterEggOverlay')?.addEventListener('click', (e) => {
+            if (e.target.id === 'easterEggOverlay') e.currentTarget.classList.remove('show');
+        });
+
+        // ---------- Moon phase (approximate, client-computed) ----------
+        function getMoonPhase(date) {
+            const synodic = 29.53058867;
+            const known = new Date(Date.UTC(2000, 0, 6, 18, 14)); // a known new moon
+            const days = (date.getTime() - known.getTime()) / 86400000;
+            let phase = (days % synodic) / synodic;
+            if (phase < 0) phase += 1;
+            const phases = [
+                { max: 0.033, name: 'New Moon', icon: 'fa-circle' },
+                { max: 0.25, name: 'Waxing Crescent', icon: 'fa-moon' },
+                { max: 0.283, name: 'First Quarter', icon: 'fa-moon' },
+                { max: 0.5, name: 'Waxing Gibbous', icon: 'fa-moon' },
+                { max: 0.533, name: 'Full Moon', icon: 'fa-circle' },
+                { max: 0.75, name: 'Waning Gibbous', icon: 'fa-moon' },
+                { max: 0.783, name: 'Last Quarter', icon: 'fa-moon' },
+                { max: 1.001, name: 'Waning Crescent', icon: 'fa-moon' }
+            ];
+            const match = phases.find(p => phase <= p.max) || phases[phases.length - 1];
+            return match.name;
+        }
+        const moonChip = document.getElementById('moonChip');
+        if (moonChip) moonChip.innerHTML = `<i class="fas fa-moon"></i> Tonight's moon: ${getMoonPhase(new Date())} (approximate)`;
+
+        // ---------- Daily Oracle ----------
+        const ORACLE_SIGNS = [
+            { icon: 'fa-sun', title: 'The Rising Flame', message: "Today favors bold action — old blockages are ready to break." },
+            { icon: 'fa-moon', title: 'The Quiet Moon', message: "Rest and reflection serve you more than movement today." },
+            { icon: 'fa-dove', title: 'The White Dove', message: "Peace is returning to a relationship you've worried over." },
+            { icon: 'fa-shield-alt', title: 'The Iron Shield', message: "Guard your words today — not everyone around you wishes you well." },
+            { icon: 'fa-seedling', title: 'The New Seed', message: "A small effort made today will grow into something lasting." },
+            { icon: 'fa-tint', title: 'The Flowing River', message: "What feels stuck is only slow — movement is already underway." },
+            { icon: 'fa-gem', title: 'The Hidden Gem', message: "Something valuable has been overlooked close to home." },
+            { icon: 'fa-fire-alt', title: "The Ember's Warning", message: "A small irritation could grow — address it before it spreads." },
+            { icon: 'fa-feather-alt', title: "The Ancestor's Feather", message: "You are being watched over more closely than you realize." },
+            { icon: 'fa-mountain', title: 'The Standing Mountain', message: "Patience is the work today — what you seek has not been denied, only delayed." }
+        ];
+        const ORACLE_KEY = 'alfa_oracle_draw';
+        function todayKey() {
+            const d = new Date();
+            return `${d.getFullYear()}-${d.getMonth()}-${d.getDate()}`;
+        }
+        function showOracle(sign, animate) {
+            const symbolEl = document.getElementById('oracleSymbol');
+            const titleEl = document.getElementById('oracleTitle');
+            const msgEl = document.getElementById('oracleMessage');
+            const bookBtn = document.getElementById('oracleBookBtn');
+            if (symbolEl) symbolEl.innerHTML = `<i class="fas ${sign.icon}"></i>`;
+            if (titleEl) titleEl.textContent = sign.title;
+            if (msgEl) msgEl.textContent = sign.message;
+            if (bookBtn) bookBtn.style.display = 'inline-flex';
+            if (animate && symbolEl && !reduceMotion) {
+                symbolEl.classList.remove('flip');
+                void symbolEl.offsetWidth;
+                symbolEl.classList.add('flip');
+            }
+        }
+        function drawOracle(force) {
+            let saved = null;
+            try { saved = JSON.parse(localStorage.getItem(ORACLE_KEY) || 'null'); } catch (e) {}
+            if (!force && saved && saved.date === todayKey()) {
+                showOracle(ORACLE_SIGNS[saved.index], false);
+                const drawBtn = document.getElementById('oracleDrawBtn');
+                if (drawBtn) drawBtn.innerHTML = '<i class="fas fa-redo"></i> Today\'s Sign Already Drawn';
+                return;
+            }
+            const index = Math.floor(Math.random() * ORACLE_SIGNS.length);
+            try { localStorage.setItem(ORACLE_KEY, JSON.stringify({ date: todayKey(), index })); } catch (e) {}
+            showOracle(ORACLE_SIGNS[index], true);
+            const drawBtn = document.getElementById('oracleDrawBtn');
+            if (drawBtn) drawBtn.innerHTML = '<i class="fas fa-redo"></i> Today\'s Sign Already Drawn';
+            if (typeof gtag !== 'undefined') gtag('event', 'oracle_draw', { event_category: 'engagement', event_label: ORACLE_SIGNS[index].title });
+        }
+        document.getElementById('oracleDrawBtn')?.addEventListener('click', () => drawOracle(false));
+        document.getElementById('oracleBookBtn')?.addEventListener('click', () => {
+            const titleEl = document.getElementById('oracleTitle');
+            const select = document.getElementById('serviceType');
+            const message = document.getElementById('message');
+            if (select) select.value = 'Sacred Consultation';
+            if (message && titleEl) message.value = `I drew today's sign: ${titleEl.textContent}. I would like to discuss what it means for me.`;
+            document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            setTimeout(() => document.getElementById('fullName')?.focus(), 500);
+        });
+        // Show a previously-drawn sign on load without animating it in
+        (function initOracle() {
+            try {
+                const saved = JSON.parse(localStorage.getItem(ORACLE_KEY) || 'null');
+                if (saved && saved.date === todayKey()) drawOracle(false);
+            } catch (e) {}
+        })();
 
         // ---------- Save Sacred Path as image ----------
         function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
@@ -2458,6 +2568,41 @@
             if (typeof gtag !== 'undefined') gtag('event', 'quiz_save_image', { event_category: 'engagement' });
         });
 
+        // ---------- Ambient toggle (soft generated drone, off by default) ----------
+        let ambientNodes = null, ambientOn = false;
+        function startAmbient() {
+            const ctx = getAudioCtx();
+            if (!ctx) return;
+            const master = ctx.createGain();
+            master.gain.value = 0.05;
+            master.connect(ctx.destination);
+            const osc1 = ctx.createOscillator();
+            osc1.type = 'sine'; osc1.frequency.value = 110;
+            const osc2 = ctx.createOscillator();
+            osc2.type = 'sine'; osc2.frequency.value = 165;
+            const lfo = ctx.createOscillator();
+            lfo.frequency.value = 0.08;
+            const lfoGain = ctx.createGain();
+            lfoGain.gain.value = 0.02;
+            lfo.connect(lfoGain).connect(master.gain);
+            osc1.connect(master); osc2.connect(master);
+            osc1.start(); osc2.start(); lfo.start();
+            ambientNodes = { osc1, osc2, lfo, master };
+        }
+        function stopAmbient() {
+            if (!ambientNodes) return;
+            Object.values(ambientNodes).forEach(n => { try { n.stop && n.stop(); n.disconnect && n.disconnect(); } catch (e) {} });
+            ambientNodes = null;
+        }
+        document.getElementById('ambientToggle')?.addEventListener('click', function () {
+            ambientOn = !ambientOn;
+            this.classList.toggle('active', ambientOn);
+            this.setAttribute('aria-pressed', String(ambientOn));
+            this.title = ambientOn ? 'Sacred ambience (on)' : 'Sacred ambience (off)';
+            this.innerHTML = ambientOn ? '<i class="fas fa-volume-high"></i>' : '<i class="fas fa-volume-xmark"></i>';
+            if (ambientOn) startAmbient(); else stopAmbient();
+        });
+
         // ---------- Celebration burst on successful checkout ----------
         window.alfaBurst = function () {
             if (reduceMotion) return;
@@ -2477,1364 +2622,6 @@
                 setTimeout(() => mote.remove(), 1200);
             }
         };
-    })();
-    </script>
-
-    <script>
-    (function () {
-        const DEFAULT_ADMIN_EMAILS = ['alfabeckham74@gmail.com'];
-        const MONITOR_TABLE = 'error_logs';
-        const REPORT_TABLE = 'customer_reports';
-        const UPTIME_URL = 'https://alfabeckam.com';
-        const SUPABASE_URL = window.ALFA_SUPABASE_CONFIG?.url || 'https://YOUR-PROJECT.supabase.co';
-        const SUPABASE_ANON_KEY = window.ALFA_SUPABASE_CONFIG?.anonKey || 'YOUR-ANON-KEY';
-
-        const monitorConfig = {
-            supabaseUrl: SUPABASE_URL,
-            supabaseAnonKey: SUPABASE_ANON_KEY,
-            adminEmails: DEFAULT_ADMIN_EMAILS,
-            siteUrl: UPTIME_URL,
-            tableName: MONITOR_TABLE,
-            reportTable: REPORT_TABLE,
-            routeHash: '#/admin'
-        };
-        window.ALFA_MONITOR_CONFIG = monitorConfig;
-
-        const monitorState = {
-            queue: [],
-            sending: false,
-            dedupe: new Map(),
-            lastUptimeCheck: null,
-            lastUptimeSuccess: null,
-            lastUptimeFailure: null,
-            customerReportOpen: false,
-            authState: { user: null, loading: true }
-        };
-
-        function sanitizeText(value, maxLength = 2000) {
-            if (value === null || value === undefined) return null;
-            const text = String(value).replace(/[\u0000-\u001F\u007F]/g, ' ').trim();
-            return text.length > maxLength ? text.slice(0, maxLength) : text;
-        }
-
-        function stripSensitiveUrl(rawUrl) {
-            if (!rawUrl) return null;
-            try {
-                const url = new URL(rawUrl, window.location.href);
-                url.hash = '';
-                url.search = '';
-                return url.toString();
-            } catch (e) {
-                return sanitizeText(rawUrl, 1500);
-            }
-        }
-
-        function getCurrentRoute() {
-            if (window.location.hash && window.location.hash.startsWith('#/')) {
-                return window.location.hash.replace(/^#/, '');
-            }
-            return window.location.pathname || '/';
-        }
-
-        function getPageUrl() {
-            return window.location.href;
-        }
-
-        function getBrowserInfo() {
-            const nav = navigator;
-            const userAgentData = nav.userAgentData || {};
-            const browserBrand = (userAgentData.brands || []).find((brand) => brand && brand.brand)?.brand || 'Unknown Browser';
-            const browserVersion = (userAgentData.brands || []).find((brand) => brand && brand.brand)?.version || null;
-            const os = (userAgentData.platform || nav.platform || 'Unknown OS');
-            const deviceType = /android|iphone|ipad|mobile/i.test(nav.userAgent) ? 'mobile' : /tablet|ipad/i.test(nav.userAgent) ? 'tablet' : 'desktop';
-            return {
-                browser: browserBrand,
-                browser_version: browserVersion,
-                operating_system: sanitizeText(os, 120),
-                device_type: deviceType,
-                screen_width: window.screen ? window.screen.width : null,
-                screen_height: window.screen ? window.screen.height : null,
-                user_agent: sanitizeText(nav.userAgent || '', 500),
-                hardware_concurrency: navigator.hardwareConcurrency || null,
-                device_memory: navigator.deviceMemory || null,
-                language: navigator.language || null,
-                timezone: Intl.DateTimeFormat().resolvedOptions().timeZone || null
-            };
-        }
-
-        function normalizeMetadata(value) {
-            if (!value || typeof value === 'string') {
-                return sanitizeText(value || '', 2000); 
-            }
-            try {
-                const json = JSON.stringify(value);
-                return json.length > 4000 ? json.slice(0, 4000) : json;
-            } catch (e) {
-                return null;
-            }
-        }
-
-        function makeDedupeKey(entry) {
-            const parts = [
-                entry.error_type || 'unknown',
-                entry.error_message || '',
-                entry.request_url || '',
-                entry.route || '',
-                entry.page_url || '',
-                entry.http_status || '',
-                entry.request_method || '',
-                entry.browser || ''
-            ];
-            return parts.join('|').slice(0, 300);
-        }
-
-        function buildLogEntry(base) {
-            const info = getBrowserInfo();
-            const row = {
-                id: (window.crypto && crypto.randomUUID ? crypto.randomUUID() : 'alfa-' + Date.now() + '-' + Math.random().toString(16).slice(2)),
-                dedupe_key: makeDedupeKey(base),
-                error_type: sanitizeText(base.error_type || 'unknown', 80),
-                error_message: sanitizeText(base.error_message || 'Unknown error', 3000),
-                stack_trace: sanitizeText(base.stack_trace || '', 5000),
-                page_url: stripSensitiveUrl(base.page_url || getPageUrl()),
-                route: sanitizeText(base.route || getCurrentRoute(), 250),
-                timestamp: new Date().toISOString(),
-                browser: sanitizeText(base.browser || info.browser || 'Unknown Browser', 120),
-                browser_version: sanitizeText(base.browser_version || info.browser_version || '', 80),
-                operating_system: sanitizeText(base.operating_system || info.operating_system || 'Unknown OS', 120),
-                device_type: sanitizeText(base.device_type || info.device_type || 'desktop', 50),
-                screen_width: base.screen_width ?? info.screen_width ?? null,
-                screen_height: base.screen_height ?? info.screen_height ?? null,
-                request_url: stripSensitiveUrl(base.request_url || null),
-                request_method: sanitizeText(base.request_method || '', 20),
-                http_status: base.http_status ?? null,
-                response_time_ms: base.response_time_ms ?? null,
-                user_agent: info.user_agent,
-                occurrence_count: Number(base.occurrence_count || 1),
-                first_seen: base.first_seen || new Date().toISOString(),
-                last_seen: base.last_seen || new Date().toISOString(),
-                status: sanitizeText(base.status || 'open', 30),
-                additional_metadata: normalizeMetadata(base.additional_metadata || {}),
-                site_url: sanitizeText(base.site_url || UPTIME_URL, 200)
-            };
-            return row;
-        }
-
-        function ensureSupabaseClient() {
-            if (!window.supabase) return null;
-            return supabase.createClient(monitorConfig.supabaseUrl, monitorConfig.supabaseAnonKey, {
-                auth: { persistSession: true, autoRefreshToken: true }
-            });
-        }
-
-        async function queueLog(entry) {
-            try {
-                const row = buildLogEntry(entry);
-                row.occurrence_count = Number(row.occurrence_count || 1);
-                row.status = row.status || 'open';
-                const existing = monitorState.dedupe.get(row.dedupe_key);
-                if (existing) {
-                    row.occurrence_count = Number(existing.occurrence_count || row.occurrence_count) + 1;
-                    row.first_seen = existing.first_seen || row.first_seen;
-                    row.last_seen = new Date().toISOString();
-                    row.status = existing.status || row.status;
-                } else {
-                    monitorState.dedupe.set(row.dedupe_key, { ...row, occurrence_count: row.occurrence_count });
-                }
-                monitorState.queue.push({ ...row, occurrence_count: row.occurrence_count });
-                if (monitorState.queue.length > 25) {
-                    monitorState.queue = monitorState.queue.slice(-25);
-                }
-                if (monitorState.sending) return;
-                setTimeout(flushQueue, 250);
-            } catch (error) {
-                // fail silently to avoid making the site worse for customers
-            }
-        }
-
-        async function flushQueue() {
-            if (monitorState.sending || !monitorState.queue.length) return;
-            const client = ensureSupabaseClient();
-            if (!client) {
-                monitorState.queue = [];
-                return;
-            }
-
-            monitorState.sending = true;
-            const batch = monitorState.queue.splice(0, 20);
-            try {
-                for (const row of batch) {
-                    const payload = { ...row };
-                    const { error } = await client.from(MONITOR_TABLE).upsert(payload, { onConflict: 'dedupe_key' });
-                    if (error && typeof error.message === 'string' && !error.message.toLowerCase().includes('duplicate')) {
-                        // Ignore errors from a temporarily unavailable database service.
-                    }
-                    monitorState.dedupe.set(payload.dedupe_key, payload);
-                }
-            } catch (error) {
-                // Fail quietly so the website keeps working even if monitoring is down.
-            } finally {
-                monitorState.sending = false;
-                if (monitorState.queue.length) {
-                    setTimeout(flushQueue, 500);
-                }
-            }
-        }
-
-        function logError(entry) {
-            if (!entry || !entry.error_type) return;
-            if (entry.error_type === 'js_error' && entry.message && entry.message.toLowerCase().includes('alfa monitor')) return;
-            queueLog(entry);
-        }
-
-        function handleWindowError(event) {
-            const error = event && event.error ? event.error : null;
-            const message = error && error.message ? error.message : (event && event.message ? event.message : 'Unknown runtime error');
-            const stack = error && error.stack ? error.stack : '';
-            const detail = {
-                error_type: 'js_error',
-                error_message: message,
-                stack_trace: stack,
-                page_url: getPageUrl(),
-                route: getCurrentRoute(),
-                additional_metadata: {
-                    filename: event && event.filename ? event.filename : null,
-                    lineno: event && event.lineno ? event.lineno : null,
-                    colno: event && event.colno ? event.colno : null,
-                    source: 'window.error'
-                }
-            };
-            logError(detail);
-        }
-
-        function handleUnhandledRejection(event) {
-            const reason = event && event.reason ? event.reason : 'Unhandled promise rejection';
-            const message = reason && reason.message ? reason.message : String(reason);
-            const stack = reason && reason.stack ? reason.stack : '';
-            logError({
-                error_type: 'unhandled_rejection',
-                error_message: message,
-                stack_trace: stack,
-                page_url: getPageUrl(),
-                route: getCurrentRoute(),
-                additional_metadata: { source: 'unhandledrejection' }
-            });
-        }
-
-        function observeFailedResource(event) {
-            const target = event && event.target;
-            if (!target || !target.tagName) return;
-            const tagName = target.tagName.toLowerCase();
-            const source = target.currentSrc || target.src || target.href || target.dataset && target.dataset.src || '';
-            if (!source) return;
-            logError({
-                error_type: 'resource_error',
-                error_message: 'Failed to load resource',
-                page_url: getPageUrl(),
-                route: getCurrentRoute(),
-                request_url: source,
-                additional_metadata: {
-                    resource_type: tagName,
-                    source: 'resource.load'
-                }
-            });
-        }
-
-        function patchFetch() {
-            const originalFetch = window.fetch;
-            if (!originalFetch || window.__ALFA_FETCH_PATCHED__) return;
-            window.__ALFA_FETCH_PATCHED__ = true;
-            window.fetch = async function (...args) {
-                const [input, init] = args;
-                const startedAt = performance.now();
-                let method = (init && init.method) ? init.method.toUpperCase() : 'GET';
-                let url = input && typeof input === 'string' ? input : (input && input.url ? input.url : 'unknown');
-                const requestUrl = stripSensitiveUrl(url) || url;
-                try {
-                    const response = await originalFetch.apply(this, args);
-                    const responseTime = Math.round(performance.now() - startedAt);
-                    const status = response && response.status ? response.status : null;
-                    if (!response || !response.ok) {
-                        logError({
-                            error_type: 'http_error',
-                            error_message: status ? `HTTP ${status} for ${requestUrl}` : 'Request failed',
-                            page_url: getPageUrl(),
-                            route: getCurrentRoute(),
-                            request_url: requestUrl,
-                            request_method: method,
-                            http_status: status,
-                            response_time_ms: responseTime,
-                            additional_metadata: { source: 'fetch' }
-                        });
-                    } else if (responseTime > 4000) {
-                        logError({
-                            error_type: 'slow_request',
-                            error_message: `Slow API response (${responseTime}ms)`,
-                            page_url: getPageUrl(),
-                            route: getCurrentRoute(),
-                            request_url: requestUrl,
-                            request_method: method,
-                            response_time_ms: responseTime,
-                            additional_metadata: { source: 'fetch' }
-                        });
-                    }
-                    return response;
-                } catch (error) {
-                    const responseTime = Math.round(performance.now() - startedAt);
-                    logError({
-                        error_type: 'network_error',
-                        error_message: error && error.message ? error.message : 'Failed fetch request',
-                        page_url: getPageUrl(),
-                        route: getCurrentRoute(),
-                        request_url: requestUrl,
-                        request_method: method,
-                        response_time_ms: responseTime,
-                        additional_metadata: { source: 'fetch' }
-                    });
-                    throw error;
-                }
-            };
-        }
-
-        function attachGlobalHandlers() {
-            if (window.__ALFA_MONITOR_LISTENERS_ATTACHED__) return;
-            window.__ALFA_MONITOR_LISTENERS_ATTACHED__ = true;
-            window.addEventListener('error', handleWindowError, true);
-            window.addEventListener('unhandledrejection', handleUnhandledRejection, true);
-            window.addEventListener('load', function () {
-                setTimeout(() => {
-                    logError({
-                        error_type: 'page_load',
-                        error_message: 'Page loaded successfully',
-                        route: getCurrentRoute(),
-                        page_url: getPageUrl(),
-                        additional_metadata: { source: 'page_load' }
-                    });
-                }, 1000);
-            }, { once: true });
-            document.addEventListener('error', observeFailedResource, true);
-            patchFetch();
-        }
-
-        async function uptimeCheck() {
-            const startedAt = performance.now();
-            const url = UPTIME_URL;
-            try {
-                const response = await fetch(url, { method: 'GET', cache: 'no-store', mode: 'cors' });
-                const responseTime = Math.round(performance.now() - startedAt);
-                const status = response && response.status ? response.status : 200;
-                monitorState.lastUptimeCheck = new Date().toISOString();
-                monitorState.lastUptimeSuccess = monitorState.lastUptimeCheck;
-                monitorState.lastUptimeFailure = monitorState.lastUptimeFailure || null;
-                if (status >= 400) {
-                    logError({
-                        error_type: 'uptime',
-                        error_message: `Site availability check returned ${status}`,
-                        page_url: getPageUrl(),
-                        route: getCurrentRoute(),
-                        request_url: url,
-                        http_status: status,
-                        response_time_ms: responseTime,
-                        additional_metadata: { source: 'site_availability' }
-                    });
-                }
-                return true;
-            } catch (error) {
-                const responseTime = Math.round(performance.now() - startedAt);
-                monitorState.lastUptimeCheck = new Date().toISOString();
-                monitorState.lastUptimeFailure = monitorState.lastUptimeCheck;
-                logError({
-                    error_type: 'uptime',
-                    error_message: 'Site availability check failed',
-                    page_url: getPageUrl(),
-                    route: getCurrentRoute(),
-                    request_url: url,
-                    response_time_ms: responseTime,
-                    additional_metadata: {
-                        source: 'site_availability',
-                        error: error && error.message ? error.message : 'unknown'
-                    }
-                });
-                return false;
-            }
-        }
-
-        function isAdminEmail(email) {
-            const normalised = String(email || '').trim().toLowerCase();
-            return monitorConfig.adminEmails.some((entry) => String(entry || '').trim().toLowerCase() === normalised);
-        }
-
-        function renderAdminDashboard() {
-            if (document.getElementById('alfa-monitor-shell')) return;
-
-            const style = document.createElement('style');
-            style.textContent = `
-                #alfa-monitor-shell {
-                    position: fixed;
-                    inset: 0;
-                    z-index: 999999;
-                    pointer-events: none;
-                    display: none;
-                    background: rgba(5, 7, 12, 0.72);
-                    backdrop-filter: blur(14px);
-                    -webkit-backdrop-filter: blur(14px);
-                }
-                #alfa-monitor-shell.visible {
-                    display: block;
-                    pointer-events: auto;
-                }
-                #alfa-monitor-panel {
-                    position: absolute;
-                    right: 18px;
-                    top: 18px;
-                    width: min(1180px, calc(100vw - 36px));
-                    max-height: calc(100vh - 36px);
-                    overflow: auto;
-                    background: linear-gradient(180deg, rgba(10, 13, 18, 0.97), rgba(8, 12, 18, 0.96));
-                    color: #eef2ff;
-                    border: 1px solid rgba(148, 163, 184, 0.22);
-                    border-radius: 24px;
-                    box-shadow: 0 28px 90px rgba(0, 0, 0, 0.6), inset 0 1px 0 rgba(255,255,255,0.04);
-                    font-family: Inter, sans-serif;
-                    scrollbar-width: thin;
-                    scrollbar-color: rgba(139, 155, 184, 0.5) transparent;
-                }
-                #alfa-monitor-header {
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                    gap: 16px;
-                    padding: 18px 20px;
-                    border-bottom: 1px solid rgba(148, 163, 184, 0.16);
-                    background: rgba(15, 19, 27, 0.9);
-                    position: sticky;
-                    top: 0;
-                    z-index: 2;
-                    backdrop-filter: blur(10px);
-                }
-                #alfa-monitor-header h2 {
-                    margin: 0;
-                    font-size: 1.12rem;
-                    font-weight: 700;
-                    letter-spacing: 0.04em;
-                    text-transform: uppercase;
-                    color: #f8fafc;
-                }
-                .alfa-monitor-toolbar {
-                    display: flex;
-                    gap: 10px;
-                    flex-wrap: wrap;
-                    align-items: center;
-                    justify-content: flex-end;
-                }
-                .alfa-monitor-btn, .alfa-monitor-select, .alfa-monitor-input {
-                    border: 1px solid rgba(148, 163, 184, 0.22);
-                    border-radius: 12px;
-                    background: rgba(15, 23, 42, 0.9);
-                    color: #e2e8f0;
-                    padding: 9px 12px;
-                    font-size: 0.8rem;
-                    transition: all 0.2s ease;
-                }
-                .alfa-monitor-btn {
-                    cursor: pointer;
-                    font-weight: 600;
-                    box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-                }
-                .alfa-monitor-btn:hover {
-                    border-color: rgba(148, 163, 184, 0.42);
-                    transform: translateY(-1px);
-                    background: rgba(30, 41, 59, 0.88);
-                }
-                .alfa-monitor-grid {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-                    gap: 14px;
-                    padding: 18px 20px 12px;
-                }
-                .alfa-monitor-card {
-                    background: linear-gradient(180deg, rgba(13, 18, 27, 0.94), rgba(17, 23, 33, 0.88));
-                    border: 1px solid rgba(148, 163, 184, 0.16);
-                    border-radius: 18px;
-                    padding: 16px 15px;
-                    box-shadow: inset 0 1px 0 rgba(255,255,255,0.02);
-                }
-                .alfa-monitor-card .label {
-                    font-size: 0.71rem;
-                    text-transform: uppercase;
-                    letter-spacing: 0.08em;
-                    color: #a5b4cf;
-                    display: block;
-                    margin-bottom: 8px;
-                }
-                .alfa-monitor-card .value {
-                    font-size: 1.5rem;
-                    font-weight: 800;
-                    color: #f8fafc;
-                    letter-spacing: -0.04em;
-                }
-                .alfa-monitor-card .muted {
-                    font-size: 0.75rem;
-                    color: #9ca3af;
-                    margin-top: 8px;
-                }
-                .alfa-monitor-status {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 8px;
-                    padding: 7px 12px;
-                    border-radius: 999px;
-                    font-size: 0.72rem;
-                    font-weight: 700;
-                    text-transform: uppercase;
-                    letter-spacing: 0.05em;
-                }
-                .alfa-status-healthy { background: rgba(34, 197, 94, 0.12); color: #86efac; }
-                .alfa-status-warning { background: rgba(251, 191, 36, 0.12); color: #fbbf24; }
-                .alfa-status-critical { background: rgba(239, 68, 68, 0.12); color: #fca5a5; }
-                #alfa-monitor-filters {
-                    display: grid;
-                    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-                    gap: 10px;
-                    padding: 0 20px 18px;
-                }
-                #alfa-monitor-table-wrap {
-                    padding: 0 20px 20px;
-                }
-                table.alfa-errors {
-                    width: 100%;
-                    border-collapse: collapse;
-                    min-width: 760px;
-                }
-                .alfa-errors th, .alfa-errors td {
-                    border-bottom: 1px solid rgba(148, 163, 184, 0.15);
-                    padding: 12px 10px;
-                    font-size: 0.82rem;
-                    text-align: left;
-                    vertical-align: top;
-                }
-                .alfa-errors th {
-                    color: #dfe7f8;
-                    font-weight: 700;
-                    background: rgba(15, 23, 42, 0.94);
-                    position: sticky;
-                    top: 68px;
-                }
-                .alfa-errors tr:hover { background: rgba(30, 41, 59, 0.55); }
-                .alfa-pill {
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 999px;
-                    padding: 4px 9px;
-                    font-size: 0.7rem;
-                    font-weight: 700;
-                    background: rgba(59, 130, 246, 0.15);
-                    color: #bfdbfe;
-                    border: 1px solid rgba(96, 165, 250, 0.3);
-                }
-                .alfa-pill.warn { background: rgba(251, 191, 36, 0.12); color: #fbbf24; }
-                .alfa-pill.error { background: rgba(239, 68, 68, 0.12); color: #fca5a5; }
-                .alfa-pill.success { background: rgba(34, 197, 94, 0.12); color: #86efac; }
-                .alfa-monitor-login {
-                    position: relative;
-                    max-width: 450px;
-                    margin: 68px auto 0 auto;
-                    padding: 28px 24px 22px;
-                    border-radius: 24px;
-                    background: linear-gradient(180deg, rgba(15, 17, 20, 0.97), rgba(9, 12, 17, 0.94));
-                    border: 1px solid rgba(148, 163, 184, 0.18);
-                    box-shadow: 0 24px 80px rgba(0,0,0,0.42), inset 0 1px 0 rgba(255,255,255,0.05);
-                    color: #e5e7eb;
-                }
-                .alfa-admin-brand {
-                    display: inline-flex;
-                    align-items: center;
-                    gap: 10px;
-                    padding: 8px 12px;
-                    border-radius: 999px;
-                    border: 1px solid rgba(148, 163, 184, 0.18);
-                    background: rgba(59, 130, 246, 0.08);
-                    margin-bottom: 18px;
-                    font-size: 0.72rem;
-                    letter-spacing: 0.12em;
-                    text-transform: uppercase;
-                    color: #cfe4ff;
-                }
-                .alfa-admin-brand span {
-                    width: 28px;
-                    height: 28px;
-                    display: inline-flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-radius: 50%;
-                    background: linear-gradient(135deg, #8E9BB8, #C7D0E8);
-                    color: #0b1120;
-                    font-weight: 800;
-                    letter-spacing: 0;
-                }
-                .alfa-monitor-login h3 {
-                    margin: 0 0 8px;
-                    font-size: 1.6rem;
-                    line-height: 1.2;
-                    letter-spacing: -0.04em;
-                }
-                .alfa-monitor-login p {
-                    color: #cbd5e1;
-                    margin-bottom: 18px;
-                    font-size: 0.9rem;
-                    line-height: 1.6;
-                }
-                .alfa-monitor-login form {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 12px;
-                }
-                .alfa-monitor-login input {
-                    width: 100%;
-                    border: 1px solid rgba(148, 163, 184, 0.22);
-                    background: rgba(15, 23, 42, 0.88);
-                    color: #f8fafc;
-                    padding: 13px 14px;
-                    border-radius: 12px;
-                    font-size: 0.92rem;
-                }
-                .alfa-monitor-login input:focus {
-                    outline: 2px solid rgba(147, 197, 253, 0.6);
-                    border-color: rgba(147, 197, 253, 0.6);
-                }
-                .alfa-monitor-login button {
-                    width: fit-content;
-                    min-width: 150px;
-                    border: 0;
-                    background: linear-gradient(135deg, #8E9BB8, #C7D0E8);
-                    color: #101827;
-                    font-weight: 800;
-                    padding: 12px 18px;
-                    border-radius: 12px;
-                    cursor: pointer;
-                    box-shadow: 0 12px 30px rgba(142, 155, 184, 0.25);
-                    transition: transform 0.2s ease;
-                }
-                .alfa-monitor-login button:hover {
-                    transform: translateY(-1px);
-                }
-                #alfa-monitor-chat-panel {
-                    padding: 0 18px 18px;
-                }
-                .alfa-conversation-grid {
-                    display: grid;
-                    grid-template-columns: minmax(215px, 290px) minmax(0, 1fr);
-                    gap: 12px;
-                }
-                .alfa-conversation-list, .alfa-thread-panel {
-                    background: rgba(17, 24, 39, 0.9);
-                    border: 1px solid rgba(148, 163, 184, 0.15);
-                    border-radius: 14px;
-                    overflow: hidden;
-                }
-                .alfa-conversation-list-header, .alfa-thread-header {
-                    display: flex;
-                    align-items: center;
-                    justify-content: space-between;
-                    gap: 8px;
-                    padding: 12px 14px;
-                    border-bottom: 1px solid rgba(148, 163, 184, 0.12);
-                    background: rgba(15, 23, 42, 0.9);
-                    font-weight: 700;
-                    color: #e5e7eb;
-                }
-                .alfa-conversation-list-body {
-                    max-height: 360px;
-                    overflow: auto;
-                }
-                .alfa-conversation-item {
-                    width: 100%;
-                    text-align: left;
-                    background: transparent;
-                    border: 0;
-                    border-bottom: 1px solid rgba(148, 163, 184, 0.08);
-                    padding: 12px 14px;
-                    color: #e5e7eb;
-                    cursor: pointer;
-                }
-                .alfa-conversation-item.active {
-                    background: rgba(59, 130, 246, 0.12);
-                }
-                .alfa-conversation-name {
-                    font-weight: 700;
-                    margin-bottom: 4px;
-                }
-                .alfa-conversation-meta {
-                    font-size: 0.72rem;
-                    color: #a5b4cf;
-                }
-                .alfa-thread-body {
-                    min-height: 220px;
-                    max-height: 420px;
-                    overflow: auto;
-                    padding: 12px 14px;
-                    display: flex;
-                    flex-direction: column;
-                    gap: 10px;
-                }
-                .alfa-message {
-                    max-width: 82%;
-                    padding: 10px 12px;
-                    border-radius: 12px;
-                    font-size: 0.8rem;
-                    line-height: 1.5;
-                    white-space: pre-wrap;
-                    word-break: break-word;
-                }
-                .alfa-message.visitor {
-                    align-self: flex-start;
-                    background: rgba(59, 130, 246, 0.12);
-                    border: 1px solid rgba(96, 165, 250, 0.2);
-                    color: #eaf2ff;
-                }
-                .alfa-message.admin {
-                    align-self: flex-end;
-                    background: rgba(34, 197, 94, 0.12);
-                    border: 1px solid rgba(74, 222, 128, 0.2);
-                    color: #dcfce7;
-                }
-                .alfa-thread-reply {
-                    display: flex;
-                    flex-direction: column;
-                    gap: 8px;
-                    padding: 12px 14px 14px;
-                    border-top: 1px solid rgba(148, 163, 184, 0.12);
-                }
-                .alfa-thread-reply textarea {
-                    width: 100%;
-                    min-height: 84px;
-                    resize: vertical;
-                    border-radius: 10px;
-                    padding: 10px 12px;
-                    background: rgba(15, 23, 42, 0.9);
-                    color: #f8fafc;
-                    border: 1px solid rgba(148, 163, 184, 0.2);
-                }
-                .alfa-thread-reply button {
-                    align-self: flex-end;
-                    border: 0;
-                    background: linear-gradient(135deg, #8E9BB8, #C7D0E8);
-                    color: #101827;
-                    font-weight: 700;
-                    padding: 10px 14px;
-                    border-radius: 10px;
-                    cursor: pointer;
-                }
-                @media (max-width: 768px) {
-                    #alfa-monitor-panel { top: 12px; right: 12px; width: calc(100vw - 24px); max-height: calc(100vh - 24px); }
-                    #alfa-monitor-header { flex-direction: column; align-items: flex-start; }
-                    .alfa-conversation-grid { grid-template-columns: 1fr; }
-                }
-            `;
-            document.head.appendChild(style);
-
-            const shell = document.createElement('div');
-            shell.id = 'alfa-monitor-shell';
-            shell.innerHTML = `
-                <div id="alfa-monitor-panel">
-                    <div id="alfa-monitor-login-screen" class="alfa-monitor-login" style="display:none;">
-                        <div class="alfa-admin-brand"><span>AB</span> Alfa Beckham</div>
-                        <h3>Protected admin access</h3>
-                        <p>Sign in to monitor website issues, customer messages, and live service health.</p>
-                        <form id="alfa-login-form">
-                            <input type="email" id="alfa-monitor-email" placeholder="Admin email" required>
-                            <input type="password" id="alfa-monitor-password" placeholder="Password" required>
-                            <button type="submit">Access dashboard</button>
-                        </form>
-                    </div>
-                    <div id="alfa-monitor-app" style="display:none;">
-                        <div id="alfa-monitor-header">
-                            <h2>Website Monitoring Dashboard</h2>
-                            <div class="alfa-monitor-toolbar">
-                                <button class="alfa-monitor-btn" id="alfa-monitor-refresh">Refresh</button>
-                                <button class="alfa-monitor-btn" id="alfa-trigger-js-error">Test JS Error</button>
-                                <button class="alfa-monitor-btn" id="alfa-trigger-fetch-error">Test Failed Fetch</button>
-                                <button class="alfa-monitor-btn" id="alfa-trigger-404">Test 404</button>
-                                <button class="alfa-monitor-btn" id="alfa-monitor-signout">Sign out</button>
-                            </div>
-                        </div>
-                        <div id="alfa-monitor-summary" class="alfa-monitor-grid"></div>
-                        <div id="alfa-monitor-chat-panel">
-                            <div class="alfa-conversation-grid">
-                                <div class="alfa-conversation-list">
-                                    <div class="alfa-conversation-list-header">
-                                        <span>Customer messages</span>
-                                    </div>
-                                    <div id="alfa-conversation-list" class="alfa-conversation-list-body"></div>
-                                </div>
-                                <div class="alfa-thread-panel">
-                                    <div id="alfa-thread-header" class="alfa-thread-header"></div>
-                                    <div id="alfa-thread-body" class="alfa-thread-body"></div>
-                                    <form id="alfa-thread-reply" class="alfa-thread-reply">
-                                        <textarea id="alfa-thread-reply-text" placeholder="Reply to this customer..." maxlength="4000" required></textarea>
-                                        <button type="submit">Send reply</button>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                        <div id="alfa-monitor-filters">
-                            <select id="alfa-filter-range" class="alfa-monitor-select">
-                                <option value="today">Today</option>
-                                <option value="24h" selected>Last 24 hours</option>
-                                <option value="7d">Last 7 days</option>
-                                <option value="30d">Last 30 days</option>
-                            </select>
-                            <select id="alfa-filter-type" class="alfa-monitor-select">
-                                <option value="">All error types</option>
-                            </select>
-                            <select id="alfa-filter-status" class="alfa-monitor-select">
-                                <option value="">All statuses</option>
-                                <option value="open">Open</option>
-                                <option value="investigating">Investigating</option>
-                                <option value="resolved">Resolved</option>
-                            </select>
-                            <select id="alfa-filter-route" class="alfa-monitor-select">
-                                <option value="">All routes</option>
-                            </select>
-                            <select id="alfa-filter-browser" class="alfa-monitor-select">
-                                <option value="">All browsers</option>
-                            </select>
-                            <input id="alfa-monitor-search" class="alfa-monitor-input" type="search" placeholder="Search error messages..." />
-                        </div>
-                        <div id="alfa-monitor-table-wrap">
-                            <table class="alfa-errors">
-                                <thead>
-                                    <tr>
-                                        <th>Time</th>
-                                        <th>Error</th>
-                                        <th>Type</th>
-                                        <th>Page</th>
-                                        <th>Status</th>
-                                        <th>Browser</th>
-                                        <th>Device</th>
-                                        <th>Occurrences</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="alfa-monitor-table-body"></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            `;
-            document.body.appendChild(shell);
-
-            const loginScreen = document.getElementById('alfa-monitor-login-screen');
-            const appScreen = document.getElementById('alfa-monitor-app');
-            const loginForm = document.getElementById('alfa-login-form');
-            const signoutBtn = document.getElementById('alfa-monitor-signout');
-            const refreshBtn = document.getElementById('alfa-monitor-refresh');
-            const rangeFilter = document.getElementById('alfa-filter-range');
-            const typeFilter = document.getElementById('alfa-filter-type');
-            const statusFilter = document.getElementById('alfa-filter-status');
-            const routeFilter = document.getElementById('alfa-filter-route');
-            const browserFilter = document.getElementById('alfa-filter-browser');
-            const searchInput = document.getElementById('alfa-monitor-search');
-
-            async function setVisibility() {
-                const show = window.location.hash === '#/admin';
-                const shell = document.getElementById('alfa-monitor-shell');
-                shell.classList.toggle('visible', show);
-                if (!show) return;
-                const client = ensureSupabaseClient();
-                if (!client) {
-                    loginScreen.style.display = 'block';
-                    appScreen.style.display = 'none';
-                    return;
-                }
-                let user = null;
-                try {
-                    const { data } = await client.auth.getUser();
-                    user = data && data.user ? data.user : null;
-                } catch (error) {
-                    user = null;
-                }
-                if (user && isAdminEmail(user.email)) {
-                    loginScreen.style.display = 'none';
-                    appScreen.style.display = 'block';
-                    loadDashboardData();
-                } else {
-                    loginScreen.style.display = 'block';
-                    appScreen.style.display = 'none';
-                }
-            }
-
-            async function handleLogin(event) {
-                event.preventDefault();
-                const email = document.getElementById('alfa-monitor-email').value.trim();
-                const password = document.getElementById('alfa-monitor-password').value;
-                const client = ensureSupabaseClient();
-                if (!client) return;
-                const { data, error } = await client.auth.signInWithPassword({ email, password });
-                if (error) {
-                    alert('Admin sign-in failed. Check the account and password.');
-                    return;
-                }
-                const signedInUser = data && data.user ? data.user : null;
-                if (!signedInUser || !isAdminEmail(signedInUser.email)) {
-                    alert('This account is not allowed to access the admin dashboard.');
-                    await client.auth.signOut();
-                    return;
-                }
-                window.location.hash = '#/admin';
-                loginScreen.style.display = 'none';
-                appScreen.style.display = 'block';
-                loadDashboardData();
-            }
-
-            async function handleSignOut() {
-                const client = ensureSupabaseClient();
-                if (client) await client.auth.signOut();
-                window.location.hash = '';
-            }
-
-            function formatDate(value) {
-                if (!value) return '—';
-                try {
-                    return new Date(value).toLocaleString([], { dateStyle: 'medium', timeStyle: 'short' });
-                } catch (e) {
-                    return value;
-                }
-            }
-
-            function getStatusClass(status) {
-                if (status === 'resolved') return 'alfa-pill success';
-                if (status === 'investigating') return 'alfa-pill warn';
-                return 'alfa-pill error';
-            }
-
-            function setSummary(items) {
-                const now = new Date();
-                const today = items.filter(item => new Date(item.timestamp) >= new Date(now.getFullYear(), now.getMonth(), now.getDate()));
-                const lastHour = items.filter(item => new Date(item.timestamp) >= new Date(now.getTime() - 3600000));
-                const failedRequests = items.filter(item => item.error_type === 'http_error' || item.error_type === 'network_error' || item.error_type === 'resource_error').length;
-                const latest = items[0];
-                const errorRate = items.length ? Math.round((failedRequests / Math.max(items.length, 1)) * 100) : 0;
-                const byType = items.reduce((acc, item) => { acc[item.error_type] = (acc[item.error_type] || 0) + Number(item.occurrence_count || 1); return acc; }, {});
-                const topType = Object.entries(byType).sort((a, b) => b[1] - a[1])[0];
-                const status = items.length === 0 ? 'Healthy' : failedRequests >= 10 || today.length >= 15 ? 'Critical' : failedRequests >= 2 || lastHour.length >= 3 ? 'Warning' : 'Healthy';
-                const cards = [
-                    { label: 'Website Status', value: status, metadata: status === 'Healthy' ? 'No major issues detected' : status === 'Warning' ? 'Some customer-facing issues observed' : 'Multiple errors require attention' },
-                    { label: 'Errors Today', value: String(today.length), metadata: `${lastHour.length} in the last hour` },
-                    { label: 'Failed Requests', value: String(failedRequests), metadata: `${errorRate}% of logged errors` },
-                    { label: 'Most Frequent Error', value: topType ? topType[0] : 'None', metadata: topType ? `${topType[1]} occurrences` : 'No errors recorded' },
-                    { label: 'Last Error', value: latest ? formatDate(latest.timestamp) : 'None', metadata: latest ? latest.error_message : 'No errors yet' },
-                    { label: 'Error Rate', value: `${errorRate}%`, metadata: `${items.length} total logged errors` }
-                ];
-                const summaryEl = document.getElementById('alfa-monitor-summary');
-                const statusClass = status === 'Critical' ? 'alfa-status-critical' : status === 'Warning' ? 'alfa-status-warning' : 'alfa-status-healthy';
-                summaryEl.innerHTML = cards.map((card) => `
-                    <div class="alfa-monitor-card">
-                        <span class="label">${card.label}</span>
-                        ${card.label === 'Website Status' ? `<div class="alfa-monitor-status ${statusClass}">${status}</div>` : `<div class="value">${card.value}</div>`}
-                        <div class="muted">${card.metadata}</div>
-                    </div>
-                `).join('');
-            }
-
-            function renderFilters(items) {
-                const uniqueTypes = [...new Set(items.map((item) => item.error_type).filter(Boolean))].sort();
-                const uniqueRoutes = [...new Set(items.map((item) => item.route).filter(Boolean))].sort();
-                const uniqueBrowsers = [...new Set(items.map((item) => item.browser).filter(Boolean))].sort();
-
-                typeFilter.innerHTML = '<option value="">All error types</option>' + uniqueTypes.map(type => `<option value="${type}">${type}</option>`).join('');
-                routeFilter.innerHTML = '<option value="">All routes</option>' + uniqueRoutes.map(route => `<option value="${route}">${route}</option>`).join('');
-                browserFilter.innerHTML = '<option value="">All browsers</option>' + uniqueBrowsers.map(browser => `<option value="${browser}">${browser}</option>`).join('');
-            }
-
-            function filterItems(items) {
-                const range = rangeFilter.value || '24h';
-                const type = typeFilter.value;
-                const status = statusFilter.value;
-                const route = routeFilter.value;
-                const browser = browserFilter.value;
-                const query = searchInput.value.trim().toLowerCase();
-                const now = Date.now();
-                const fromMap = {
-                    today: new Date(new Date().setHours(0, 0, 0, 0)).getTime(),
-                    '24h': now - 86400000,
-                    '7d': now - 604800000,
-                    '30d': now - 2592000000
-                };
-
-                return items.filter((item) => {
-                    const time = new Date(item.timestamp).getTime();
-                    if (range && fromMap[range] && time < fromMap[range]) return false;
-                    if (type && item.error_type !== type) return false;
-                    if (status && item.status !== status) return false;
-                    if (route && item.route !== route) return false;
-                    if (browser && item.browser !== browser) return false;
-                    if (query && !(String(item.error_message || '').toLowerCase().includes(query) || String(item.page_url || '').toLowerCase().includes(query))) return false;
-                    return true;
-                });
-            }
-
-            async function loadCustomerMessages() {
-                const client = ensureSupabaseClient();
-                if (!client) return;
-                const { data: conversations } = await client.from('chat_conversations').select('*').order('last_message_at', { ascending: false }).limit(40);
-                const convoList = document.getElementById('alfa-conversation-list');
-                const threadHeader = document.getElementById('alfa-thread-header');
-                const threadBody = document.getElementById('alfa-thread-body');
-                if (!conversations || !conversations.length) {
-                    convoList.innerHTML = '<div style="padding: 14px; color: #a5b4cf; font-size: 0.82rem;">No customer conversations yet.</div>';
-                    threadHeader.innerHTML = '<span>No conversation selected</span>';
-                    threadBody.innerHTML = '<div style="color: #a5b4cf; font-size: 0.8rem;">No messages to show.</div>';
-                    return;
-                }
-
-                const ids = conversations.map((item) => item.id);
-                const { data: allMessages } = await client.from('chat_messages').select('*').in('conversation_id', ids).order('created_at', { ascending: true });
-                const grouped = {};
-                (allMessages || []).forEach((message) => {
-                    if (!grouped[message.conversation_id]) grouped[message.conversation_id] = [];
-                    grouped[message.conversation_id].push(message);
-                });
-
-                const activeId = window.__ALFA_ACTIVE_CONVO_ID || conversations[0].id;
-                window.__ALFA_ACTIVE_CONVO_ID = activeId;
-
-                convoList.innerHTML = conversations.map((conversation) => {
-                    const active = conversation.id === activeId ? 'active' : '';
-                    const lastMessage = grouped[conversation.id] && grouped[conversation.id].length ? grouped[conversation.id][grouped[conversation.id].length - 1].content : 'No messages yet';
-                    return `
-                        <button type="button" class="alfa-conversation-item ${active}" data-conversation-id="${conversation.id}">
-                            <div class="alfa-conversation-name">${(conversation.visitor_name || 'Visitor').slice(0, 24)}</div>
-                            <div class="alfa-conversation-meta">${formatDate(conversation.last_message_at || conversation.created_at)} • ${String(lastMessage).slice(0, 40)}</div>
-                        </button>
-                    `;
-                }).join('');
-
-                document.querySelectorAll('.alfa-conversation-item').forEach((button) => {
-                    button.addEventListener('click', () => {
-                        window.__ALFA_ACTIVE_CONVO_ID = button.dataset.conversationId;
-                        loadCustomerMessages();
-                    });
-                });
-
-                const activeConversation = conversations.find((item) => item.id === activeId) || conversations[0];
-                const activeMessages = grouped[activeConversation.id] || [];
-                threadHeader.innerHTML = `
-                    <span>${(activeConversation.visitor_name || 'Visitor')} ${activeConversation.visitor_email ? `• ${activeConversation.visitor_email}` : ''}</span>
-                    <span style="color:#a5b4cf; font-size: 0.72rem;">${activeMessages.length} messages</span>
-                `;
-                threadBody.innerHTML = activeMessages.length ? activeMessages.map((message) => `
-                    <div class="alfa-message ${message.sender === 'admin' ? 'admin' : 'visitor'}">${String(message.content || '').replace(/[<>]/g, (char) => char === '<' ? '&lt;' : '&gt;')}<div style="margin-top:5px; font-size: 0.66rem; opacity: 0.8;">${formatDate(message.created_at)}</div></div>
-                `).join('') : '<div style="color: #a5b4cf; font-size: 0.8rem;">No messages in this conversation yet.</div>';
-                const replyText = document.getElementById('alfa-thread-reply-text');
-                if (replyText) replyText.value = '';
-                const form = document.getElementById('alfa-thread-reply');
-                form.onsubmit = async (event) => {
-                    event.preventDefault();
-                    const client2 = ensureSupabaseClient();
-                    const value = String(replyText.value || '').trim();
-                    if (!client2 || !value) return;
-                    await client2.from('chat_messages').insert({
-                        conversation_id: activeConversation.id,
-                        sender: 'admin',
-                        content: value
-                    });
-                    await client2.from('chat_conversations').update({ last_message_at: new Date().toISOString() }).eq('id', activeConversation.id);
-                    replyText.value = '';
-                    loadCustomerMessages();
-                };
-            }
-
-            async function loadDashboardData() {
-                const client = ensureSupabaseClient();
-                if (!client) return;
-                const fromMap = {
-                    today: new Date(new Date().setHours(0, 0, 0, 0)).toISOString(),
-                    '24h': new Date(Date.now() - 86400000).toISOString(),
-                    '7d': new Date(Date.now() - 604800000).toISOString(),
-                    '30d': new Date(Date.now() - 2592000000).toISOString()
-                };
-                const start = fromMap[rangeFilter.value || '24h'];
-                let query = client.from(MONITOR_TABLE).select('*').gte('timestamp', start).order('timestamp', { ascending: false }).limit(250);
-                const { data, error } = await query;
-                if (error) {
-                    document.getElementById('alfa-monitor-table-body').innerHTML = '<tr><td colspan="9">Unable to load dashboard data.</td></tr>';
-                    return;
-                }
-                const rows = data || [];
-                renderFilters(rows);
-                const filtered = filterItems(rows);
-                setSummary(filtered.length ? filtered : rows);
-                const rowsHtml = filtered.length ? filtered.map((row) => `
-                    <tr>
-                        <td>${formatDate(row.timestamp)}</td>
-                        <td>${(row.error_message || 'Unknown error').slice(0, 180)}</td>
-                        <td><span class="alfa-pill ${row.error_type === 'http_error' || row.error_type === 'network_error' ? 'error' : row.error_type === 'slow_request' ? 'warn' : ''}">${row.error_type || 'unknown'}</span></td>
-                        <td>${(row.route || row.page_url || '/').slice(0, 80)}</td>
-                        <td>
-                            <select data-id="${row.id}" class="alfa-monitor-select alfa-status-select">
-                                <option value="open" ${row.status === 'open' ? 'selected' : ''}>Open</option>
-                                <option value="investigating" ${row.status === 'investigating' ? 'selected' : ''}>Investigating</option>
-                                <option value="resolved" ${row.status === 'resolved' ? 'selected' : ''}>Resolved</option>
-                            </select>
-                        </td>
-                        <td>${row.browser || 'Unknown'}</td>
-                        <td>${row.device_type || 'Unknown'}</td>
-                        <td>${Number(row.occurrence_count || 1)}</td>
-                        <td>
-                            <button class="alfa-monitor-btn" data-detail="${row.id}">Details</button>
-                            <button class="alfa-monitor-btn" data-delete="${row.id}" style="margin-top:6px;">Delete</button>
-                        </td>
-                    </tr>
-                `).join('') : '<tr><td colspan="9">No matching errors found.</td></tr>';
-                document.getElementById('alfa-monitor-table-body').innerHTML = rowsHtml;
-
-                document.querySelectorAll('.alfa-status-select').forEach((select) => {
-                    select.addEventListener('change', async function () {
-                        const id = this.dataset.id;
-                        const next = this.value;
-                        const client = ensureSupabaseClient();
-                        if (!client) return;
-                        await client.from(MONITOR_TABLE).update({ status: next }).eq('id', id);
-                        loadDashboardData();
-                    });
-                });
-
-                document.querySelectorAll('[data-detail]').forEach((button) => {
-                    button.addEventListener('click', async function () {
-                        const id = this.dataset.detail;
-                        const client = ensureSupabaseClient();
-                        const { data } = await client.from(MONITOR_TABLE).select('*').eq('id', id).single();
-                        const details = data || {};
-                        alert([
-                            `Error: ${details.error_message || 'Unknown'}`,
-                            `Type: ${details.error_type || 'unknown'}`,
-                            `Page: ${details.page_url || details.route || '/'}`,
-                            `Route: ${details.route || '-'}`,
-                            `Time: ${formatDate(details.timestamp)}`,
-                            `Browser: ${details.browser || '-'} ${details.browser_version || ''}`,
-                            `OS: ${details.operating_system || '-'}`,
-                            `Device: ${details.device_type || '-'}`,
-                            `Request URL: ${details.request_url || '-'}`,
-                            `HTTP Status: ${details.http_status || '-'}`,
-                            `Response Time: ${details.response_time_ms || '-'} ms`,
-                            `Occurrences: ${details.occurrence_count || 1}`,
-                            `First seen: ${formatDate(details.first_seen)}`,
-                            `Last seen: ${formatDate(details.last_seen)}`,
-                            `Stack: ${details.stack_trace || 'No stack trace captured'}`,
-                            `Metadata: ${details.additional_metadata || '-'}`
-                        ].join('\n\n'));
-                    });
-                });
-
-                document.querySelectorAll('[data-delete]').forEach((button) => {
-                    button.addEventListener('click', async function () {
-                        const id = this.dataset.delete;
-                        const sure = confirm('Delete this error record? This action is irreversible.');
-                        if (!sure) return;
-                        const client = ensureSupabaseClient();
-                        if (!client) return;
-                        await client.from(MONITOR_TABLE).delete().eq('id', id);
-                        loadDashboardData();
-                    });
-                });
-
-                await loadCustomerMessages();
-            }
-
-            function attachDashboardActions() {
-                loginForm.addEventListener('submit', handleLogin);
-                signoutBtn.addEventListener('click', handleSignOut);
-                refreshBtn.addEventListener('click', loadDashboardData);
-                rangeFilter.addEventListener('change', loadDashboardData);
-                typeFilter.addEventListener('change', loadDashboardData);
-                statusFilter.addEventListener('change', loadDashboardData);
-                routeFilter.addEventListener('change', loadDashboardData);
-                browserFilter.addEventListener('change', loadDashboardData);
-                searchInput.addEventListener('input', loadDashboardData);
-                document.getElementById('alfa-trigger-js-error').addEventListener('click', function () {
-                    throw new Error('ALFA_MONITOR_TEST_JS_ERROR');
-                });
-                document.getElementById('alfa-trigger-fetch-error').addEventListener('click', function () {
-                    fetch('https://example.invalid/monitor-test', { method: 'POST' }).catch(() => {});
-                });
-                document.getElementById('alfa-trigger-404').addEventListener('click', function () {
-                    fetch('https://alfabeckam.com/does-not-exist-__alfa-monitor-test', { method: 'GET', cache: 'no-store' }).then((r) => r).catch(() => {});
-                });
-            }
-
-            attachDashboardActions();
-            setVisibility();
-            window.addEventListener('hashchange', setVisibility);
-        }
-
-        async function ensureAuthSession() {
-            const client = ensureSupabaseClient();
-            if (!client) return null;
-            const { data } = await client.auth.getUser();
-            const user = data && data.user ? data.user : null;
-            monitorState.authState = { user, loading: false };
-            return user;
-        }
-
-        function setupCustomerReport() {
-            if (document.getElementById('alfa-report-problem-btn')) return;
-            const btn = document.createElement('button');
-            btn.id = 'alfa-report-problem-btn';
-            btn.type = 'button';
-            btn.textContent = 'Report a problem';
-            btn.style.position = 'fixed';
-            btn.style.bottom = '20px';
-            btn.style.left = '20px';
-            btn.style.zIndex = '999998';
-            btn.style.border = '1px solid rgba(148, 163, 184, 0.25)';
-            btn.style.borderRadius = '999px';
-            btn.style.padding = '10px 16px';
-            btn.style.background = 'rgba(15, 17, 20, 0.92)';
-            btn.style.color = '#e5e7eb';
-            btn.style.cursor = 'pointer';
-            btn.style.boxShadow = '0 12px 40px rgba(0,0,0,0.28)';
-            btn.addEventListener('click', () => {
-                if (monitorState.customerReportOpen) return;
-                monitorState.customerReportOpen = true;
-                const overlay = document.createElement('div');
-                overlay.style.position = 'fixed';
-                overlay.style.inset = '0';
-                overlay.style.background = 'rgba(2, 6, 23, 0.62)';
-                overlay.style.display = 'flex';
-                overlay.style.alignItems = 'center';
-                overlay.style.justifyContent = 'center';
-                overlay.style.zIndex = '999997';
-                overlay.innerHTML = `
-                    <div style="width:min(540px, calc(100vw - 30px)); background: rgba(15, 17, 20, 0.97); border-radius: 18px; border: 1px solid rgba(148,163,184,0.2); padding: 20px; color: #eef2ff; box-shadow: 0 24px 70px rgba(0,0,0,0.4);">
-                        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
-                            <h3 style="margin:0; font-size:1.1rem;">Report a problem</h3>
-                            <button type="button" id="alfa-close-report" style="background:transparent;border:none;color:#e5e7eb;cursor:pointer;font-size:1.2rem;">✕</button>
-                        </div>
-                        <p style="margin:0 0 12px; color:#cbd5e1; font-size:0.82rem;">Tell us what went wrong. We only store the description, page, browser, device, screen size and timestamp.</p>
-                        <textarea id="alfa-report-text" rows="6" maxlength="2000" style="width:100%; border-radius:12px; border:1px solid rgba(148,163,184,0.2); background: rgba(15,23,42,0.9); color:#f8fafc; padding:12px; resize:vertical;" placeholder="Describe the problem you saw..."></textarea>
-                        <div style="display:flex; justify-content:flex-end; gap:10px; margin-top:14px;">
-                            <button type="button" id="alfa-cancel-report" style="background:transparent; border:1px solid rgba(148,163,184,0.25); border-radius:10px; color:#e5e7eb; padding:9px 12px; cursor:pointer;">Cancel</button>
-                            <button type="button" id="alfa-submit-report" style="background:linear-gradient(135deg,#8E9BB8,#C7D0E8); border:0; border-radius:10px; color:#101827; font-weight:700; padding:9px 14px; cursor:pointer;">Send report</button>
-                        </div>
-                    </div>
-                `;
-                document.body.appendChild(overlay);
-
-                document.getElementById('alfa-close-report').addEventListener('click', () => {
-                    overlay.remove();
-                    monitorState.customerReportOpen = false;
-                });
-                document.getElementById('alfa-cancel-report').addEventListener('click', () => {
-                    overlay.remove();
-                    monitorState.customerReportOpen = false;
-                });
-                document.getElementById('alfa-submit-report').addEventListener('click', async () => {
-                    const text = document.getElementById('alfa-report-text').value.trim();
-                    if (!text) return;
-                    const client = ensureSupabaseClient();
-                    if (!client) {
-                        overlay.remove();
-                        monitorState.customerReportOpen = false;
-                        return;
-                    }
-                    const info = getBrowserInfo();
-                    const payload = {
-                        description: sanitizeText(text, 2000),
-                        page_url: getPageUrl(),
-                        route: getCurrentRoute(),
-                        browser: info.browser,
-                        device_type: info.device_type,
-                        screen_width: info.screen_width,
-                        screen_height: info.screen_height,
-                        timestamp: new Date().toISOString(),
-                        additional_metadata: JSON.stringify({
-                            user_agent: info.user_agent,
-                            operating_system: info.operating_system,
-                            site_url: UPTIME_URL
-                        })
-                    };
-                    await client.from(REPORT_TABLE).insert(payload);
-                    overlay.remove();
-                    monitorState.customerReportOpen = false;
-                    alert('Thanks for the report. We are reviewing it.');
-                });
-            });
-            document.body.appendChild(btn);
-        }
-
-        function setupPwaInstallButton() {
-            if (document.getElementById('alfa-install-app-btn')) return;
-            const btn = document.createElement('button');
-            btn.id = 'alfa-install-app-btn';
-            btn.type = 'button';
-            btn.textContent = 'Install app';
-            btn.hidden = true;
-            btn.style.position = 'fixed';
-            btn.style.bottom = '76px';
-            btn.style.left = '20px';
-            btn.style.zIndex = '999998';
-            btn.style.border = '1px solid rgba(148,163,184,0.2)';
-            btn.style.borderRadius = '999px';
-            btn.style.padding = '11px 18px';
-            btn.style.background = 'linear-gradient(135deg, rgba(18,25,38,0.96), rgba(38,52,74,0.9))';
-            btn.style.color = '#edf2ff';
-            btn.style.cursor = 'pointer';
-            btn.style.fontWeight = '700';
-            btn.style.letterSpacing = '0.04em';
-            btn.style.boxShadow = '0 18px 42px rgba(0,0,0,0.28), inset 0 1px 0 rgba(255,255,255,0.08)';
-            btn.addEventListener('click', async () => {
-                if (!window.ALFA_INSTALL_PROMPT) return;
-                window.ALFA_INSTALL_PROMPT.prompt();
-                const outcome = await window.ALFA_INSTALL_PROMPT.userChoice;
-                if (outcome && outcome.outcome === 'accepted') {
-                    btn.hidden = true;
-                }
-                window.ALFA_INSTALL_PROMPT = null;
-            });
-            document.body.appendChild(btn);
-
-            window.addEventListener('beforeinstallprompt', (event) => {
-                event.preventDefault();
-                window.ALFA_INSTALL_PROMPT = event;
-                btn.hidden = false;
-            });
-
-            window.addEventListener('appinstalled', () => {
-                btn.hidden = true;
-            });
-        }
-
-        function startMonitoring() {
-            attachGlobalHandlers();
-            renderAdminDashboard();
-            setupCustomerReport();
-            setupPwaInstallButton();
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.register('./sw.js').catch(() => {});
-            }
-            setInterval(() => {
-                uptimeCheck();
-            }, 600000);
-            if (document.readyState === 'complete') {
-                uptimeCheck();
-            } else {
-                window.addEventListener('load', uptimeCheck, { once: true });
-            }
-        }
-
-        if (window.supabase) {
-            startMonitoring();
-        } else {
-            const waitForSupabase = setInterval(() => {
-                if (window.supabase) {
-                    clearInterval(waitForSupabase);
-                    startMonitoring();
-                }
-            }, 200);
-            setTimeout(() => clearInterval(waitForSupabase), 5000);
-        }
     })();
     </script>
 </body>
