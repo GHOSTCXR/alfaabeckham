@@ -408,6 +408,21 @@
             .float-tg, .float-wa { display: none; }
         }
 
+        /* Combo Deal */
+        .combo-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; max-width: 64rem; margin: 0 auto; text-align: left; }
+        @media (min-width: 768px) { .combo-grid { grid-template-columns: repeat(3, 1fr); } }
+        .combo-card { position: relative; height: 100%; }
+        .combo-card.featured { border-color: var(--ember); box-shadow: 0 0 0 1px var(--ember), var(--shadow-lift); }
+        .combo-ribbon { position: absolute; top: -0.7rem; left: 50%; transform: translateX(-50%); background: linear-gradient(100deg, var(--ember), var(--ember-light)); color: #fff; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; padding: 0.25rem 0.8rem; border-radius: 999px; white-space: nowrap; }
+        .combo-includes { list-style: none; padding: 0; margin: 1rem 0 0; text-align: left; display: inline-block; }
+        .combo-includes li { font-size: 0.9rem; color: var(--bone); padding: 0.2rem 0; display: flex; gap: 0.55rem; align-items: baseline; }
+        .combo-includes li i { color: var(--verdigris-light); font-size: 0.75rem; }
+        .combo-status { display: inline-flex; align-items: center; gap: 0.5rem; margin: 0 auto 1.5rem; padding: 0.45rem 1rem; border-radius: 999px; font-size: 0.8rem; font-weight: 600; border: 1px solid var(--ember); color: var(--ember-light); background: rgba(181,80,47,0.1); }
+        .combo-status.live { border-color: var(--verdigris); color: var(--verdigris-light); background: rgba(92,139,120,0.12); }
+        .combo-status.over { border-color: var(--hairline); color: var(--bone-dim); background: transparent; }
+        .combo-remind-wrap { margin-top: 2.5rem; display: flex; flex-direction: column; align-items: center; gap: 0.75rem; }
+        .combo-remind-link { font-size: 0.8rem; color: var(--brass-text); text-decoration: underline; text-underline-offset: 3px; background: none; border: none; cursor: pointer; }
+
         /* Pricing & Cart */
         .price-tag {
             display: block;
@@ -809,14 +824,14 @@
     <nav class="fixed top-0 w-full z-50 nav-surface backdrop-blur-xl border-b border-soft">
         <div id="launchCountdownBar" class="countdown-bar">
             <i class="fas fa-hourglass-half cb-icon"></i>
-            <span class="cb-label">🔥 Breakthrough &amp; Eyonu Awon Agba — only 200 pieces — opens Monday 12am!</span>
+            <span class="cb-label">🔥 COMBO DEAL IS BACK — opens Oct 11 at 12am!</span>
             <span class="cb-timer" id="countdownTimer">
                 <div class="cb-unit"><span id="cdDays" class="cb-num">--</span><span class="cb-lbl">Days</span></div>
                 <div class="cb-unit"><span id="cdHours" class="cb-num">--</span><span class="cb-lbl">Hrs</span></div>
                 <div class="cb-unit"><span id="cdMins" class="cb-num">--</span><span class="cb-lbl">Min</span></div>
                 <div class="cb-unit"><span id="cdSecs" class="cb-num">--</span><span class="cb-lbl">Sec</span></div>
             </span>
-            <a href="#services" class="cb-cta">View offering</a>
+            <a href="#combo" class="cb-cta">View combo deal</a>
         </div>
         <div class="container mx-auto px-6 lg:px-12 py-3">
             <div class="flex justify-between items-center">
@@ -834,6 +849,7 @@
                 <div class="hidden lg:flex items-center gap-6">
                     <a href="#home" class="text-sm font-medium txt-soft hover-brass transition">Home</a>
                     <a href="#about" class="text-sm font-medium txt-soft hover-brass transition">Sacred Path</a>
+                    <a href="#combo" class="text-sm font-medium hover-brass transition" style="color:var(--ember-light)">🔥 Combo Deal</a>
                     <a href="#services" class="text-sm font-medium txt-soft hover-brass transition">Offerings</a>
                     <a href="#oracle" class="text-sm font-medium txt-soft hover-brass transition">Daily Sign</a>
                     <a href="#quiz" class="text-sm font-medium txt-soft hover-brass transition">Find Your Path</a>
@@ -859,6 +875,7 @@
             <div id="mobileMenu" class="hidden lg:hidden flex-col mt-5 space-y-4 pb-4 text-center">
                 <a href="#home" class="block py-2 txt-soft hover-brass">Home</a>
                 <a href="#about" class="block py-2 txt-soft hover-brass">About</a>
+                <a href="#combo" class="block py-2 hover-brass" style="color:var(--ember-light)">🔥 Combo Deal</a>
                 <a href="#services" class="block py-2 txt-soft hover-brass">Services</a>
                 <a href="#oracle" class="block py-2 txt-soft hover-brass">Daily Sign</a>
                 <a href="#quiz" class="block py-2 txt-soft hover-brass">Find Your Path</a>
@@ -1026,6 +1043,57 @@
         </div>
     </section>
 
+    <!-- Combo Deal (Oct 11-18, 2026) -->
+    <section id="combo" class="section section-tint relative">
+        <div class="adire-watermark"></div>
+        <div class="container mx-auto px-6 lg:px-12 text-center content">
+            <p class="eyebrow mb-3">Limited Time</p>
+            <h2 class="text-4xl md:text-5xl font-semibold brass-text mb-4">🔥 Combo Deal Is Back! 🔥</h2>
+            <div class="sigil-divider"><span class="line"></span><i class="fas fa-star-of-life txt-brass text-xs"></i><span class="line right"></span></div>
+            <p class="txt-mute max-w-2xl mx-auto mb-4 text-lg">Available <strong class="brass-text">October 11th – 18th only</strong></p>
+            <div><span class="combo-status" id="comboStatus"><i class="fas fa-hourglass-half"></i> <span id="comboStatusText">⏳ 8 days only — don’t miss out!</span></span></div>
+
+            <div class="combo-grid">
+                <div class="card combo-card" id="combo-cashout" data-aos="fade-up" data-aos-delay="0">
+                    
+                    <div class="p-7 text-center">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-[#8E9BB8]/10 flex items-center justify-center mb-5 border border-[#8E9BB8]/30"><i class="fas fa-coins txt-brass text-2xl"></i></div>
+                        <h3 class="text-xl font-semibold brass-text mb-1">Cashout Combo</h3>
+                        <div class="price-tag">₦100,000</div>
+                        <ul class="combo-includes"><li><i class="fas fa-check"></i><span>Badluck Cleansing</span></li><li><i class="fas fa-check"></i><span>Cashout Soap</span></li></ul>
+                        <button type="button" class="add-to-cart-btn combo-add-btn" style="margin-top:1.25rem" data-id="combo-cashout" data-name="Cashout Combo" data-price="100000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card combo-card featured" id="combo-cashout-plus" data-aos="fade-up" data-aos-delay="100">
+                    <span class="combo-ribbon">Most Popular</span>
+                    <div class="p-7 text-center">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-[#8E9BB8]/10 flex items-center justify-center mb-5 border border-[#8E9BB8]/30"><i class="fas fa-gem txt-brass text-2xl"></i></div>
+                        <h3 class="text-xl font-semibold brass-text mb-1">Cashout Combo Plus</h3>
+                        <div class="price-tag">₦150,000</div>
+                        <ul class="combo-includes"><li><i class="fas fa-check"></i><span>Badluck Cleansing</span></li><li><i class="fas fa-check"></i><span>Cleansing Soap</span></li><li><i class="fas fa-check"></i><span>Bead</span></li></ul>
+                        <button type="button" class="add-to-cart-btn combo-add-btn" style="margin-top:1.25rem" data-id="combo-cashout-plus" data-name="Cashout Combo Plus" data-price="150000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+                    </div>
+                </div>
+                <div class="card combo-card" id="combo-big-bag" data-aos="fade-up" data-aos-delay="200">
+                    
+                    <div class="p-7 text-center">
+                        <div class="w-16 h-16 mx-auto rounded-full bg-[#8E9BB8]/10 flex items-center justify-center mb-5 border border-[#8E9BB8]/30"><i class="fas fa-bag-shopping txt-brass text-2xl"></i></div>
+                        <h3 class="text-xl font-semibold brass-text mb-1">Big Bag Package</h3>
+                        <div class="price-tag">₦350,000</div>
+                        <ul class="combo-includes"><li><i class="fas fa-check"></i><span>Premium Big Bag Soap Package</span></li></ul>
+                        <button type="button" class="add-to-cart-btn combo-add-btn" style="margin-top:1.25rem" data-id="combo-big-bag" data-name="Big Bag Package" data-price="350000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="combo-remind-wrap">
+                <button type="button" id="comboRemindBtn" class="btn-brass text-base"><i class="fas fa-bell"></i> Remind Me — Add to Calendar</button>
+                <button type="button" id="comboGoogleBtn" class="combo-remind-link">or add to Google Calendar</button>
+                <p class="txt-faint text-xs max-w-md" id="comboRemindNote">You’ll get a reminder the day before it opens, on opening day, and on the last day.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- Services -->
     <section id="services" class="section">
         <div class="container mx-auto px-6 lg:px-12 text-center content">
@@ -1099,7 +1167,7 @@
                     <span class="lock-badge" id="lockBadge-breakthrough-eyonu-agba"><i class="fas fa-lock"></i> <span class="lock-badge-text">Locked until Monday</span></span>
                     <p class="txt-mute text-sm">Powerful ritual work for total breakthrough &amp; protection against the machinations of spiritual elders and unseen forces.</p>
                     <div class="price-tag">₦100,000</div>
-                    <p class="stock-indicator" id="stock-breakthrough-eyonu-agba">Checking availability…</p>
+                    <p class="stock-indicator" id="stock-breakthrough-eyonu-agba"></p>
                     <button type="button" class="add-to-cart-btn" data-id="breakthrough-eyonu-agba" data-name="Breakthrough and Eyonu Awon Agba" data-price="100000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
                     <div class="mt-5 eyebrow text-[10px] border-t border-[#8E9BB8]/20 inline-block pt-3">Total breakthrough</div>
                     </div>
@@ -1749,13 +1817,9 @@
         });
     </script>
 
-    <!-- Live Product Stock -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Product lock / closing dates (no database) -->
     <script>
     (function () {
-        const SUPABASE_URL = "https://eqqvxmmaatnsgsphijwb.supabase.co";
-        const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxcXZ4bW1hYXRuc2dzcGhpandiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5NTM4ODEsImV4cCI6MjEwMzUyOTg4MX0.vugQPI2EESNPf1b_PbR0eNRkYAQD3sJ4ldVqO2QMNlA";
-        const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
         const STOCK_IDS = ['breakthrough-eyonu-agba'];
 
         // Products locked from ordering until a set date/time (Africa/Lagos time)
@@ -1795,38 +1859,29 @@
             } else if (btn && closed) {
                 btn.disabled = true;
                 btn.innerHTML = '<i class="fas fa-lock"></i> Sales Closed';
-            } else if (btn && !locked && !closed && typeof stock === 'number') {
-                btn.disabled = stock <= 0;
-                if (stock <= 0) btn.innerHTML = '<i class="fas fa-ban"></i> Sold Out';
-                else btn.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Cart';
+            } else if (btn && !locked && !closed) {
+                btn.disabled = false;
+                btn.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Cart';
             }
             return locked || closed;
         }
 
+        // Stock is no longer tracked in a database. This only updates lock/closed status text.
         async function refreshStock(id) {
             const el = document.getElementById('stock-' + id);
-            const { data, error } = await sb.from('product_stock').select('stock').eq('id', id).single();
-            if (error || !data) {
-                if (el) el.textContent = '';
-                applyLockState(id);
-                return null;
-            }
-            const stock = data.stock;
             const locked = isLocked(id);
             const closed = !locked && isClosed(id);
             if (el) {
                 el.classList.remove('low', 'out');
-                if (locked) { el.textContent = `${stock} pieces available once unlocked`; }
+                if (locked) { el.textContent = 'Opens soon'; }
                 else if (closed) { el.textContent = 'Sales closed for this offer'; el.classList.add('out'); }
-                else if (stock <= 0) { el.textContent = 'Sold out'; el.classList.add('out'); }
-                else if (stock <= 20) { el.textContent = `Only ${stock} pieces left`; el.classList.add('low'); }
-                else { el.textContent = `${stock} pieces available`; }
+                else { el.textContent = ''; }
             }
-            applyLockState(id, stock);
-            return stock;
+            applyLockState(id);
+            return null;
         }
 
-        window.alfaStock = { sb, STOCK_IDS, refreshStock, isLocked, isClosed, LOCKED_UNTIL, CLOSES_AT };
+        window.alfaStock = { STOCK_IDS, refreshStock, isLocked, isClosed, LOCKED_UNTIL, CLOSES_AT };
 
         document.addEventListener('DOMContentLoaded', () => {
             STOCK_IDS.forEach(refreshStock);
@@ -1839,86 +1894,204 @@
     })();
     </script>
 
-    <!-- Launch Countdown Bar -->
+    <!-- Combo Deal: lock window + calendar reminder -->
     <script>
     (function () {
-        const LAUNCH_ID = 'breakthrough-eyonu-agba';
+        // ===== DEAL WINDOW (Africa/Lagos, UTC+1) =====
+        // Opens exactly 12:00am on Oct 11. Closes exactly 12:00am when Oct 18 ends (= 00:00 Oct 19),
+        // which makes the full 8 days (Oct 11,12,13,14,15,16,17,18).
+        const OPENS  = new Date('2026-10-11T00:00:00+01:00');
+        const CLOSES = new Date('2026-10-19T00:00:00+01:00');
+        const COMBO_IDS = ['combo-cashout', 'combo-cashout-plus', 'combo-big-bag'];
+
+        // Clock-skew correction: use the server's clock so a wrong phone/PC clock can't open or close the deal early/late.
+        let skew = 0;
+        function now() { return new Date(Date.now() + skew); }
+        function syncClock() {
+            try {
+                const t0 = Date.now();
+                return fetch(location.href.split('#')[0], { method: 'HEAD', cache: 'no-store' }).then(r => {
+                    const h = r.headers.get('date');
+                    if (!h) return;
+                    const t1 = Date.now();
+                    skew = new Date(h).getTime() - (t0 + t1) / 2;
+                }).catch(() => {});
+            } catch (e) { return Promise.resolve(); }
+        }
+
+        function state() {
+            const n = now();
+            if (n < OPENS) return 'soon';
+            if (n >= CLOSES) return 'over';
+            return 'live';
+        }
+        window.comboDeal = { isOpen: () => state() === 'live', ids: COMBO_IDS, state, now, OPENS, CLOSES };
+
+        function fmt(ms) {
+            ms = Math.max(0, ms);
+            const d = Math.floor(ms / 86400000), h = Math.floor(ms % 86400000 / 3600000),
+                  m = Math.floor(ms % 3600000 / 60000), s = Math.floor(ms % 60000 / 1000);
+            const p = n => String(n).padStart(2, '0');
+            return (d ? d + 'd ' : '') + p(h) + ':' + p(m) + ':' + p(s);
+        }
+
+        let lastState = null;
+        function render() {
+            const st = state();
+            const pill = document.getElementById('comboStatus');
+            const txt = document.getElementById('comboStatusText');
+            if (pill && txt) {
+                pill.classList.toggle('live', st === 'live');
+                pill.classList.toggle('over', st === 'over');
+                if (st === 'soon') txt.textContent = 'Opens in ' + fmt(OPENS - now()) + ' — set a reminder below';
+                else if (st === 'live') txt.textContent = '⏳ Live now — closes in ' + fmt(CLOSES - now()) + '. Don’t miss out!';
+                else txt.textContent = 'This combo deal has ended';
+            }
+            if (st !== lastState) {              // only touch buttons when the state actually flips
+                lastState = st;
+                document.querySelectorAll('.combo-add-btn').forEach(btn => {
+                    if (st === 'live') { btn.disabled = false; btn.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Cart'; }
+                    else if (st === 'soon') { btn.disabled = true; btn.innerHTML = '<i class="fas fa-lock"></i> Opens October 11, 12am'; }
+                    else { btn.disabled = true; btn.innerHTML = '<i class="fas fa-lock"></i> Deal Ended'; }
+                });
+                const remind = document.querySelector('.combo-remind-wrap');
+                if (remind) remind.style.display = st === 'over' ? 'none' : '';
+            }
+        }
+
+        // Fire a timer at the exact boundary (open, then close) so the flip happens on the second, not on a polling tick.
+        let boundaryTimer = null;
+        function schedule() {
+            clearTimeout(boundaryTimer);
+            const n = now();
+            const target = n < OPENS ? OPENS : (n < CLOSES ? CLOSES : null);
+            if (!target) return;
+            const ms = Math.min(target - n, 2147483000);
+            boundaryTimer = setTimeout(() => { render(); schedule(); }, Math.max(ms, 0) + 1);
+        }
+
+        // ---------- Calendar (.ics) ----------
+        const pad = n => String(n).padStart(2, '0');
+        function utc(d) {
+            return d.getUTCFullYear() + pad(d.getUTCMonth() + 1) + pad(d.getUTCDate()) + 'T' + pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + pad(d.getUTCSeconds()) + 'Z';
+        }
+        function esc(t) { return t.replace(/\\/g, '\\\\').replace(/;/g, '\\;').replace(/,/g, '\\,').replace(/\n/g, '\\n'); }
+        function fold(line) {
+            const out = []; while (line.length > 74) { out.push(line.slice(0, 74)); line = ' ' + line.slice(74); }
+            out.push(line); return out.join('\r\n');
+        }
+
+        const DESC = 'COMBO DEAL IS BACK! Available Oct 11-18 only.\n' +
+            '₦100,000 Cashout Combo: Badluck Cleansing + Cashout Soap\n' +
+            '₦150,000 Cashout Combo Plus: Badluck Cleansing + Cleansing Soap + Bead\n' +
+            '₦350,000 Big Bag Package: Premium Big Bag Soap Package\n' +
+            '8 days only - dont miss out!';
+
+        // Events: opening (Oct 11, 8:00 WAT), last day (Oct 18, 9:00 WAT)
+        const EVENTS = [
+            { uid: 'alfa-combo-open-2026@alfabeckham', title: '🔥 Alfa Beckham Combo Deal OPENS today', start: new Date('2026-10-11T00:00:00+01:00'), end: new Date('2026-10-11T00:30:00+01:00'),
+              alarms: [['-P1D', 'Combo Deal opens tomorrow at 12am'], ['-PT1H', 'Combo Deal opens in 1 hour'], ['PT0S', 'Combo Deal is open now']] },
+            { uid: 'alfa-combo-last-2026@alfabeckham', title: '⏳ LAST DAY — Alfa Beckham Combo Deal ends tonight', start: new Date('2026-10-18T09:00:00+01:00'), end: new Date('2026-10-18T09:30:00+01:00'),
+              alarms: [['PT0S', 'Last day of the Combo Deal'], ['PT8H', 'Combo Deal ends tonight at 12am']] }
+        ];
+
+        function buildICS() {
+            const L = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Alfa Beckham//Combo Deal//EN', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH'];
+            EVENTS.forEach(ev => {
+                L.push('BEGIN:VEVENT', 'UID:' + ev.uid, 'DTSTAMP:' + utc(new Date()), 'DTSTART:' + utc(ev.start), 'DTEND:' + utc(ev.end),
+                    'SUMMARY:' + esc(ev.title), 'DESCRIPTION:' + esc(DESC), 'STATUS:CONFIRMED', 'TRANSP:TRANSPARENT');
+                ev.alarms.forEach(a => L.push('BEGIN:VALARM', 'ACTION:DISPLAY', 'DESCRIPTION:' + esc(a[1]), 'TRIGGER:' + a[0], 'END:VALARM'));
+                L.push('END:VEVENT');
+            });
+            L.push('END:VCALENDAR');
+            return L.map(fold).join('\r\n') + '\r\n';
+        }
+
+        function downloadICS() {
+            const ics = buildICS();
+            try {
+                const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url; a.download = 'alfa-combo-deal-reminder.ics';
+                document.body.appendChild(a); a.click(); document.body.removeChild(a);
+                setTimeout(() => URL.revokeObjectURL(url), 4000);
+            } catch (e) {
+                window.location.href = 'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+            }
+            if (typeof showToast === 'function') { try { showToast('Reminder ready — open it to add to your calendar', 'fa-bell'); } catch (e) {} }
+            if (typeof gtag !== 'undefined') gtag('event', 'combo_reminder', { event_category: 'engagement', event_label: 'ics' });
+        }
+
+        function googleCal() {
+            const ev = EVENTS[0];
+            const p = new URLSearchParams({
+                action: 'TEMPLATE', text: ev.title,
+                dates: utc(ev.start) + '/' + utc(ev.end),
+                details: DESC + '\n\nSet a reminder on your calendar event.'
+            });
+            window.open('https://calendar.google.com/calendar/render?' + p.toString(), '_blank', 'noopener');
+            if (typeof gtag !== 'undefined') gtag('event', 'combo_reminder', { event_category: 'engagement', event_label: 'google' });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            render();
+            schedule();
+            setInterval(render, 1000);
+            document.addEventListener('visibilitychange', () => { if (!document.hidden) { render(); schedule(); } });
+            syncClock().then(() => { render(); schedule(); });
+            document.getElementById('comboRemindBtn')?.addEventListener('click', downloadICS);
+            document.getElementById('comboGoogleBtn')?.addEventListener('click', googleCal);
+        });
+    })();
+    </script>
+
+    <!-- Launch Countdown Bar (now counts down the Combo Deal) -->
+    <script>
+    (function () {
         const bar = document.getElementById('launchCountdownBar');
         if (!bar) return;
-        const dEl = document.getElementById('cdDays');
-        const hEl = document.getElementById('cdHours');
-        const mEl = document.getElementById('cdMins');
-        const sEl = document.getElementById('cdSecs');
-        const nav = bar.closest('nav');
-        const hero = document.getElementById('home');
+        const dEl = document.getElementById('cdDays'), hEl = document.getElementById('cdHours'),
+              mEl = document.getElementById('cdMins'), sEl = document.getElementById('cdSecs');
+        const label = bar.querySelector('.cb-label'), timerEl = bar.querySelector('.cb-timer'), cta = bar.querySelector('.cb-cta');
+        const nav = bar.closest('nav'), hero = document.getElementById('home');
+        if (cta) cta.setAttribute('href', '#combo');
 
-        function adjustHeroOffset() {
-            if (nav && hero) hero.style.paddingTop = (nav.offsetHeight + 24) + 'px';
-        }
-
-        function getOpenTarget() {
-            // Prefer the shared lock date from the stock script; fall back to the known launch time.
-            if (window.alfaStock && window.alfaStock.LOCKED_UNTIL && window.alfaStock.LOCKED_UNTIL[LAUNCH_ID]) {
-                return window.alfaStock.LOCKED_UNTIL[LAUNCH_ID];
-            }
-            return new Date('2026-08-31T00:00:00+01:00');
-        }
-
-        function getCloseTarget() {
-            if (window.alfaStock && window.alfaStock.CLOSES_AT && window.alfaStock.CLOSES_AT[LAUNCH_ID]) {
-                return window.alfaStock.CLOSES_AT[LAUNCH_ID];
-            }
-            return new Date('2026-09-06T00:00:00+01:00');
-        }
-
+        function adjustHeroOffset() { if (nav && hero) hero.style.paddingTop = (nav.offsetHeight + 24) + 'px'; }
         function renderTime(diff) {
-            const days = Math.floor(diff / 86400000);
-            const hours = Math.floor((diff % 86400000) / 3600000);
-            const mins = Math.floor((diff % 3600000) / 60000);
-            const secs = Math.floor((diff % 60000) / 1000);
-            dEl.textContent = String(days).padStart(2, '0');
-            hEl.textContent = String(hours).padStart(2, '0');
-            mEl.textContent = String(mins).padStart(2, '0');
-            sEl.textContent = String(secs).padStart(2, '0');
+            diff = Math.max(0, diff);
+            const p = n => String(n).padStart(2, '0');
+            dEl.textContent = p(Math.floor(diff / 86400000));
+            hEl.textContent = p(Math.floor(diff % 86400000 / 3600000));
+            mEl.textContent = p(Math.floor(diff % 3600000 / 60000));
+            sEl.textContent = p(Math.floor(diff % 60000 / 1000));
         }
 
+        let last = null;
         function tick() {
-            const now = new Date();
-            const openTarget = getOpenTarget();
-            const closeTarget = getCloseTarget();
-
-            if (now < openTarget) {
-                // Phase 1: not open yet — counting down to opening
-                bar.classList.remove('is-live', 'is-closing', 'is-closed');
-                bar.querySelector('.cb-label').textContent = '🔥 Breakthrough & Eyonu Awon Agba — only 200 pieces — opens Monday 12am!';
-                bar.querySelector('.cb-timer').style.display = '';
-                renderTime(openTarget - now);
-                return;
+            const cd = window.comboDeal;
+            if (!cd) return;
+            const st = cd.state(), n = cd.now();
+            if (st === 'soon') {
+                bar.classList.remove('is-live', 'is-closing', 'is-closed', 'is-hidden');
+                label.textContent = '🔥 COMBO DEAL IS BACK — opens Oct 11 at 12am!';
+                timerEl.style.display = '';
+                renderTime(cd.OPENS - n);
+            } else if (st === 'live') {
+                const left = cd.CLOSES - n;
+                bar.classList.remove('is-closed', 'is-hidden');
+                bar.classList.toggle('is-closing', left <= 86400000);
+                bar.classList.toggle('is-live', left > 86400000);
+                label.textContent = left <= 86400000 ? '⏳ LAST DAY — Combo Deal closes at 12am:' : '🔥 COMBO DEAL IS LIVE — closes Oct 18 at midnight:';
+                timerEl.style.display = '';
+                renderTime(left);
+            } else {
+                bar.classList.add('is-hidden');   // deal over: remove the banner entirely
             }
-
-            if (now < closeTarget) {
-                // Phase 2: open — counting down to closing
-                bar.classList.remove('is-closed');
-                bar.classList.add('is-closing');
-                bar.classList.remove('is-live');
-                bar.querySelector('.cb-label').textContent = '⏳ Breakthrough & Eyonu Awon Agba closes at 12am — order before it\'s gone:';
-                bar.querySelector('.cb-timer').style.display = '';
-                renderTime(closeTarget - now);
-                return;
-            }
-
-            // Phase 3: closed
-            bar.classList.remove('is-closing');
-            bar.classList.add('is-closed');
-            bar.querySelector('.cb-label').textContent = '🔒 Breakthrough & Eyonu Awon Agba — sales are now closed.';
-            bar.querySelector('.cb-timer').style.display = 'none';
-            if (timer) clearInterval(timer);
-            adjustHeroOffset();
+            if (st !== last) { last = st; adjustHeroOffset(); }
         }
-
-        let timer;
         tick();
-        timer = setInterval(tick, 1000);
+        setInterval(tick, 1000);
         window.addEventListener('load', adjustHeroOffset);
         window.addEventListener('resize', adjustHeroOffset);
         setTimeout(adjustHeroOffset, 50);
@@ -2069,6 +2242,7 @@
             document.querySelectorAll('.add-to-cart-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
                     if (window.alfaStock?.isLocked && window.alfaStock.isLocked(btn.dataset.id)) return;
+                    if (window.comboDeal && window.comboDeal.ids.includes(btn.dataset.id) && !window.comboDeal.isOpen()) return;
                     addToCart(btn.dataset.id, btn.dataset.name, parseInt(btn.dataset.price, 10));
                     const original = btn.innerHTML;
                     btn.classList.add('added');
@@ -2124,7 +2298,7 @@
 
                 const submitBtn = e.target.querySelector('button[type="submit"]');
                 const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
-                if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Checking stock…'; }
+                if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing order…'; }
 
                 // Block checkout if a locked item is somehow still in the cart
                 if (window.alfaStock) {
@@ -2136,18 +2310,13 @@
                     }
                 }
 
-                // Reserve/decrement stock for any limited-quantity items in the cart
-                if (window.alfaStock) {
-                    const trackedItems = cart.filter(i => window.alfaStock.STOCK_IDS.includes(i.id));
-                    for (const item of trackedItems) {
-                        const { data, error } = await window.alfaStock.sb.rpc('decrement_stock', { p_id: item.id, p_qty: item.qty });
-                        if (error || data === null) {
-                            alert(`Sorry, "${item.name}" doesn't have enough pieces left for that quantity. Please adjust your cart.`);
-                            window.alfaStock.refreshStock(item.id);
-                            if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = originalBtnHtml; }
-                            return;
-                        }
-                        window.alfaStock.refreshStock(item.id);
+                // Block checkout if a combo deal item is in the cart outside its Oct 11-18 window
+                if (window.comboDeal && !window.comboDeal.isOpen()) {
+                    const comboItem = cart.find(i => window.comboDeal.ids.includes(i.id));
+                    if (comboItem) {
+                        alert(`"${comboItem.name}" is only available October 11th–18th. Please remove it from your cart.`);
+                        if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = originalBtnHtml; }
+                        return;
                     }
                 }
 
@@ -2179,132 +2348,23 @@
     })();
     </script>
 
-    <!-- Alfa Sacred Chat Widget -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Alfa Chat Button (opens WhatsApp) -->
     <script>
     (function () {
-      const SUPABASE_URL = "https://eqqvxmmaatnsgsphijwb.supabase.co";
-      const SUPABASE_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImVxcXZ4bW1hYXRuc2dzcGhpandiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODc5NTM4ODEsImV4cCI6MjEwMzUyOTg4MX0.vugQPI2EESNPf1b_PbR0eNRkYAQD3sJ4ldVqO2QMNlA";
-      const sb = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
-      const LS = "alfa_chat_conversation";
-      let conv = null, messages = [], lastSeen = null, unread = 0, open = false;
-      try { conv = JSON.parse(localStorage.getItem(LS) || "null"); } catch {}
-
       const css = document.createElement("style");
       css.textContent = `
-        #alfa-chat-btn{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;font-size:24px;color:var(--icon-on-brass, #14110C);background:linear-gradient(100deg,#4B5568,#8E9BB8,#C7D0E8);box-shadow:0 8px 24px rgba(142,155,184,.45);z-index:99999}
-        #alfa-chat-badge{position:absolute;top:-4px;right:-4px;background:#B5502F;color:#fff;font:bold 11px sans-serif;border-radius:999px;min-width:22px;height:22px;display:none;align-items:center;justify-content:center;padding:0 6px}
-        #alfa-chat-panel{position:fixed;bottom:96px;right:24px;width:92vw;max-width:380px;height:70vh;max-height:560px;background:var(--panel-bg, rgba(20,17,12,.97));backdrop-filter:blur(14px);border:1px solid var(--hairline, rgba(142,155,184,.3));border-radius:14px;display:none;flex-direction:column;overflow:hidden;color:var(--bone, #EDE6D6);font-family:Inter,sans-serif;z-index:99999;box-shadow:0 20px 60px rgba(0,0,0,.4)}
-        #alfa-chat-panel.open{display:flex}
-        .alfa-hd{padding:14px 16px;background:linear-gradient(100deg,rgba(142,155,184,.16),rgba(75,85,104,.06));border-bottom:1px solid var(--hairline, rgba(142,155,184,.22));display:flex;gap:12px;align-items:center}
-        .alfa-av{width:38px;height:38px;border-radius:50%;background:linear-gradient(100deg,#4B5568,#8E9BB8);display:flex;align-items:center;justify-content:center;color:var(--icon-on-brass, #14110C);font-size:16px}
-        .alfa-name{color:var(--brass-text, #C7D0E8);font-weight:600}
-        .alfa-sub{font-size:11px;color:var(--txt-faint, #9a9a9a)}
-        #alfa-form,#alfa-thread{flex:1;display:flex;flex-direction:column;padding:16px;gap:10px;overflow-y:auto}
-        #alfa-form input{background:var(--input-bg, rgba(255,255,255,.05));border:1px solid var(--hairline, rgba(142,155,184,.28));color:var(--bone, #fff);padding:10px 12px;border-radius:8px;font-size:14px;outline:none}
-        .alfa-btn{background:linear-gradient(100deg,#4B5568,#8E9BB8,#C7D0E8);color:var(--icon-on-brass, #14110C);border:none;border-radius:8px;padding:10px 16px;font-weight:600;cursor:pointer;font-size:14px}
-        .alfa-btn:disabled{opacity:.5}
-        .alfa-msg{max-width:80%;padding:9px 14px;border-radius:12px;font-size:14px;white-space:pre-wrap;word-wrap:break-word}
-        .alfa-msg.v{align-self:flex-end;background:linear-gradient(100deg,#4B5568,#8E9BB8);color:var(--icon-on-brass, #14110C);border-bottom-right-radius:3px}
-        .alfa-msg.a{align-self:flex-start;background:var(--surface-soft, rgba(255,255,255,.05));border:1px solid var(--hairline, rgba(142,155,184,.2));color:var(--bone, #EDE6D6);border-bottom-left-radius:3px}
-        #alfa-send{display:flex;gap:8px;padding:12px;border-top:1px solid var(--hairline, rgba(142,155,184,.18))}
-        #alfa-send input{flex:1;background:var(--input-bg, rgba(255,255,255,.05));border:1px solid var(--hairline, rgba(142,155,184,.28));color:var(--bone, #fff);padding:9px 14px;border-radius:999px;outline:none;font-size:14px}
-        @media (max-width: 768px){ #alfa-chat-btn{bottom:88px} #alfa-chat-panel{bottom:158px} }
+        #alfa-chat-btn{position:fixed;bottom:24px;right:24px;width:60px;height:60px;border-radius:50%;border:none;cursor:pointer;font-size:24px;text-decoration:none;display:flex;align-items:center;justify-content:center;color:var(--icon-on-brass, #14110C);background:linear-gradient(100deg,#4B5568,#8E9BB8,#C7D0E8);box-shadow:0 6px 20px rgba(0,0,0,.35);z-index:9998}
+        @media (max-width: 768px){ #alfa-chat-btn{bottom:88px} }
       `;
       document.head.appendChild(css);
-
-      const btn = document.createElement("button");
-      btn.id = "alfa-chat-btn";
-      btn.innerHTML = '💬<span id="alfa-chat-badge">0</span>';
-      document.body.appendChild(btn);
-
-      const panel = document.createElement("div");
-      panel.id = "alfa-chat-panel";
-      panel.innerHTML = `
-        <div class="alfa-hd"><div class="alfa-av">✦</div><div><div class="alfa-name">Alfa Beckham</div><div class="alfa-sub">Sacred Guidance • usually replies within 24h</div></div></div>
-        <div id="alfa-body"></div>`;
-      document.body.appendChild(panel);
-      const body = panel.querySelector("#alfa-body");
-      body.style.cssText = "flex:1;display:flex;flex-direction:column;overflow:hidden";
-
-      function renderForm() {
-        body.innerHTML = `<form id="alfa-form">
-          <p style="font-size:13px;color:#cfcfcf;margin:0">Share your name to begin a private session. Alfa will reply here.</p>
-          <input name="name" placeholder="Your name" required maxlength="80"/>
-          <input name="email" type="email" placeholder="Email (optional)" maxlength="120"/>
-          <button class="alfa-btn" type="submit">Begin Sacred Chat</button>
-        </form>`;
-        body.querySelector("#alfa-form").onsubmit = async (e) => {
-          e.preventDefault();
-          const fd = new FormData(e.target);
-          const name = (fd.get("name") || "").toString().trim();
-          const email = (fd.get("email") || "").toString().trim();
-          if (!name) return;
-          const { data, error } = await sb.from("chat_conversations")
-            .insert({ visitor_name: name, visitor_email: email || null })
-            .select("id").single();
-          if (error || !data) { alert("Could not start chat"); return; }
-          conv = { id: data.id, name, email };
-          localStorage.setItem(LS, JSON.stringify(conv));
-          renderThread();
-          poll();
-        };
-      }
-
-      function renderThread() {
-        body.innerHTML = `<div id="alfa-thread"></div>
-          <form id="alfa-send"><input id="alfa-draft" placeholder="Type your message…" maxlength="4000" autocomplete="off"/><button class="alfa-btn" type="submit">Send</button></form>`;
-        body.querySelector("#alfa-send").onsubmit = async (e) => {
-          e.preventDefault();
-          const inp = body.querySelector("#alfa-draft");
-          const content = inp.value.trim().slice(0, 4000);
-          if (!content) return;
-          inp.value = "";
-          await sb.from("chat_messages").insert({ conversation_id: conv.id, sender: "visitor", content });
-          await sb.from("chat_conversations").update({ last_message_at: new Date().toISOString() }).eq("id", conv.id);
-          poll();
-        };
-        paintMessages();
-      }
-
-      function paintMessages() {
-        const t = body.querySelector("#alfa-thread");
-        if (!t) return;
-        t.innerHTML = messages.length
-          ? messages.map(m => `<div class="alfa-msg ${m.sender === "visitor" ? "v" : "a"}">${escapeHtml(m.content)}</div>`).join("")
-          : `<div style="text-align:center;color:#9a9a9a;font-size:13px;margin-top:20px">Greetings, ${escapeHtml(conv.name)}. Share what brings you here.</div>`;
-        t.scrollTop = t.scrollHeight;
-      }
-      function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
-
-      async function poll() {
-        if (!conv) return;
-        const { data } = await sb.from("chat_messages")
-          .select("id,sender,content,created_at")
-          .eq("conversation_id", conv.id).order("created_at", { ascending: true });
-        if (!data) return;
-        messages = data;
-        if (!open) {
-          const idx = messages.findIndex(m => m.id === lastSeen);
-          const newAdmin = messages.slice(idx + 1).filter(m => m.sender === "admin").length;
-          if (newAdmin > 0) { unread = newAdmin; const b = document.getElementById("alfa-chat-badge"); b.textContent = unread; b.style.display = "flex"; }
-        }
-        if (open) paintMessages();
-      }
-
-      btn.onclick = () => {
-        open = !open;
-        panel.classList.toggle("open", open);
-        btn.innerHTML = open ? '✕' : '💬<span id="alfa-chat-badge">0</span>';
-        if (open) {
-          unread = 0;
-          if (messages.length) lastSeen = messages[messages.length-1].id;
-          conv ? renderThread() : renderForm();
-        }
-      };
-
-      setInterval(() => { if (conv) poll(); }, 3000);
-      if (conv) poll();
+      const a = document.createElement("a");
+      a.id = "alfa-chat-btn";
+      a.href = "https://wa.me/2347017721183?text=" + encodeURIComponent("Hello Alfa Beckham, I'd like to speak with you.");
+      a.target = "_blank";
+      a.rel = "noopener";
+      a.setAttribute("aria-label", "Chat on WhatsApp");
+      a.innerHTML = "💬";
+      document.body.appendChild(a);
     })();
     </script>
 
