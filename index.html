@@ -1,28 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <!-- ============================================================
-         INTENTIONAL LOAD DELAY + PERMANENT MAIN-THREAD FREEZE
-         Must be the FIRST thing inside <head>, before everything else.
-         This version is significantly heavier than the previous one.
-         ============================================================ -->
-    <script>
-    (function () {
-      // 1) Hard-block the main thread for 25 seconds. Nothing paints until this ends:
-      //    no CSS, no fonts, no intro screen, no hero. Just a blank page.
-      var t = Date.now() + 25000;
-      while (Date.now() < t) { Math.sqrt(Math.random()); }
-
-      // 2) Then keep freezing almost continuously: ~2000ms frozen, ~500ms alive, repeat.
-      //    Raise 2000 for more lag, lower it for less.
-      setInterval(function () {
-        var end = Date.now() + 2000, x = 0;
-        while (Date.now() < end) { x += Math.sqrt(Math.random() * 1e6); }
-        window.__junk = x; // prevent dead-code elimination
-      }, 2500);
-    })();
-    </script>
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Alfa Beckham | Sacred Spiritual Guidance & Divine Protection</title>
@@ -1252,102 +1230,6 @@
             .tab-btn { padding: 0.55rem 0.85rem; }
             .float-tg, .float-wa { display: none; }
         }
-
-        /* ============================================================
-           INTENTIONAL VISUAL JANK  (heavier than the previous version)
-           Forces constant compositing + repaints on most of the page.
-           ============================================================ */
-
-        /* Blur-pulse on nearly every block element — now stronger and faster */
-        .panel, .card, .trust-item, .process-step, .faq-item, .quiz-option,
-        .tab-btn, footer, section, .cart-drawer, .checkout-modal,
-        .countdown-bar, .testimonial-scroller > *, nav, .intro-screen,
-        .combo-card, .combo-includes, .rating-chip, .oracle-card,
-        .process-num, .faq-q, .quiz-option span, .btn-brass, .btn-outline {
-            animation: jankPulse 1.6s ease-in-out infinite;
-            will-change: transform, opacity, filter, box-shadow, backdrop-filter;
-            backdrop-filter: blur(48px) saturate(220%) contrast(115%);
-            -webkit-backdrop-filter: blur(48px) saturate(220%) contrast(115%);
-            box-shadow:
-                0 0 90px 24px rgba(142, 155, 184, 0.36),
-                0 0 140px 48px rgba(181, 80, 47, 0.20),
-                inset 0 0 70px rgba(255, 255, 255, 0.07);
-            filter: drop-shadow(0 0 18px rgba(142, 155, 184, 0.55));
-        }
-
-        @keyframes jankPulse {
-            0%, 100% { filter: blur(0px) drop-shadow(0 0 18px rgba(142, 155, 184, 0.55)); }
-            50%      { filter: blur(1.6px) drop-shadow(0 0 32px rgba(181, 80, 47, 0.7)); }
-        }
-
-        /* Full-viewport blurred, rotating backdrop layer */
-        body::after {
-            content: "";
-            position: fixed;
-            inset: -50%;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.55;
-            background:
-                radial-gradient(circle at 30% 30%, rgba(142, 155, 184, 0.24), transparent 40%),
-                radial-gradient(circle at 70% 60%, rgba(181, 80, 47, 0.20), transparent 45%),
-                repeating-conic-gradient(from 0deg, rgba(142, 155, 184, 0.07) 0deg 2deg, transparent 2deg 4deg);
-            filter: blur(70px);
-            animation: spinBg 4s linear infinite;
-        }
-        @keyframes spinBg { to { transform: rotate(360deg) scale(1.3); } }
-
-        /* Second, independent full-viewport blurred, counter-rotating layer */
-        html::after {
-            content: "";
-            position: fixed;
-            inset: -60%;
-            z-index: -1;
-            pointer-events: none;
-            opacity: 0.4;
-            background:
-                repeating-radial-gradient(circle at 50% 50%, rgba(226, 210, 165, 0.10) 0 2px, transparent 2px 60px),
-                radial-gradient(circle at 20% 80%, rgba(102, 134, 109, 0.20), transparent 42%);
-            filter: blur(55px);
-            animation: spinBg2 6s linear infinite reverse;
-        }
-        @keyframes spinBg2 { to { transform: rotate(-360deg) scale(1.25); } }
-
-        /* Always-on, heavier ember canvas */
-        #particleCanvas {
-            opacity: 1 !important;
-            filter: blur(1.4px);
-        }
-
-        /* Slower intro fade-out */
-        .intro-screen {
-            transition: opacity 4000ms ease, visibility 0s linear 4000ms !important;
-        }
-
-        /* New: hidden full-viewport animated element that repaints continuously */
-        body::before {
-            content: "";
-            position: fixed;
-            top: -10%;
-            left: -10%;
-            width: 120%;
-            height: 120%;
-            z-index: -2;
-            pointer-events: none;
-            opacity: 0.35;
-            background:
-                repeating-linear-gradient(45deg,
-                    rgba(226, 210, 165, 0.06) 0 6px,
-                    rgba(181, 80, 47, 0.06) 6px 12px,
-                    rgba(102, 134, 109, 0.06) 12px 18px,
-                    transparent 18px 24px);
-            animation: slidePattern 2.5s linear infinite;
-            filter: blur(0.4px);
-        }
-        @keyframes slidePattern {
-            0%   { transform: translate3d(0, 0, 0) rotate(0.001deg); }
-            100% { transform: translate3d(6%, 6%, 0) rotate(0.001deg); }
-        }
     </style>
 </head>
 <body class="antialiased">
@@ -2128,7 +2010,7 @@
         const canvas = document.getElementById('particleCanvas');
         const ctx = canvas.getContext('2d');
         let particles = [];
-        const particleCount = 20000;   // was 4000 — now 5x heavier
+        const particleCount = 55;
 
         function resizeCanvas() {
             canvas.width = window.innerWidth;
@@ -2154,12 +2036,9 @@
             }
             draw() {
                 ctx.beginPath();
-                ctx.shadowBlur = 60;             // was 24 — now 60, extremely expensive
-                ctx.shadowColor = this.color;
                 ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
                 ctx.fillStyle = this.color;
                 ctx.fill();
-                ctx.shadowBlur = 0;
             }
         }
 
@@ -2178,9 +2057,12 @@
         window.addEventListener('resize', () => { resizeCanvas(); initParticles(); });
         resizeCanvas();
         initParticles();
-        animateParticles();
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) animateParticles();
 
         // Remove any previously-installed service worker + its caches.
+        // This site used to be a PWA; the old cached service worker was
+        // serving stale stock data to returning visitors. This cleans
+        // that up automatically the next time they load the page.
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker.getRegistrations().then((regs) => {
                 regs.forEach((reg) => reg.unregister());
@@ -2218,7 +2100,7 @@
         }
         introEnter?.addEventListener('click', () => dismissIntro(true));
         document.addEventListener('keydown', handleIntroKeydown);
-        window.setTimeout(dismissIntro, 60000);   // was 25000 — now 60 seconds
+        window.setTimeout(dismissIntro, 4500);
 
         // Light / dark mode toggle
         function setTheme(theme) {
@@ -2334,6 +2216,7 @@
             if (!quizChoice) return;
             const card = document.getElementById(quizChoice.cardId);
             if (!card) return;
+            // Make sure the right services tab is showing this card
             document.querySelector('.tab-btn[data-tab="all"]')?.click();
             card.scrollIntoView({ behavior: 'smooth', block: 'center' });
             card.classList.add('highlight-pulse');
@@ -2407,12 +2290,15 @@
     (function () {
         const STOCK_IDS = ['breakthrough-eyonu-agba'];
 
+        // Products locked from ordering until a set date/time (Africa/Lagos time)
         const LOCKED_UNTIL = {
-            'breakthrough-eyonu-agba': new Date('2026-08-31T00:00:00+01:00')
+            'breakthrough-eyonu-agba': new Date('2026-08-31T00:00:00+01:00') // unlocks Monday
         };
 
+        // Products that close (stop taking orders) at a set date/time (Africa/Lagos time)
+        // Change the date below if the closing night is different.
         const CLOSES_AT = {
-            'breakthrough-eyonu-agba': new Date('2026-09-06T00:00:00+01:00')
+            'breakthrough-eyonu-agba': new Date('2026-09-06T00:00:00+01:00') // closes tonight at 12am
         };
 
         function isLocked(id) {
@@ -2448,6 +2334,7 @@
             return locked || closed;
         }
 
+        // Stock is no longer tracked in a database. This only updates lock/closed status text.
         async function refreshStock(id) {
             const el = document.getElementById('stock-' + id);
             const locked = isLocked(id);
@@ -2467,6 +2354,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             STOCK_IDS.forEach(refreshStock);
             Object.keys(LOCKED_UNTIL).forEach(applyLockState);
+            // Re-check every minute so a locked/closed item updates live if the tab stays open past the deadline
             setInterval(() => {
                 STOCK_IDS.forEach(id => refreshStock(id));
             }, 60000);
@@ -2477,10 +2365,14 @@
     <!-- Combo Deal: lock window + calendar reminder -->
     <script>
     (function () {
+        // ===== DEAL WINDOW (Africa/Lagos, UTC+1) =====
+        // Opens exactly 12:00am on Oct 11. Closes exactly 12:00am when Oct 18 ends (= 00:00 Oct 19),
+        // which makes the full 8 days (Oct 11,12,13,14,15,16,17,18).
         const OPENS  = new Date('2026-10-11T00:00:00+01:00');
         const CLOSES = new Date('2026-10-19T00:00:00+01:00');
         const COMBO_IDS = ['combo-cashout', 'combo-cashout-plus', 'combo-big-bag'];
 
+        // Clock-skew correction: use the server's clock so a wrong phone/PC clock can't open or close the deal early/late.
         let skew = 0;
         function now() { return new Date(Date.now() + skew); }
         function syncClock() {
@@ -2551,7 +2443,7 @@
                 else if (st === 'live') txt.textContent = '⏳ Live now — closes in ' + fmt(CLOSES - now()) + '. Don’t miss out!';
                 else txt.textContent = 'This combo deal has ended';
             }
-            if (st !== lastState) {
+            if (st !== lastState) {              // only touch buttons when the state actually flips
                 lastState = st;
                 document.querySelectorAll('.combo-add-btn').forEach(btn => {
                     if (st === 'live') { btn.disabled = false; btn.innerHTML = '<i class="fas fa-shopping-bag"></i> Add to Cart'; }
@@ -2563,6 +2455,7 @@
             }
         }
 
+        // Fire a timer at the exact boundary (open, then close) so the flip happens on the second, not on a polling tick.
         let boundaryTimer = null;
         function schedule() {
             clearTimeout(boundaryTimer);
@@ -2573,6 +2466,7 @@
             boundaryTimer = setTimeout(() => { render(); schedule(); }, Math.max(ms, 0) + 1);
         }
 
+        // ---------- Calendar (.ics) ----------
         const pad = n => String(n).padStart(2, '0');
         function utc(d) {
             return d.getUTCFullYear() + pad(d.getUTCMonth() + 1) + pad(d.getUTCDate()) + 'T' + pad(d.getUTCHours()) + pad(d.getUTCMinutes()) + pad(d.getUTCSeconds()) + 'Z';
@@ -2589,6 +2483,7 @@
             '₦350,000 Big Bag Package: Premium Big Bag Soap Package\n' +
             '8 days only - dont miss out!';
 
+        // Events: opening (Oct 11, 8:00 WAT), last day (Oct 18, 9:00 WAT)
         const EVENTS = [
             { uid: 'alfa-combo-open-2026@alfabeckham', title: '🔥 Alfa Beckham Combo Deal OPENS today', start: new Date('2026-10-11T00:00:00+01:00'), end: new Date('2026-10-11T00:30:00+01:00'),
               alarms: [['-P1D', 'Combo Deal opens tomorrow at 12am'], ['-PT1H', 'Combo Deal opens in 1 hour'], ['PT0S', 'Combo Deal is open now']] },
@@ -2687,7 +2582,7 @@
                 timerEl.style.display = '';
                 renderTime(left);
             } else {
-                bar.classList.add('is-hidden');
+                bar.classList.add('is-hidden');   // deal over: remove the banner entirely
             }
             if (st !== last) { last = st; adjustHeroOffset(); }
         }
@@ -2717,6 +2612,7 @@
             return String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
         }
 
+        // Toast notifications
         function showToast(msg, icon) {
             const stack = document.getElementById('toastStack');
             if (!stack) return;
@@ -2729,8 +2625,8 @@
                 setTimeout(() => t.remove(), 250);
             }, 2600);
         }
-        window.showToast = showToast;
 
+        // Order reference, generated fresh each time checkout opens
         let currentOrderRef = '';
         function genOrderRef() {
             return 'AB-' + Date.now().toString(36).toUpperCase().slice(-6);
@@ -2801,6 +2697,7 @@
             document.getElementById('cartOverlay')?.classList.add('hidden');
         }
 
+        // --- Checkout modal ---
         const DELIVERY_KEY = 'alfa_delivery_details';
 
         function renderCheckoutSummary() {
@@ -2899,6 +2796,7 @@
                 const originalBtnHtml = submitBtn ? submitBtn.innerHTML : '';
                 if (submitBtn) { submitBtn.disabled = true; submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Preparing order…'; }
 
+                // Block checkout if a locked item is somehow still in the cart
                 if (window.alfaStock) {
                     const lockedItem = cart.find(i => window.alfaStock.isLocked(i.id));
                     if (lockedItem) {
@@ -2908,6 +2806,7 @@
                     }
                 }
 
+                // Block checkout if a combo deal item is in the cart outside its Oct 11-18 window
                 if (window.comboDeal && !window.comboDeal.isOpen()) {
                     const comboItem = cart.find(i => window.comboDeal.ids.includes(i.id));
                     if (comboItem) {
@@ -2970,6 +2869,7 @@
     (function () {
         const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
+        // ---------- Shared: light Web Audio tone helper ----------
         let audioCtx = null;
         function getAudioCtx() {
             try {
@@ -2997,6 +2897,7 @@
             });
         }
 
+        // ---------- Temple Bell ----------
         const BLESSINGS = [
             'May your path be lit by ancestral fire.',
             'Darkness bows where devotion stands.',
@@ -3021,6 +2922,7 @@
         document.getElementById('templeBellBtn')?.addEventListener('click', ringBell);
         document.getElementById('compassSigil')?.addEventListener('click', ringBell);
 
+        // ---------- Hidden sigil easter egg ----------
         let sigilClicks = 0, sigilTimer = null;
         document.getElementById('sigilTrigger')?.addEventListener('click', () => {
             sigilClicks++;
@@ -3039,9 +2941,10 @@
             if (e.target.id === 'easterEggOverlay') e.currentTarget.classList.remove('show');
         });
 
+        // ---------- Moon phase (approximate, client-computed) ----------
         function getMoonPhase(date) {
             const synodic = 29.53058867;
-            const known = new Date(Date.UTC(2000, 0, 6, 18, 14));
+            const known = new Date(Date.UTC(2000, 0, 6, 18, 14)); // a known new moon
             const days = (date.getTime() - known.getTime()) / 86400000;
             let phase = (days % synodic) / synodic;
             if (phase < 0) phase += 1;
@@ -3061,6 +2964,7 @@
         const moonChip = document.getElementById('moonChip');
         if (moonChip) moonChip.innerHTML = `<i class="fas fa-moon"></i> Tonight's moon: ${getMoonPhase(new Date())} (approximate)`;
 
+        // ---------- Daily Oracle ----------
         const ORACLE_SIGNS = [
             { icon: 'fa-sun', title: 'The Rising Flame', message: "Today favors bold action — old blockages are ready to break." },
             { icon: 'fa-moon', title: 'The Quiet Moon', message: "Rest and reflection serve you more than movement today." },
@@ -3119,6 +3023,7 @@
             document.getElementById('booking')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
             setTimeout(() => document.getElementById('fullName')?.focus(), 500);
         });
+        // Show a previously-drawn sign on load without animating it in
         (function initOracle() {
             try {
                 const saved = JSON.parse(localStorage.getItem(ORACLE_KEY) || 'null');
@@ -3126,6 +3031,7 @@
             } catch (e) {}
         })();
 
+        // ---------- Save Sacred Path as image ----------
         function wrapCanvasText(ctx, text, x, y, maxWidth, lineHeight) {
             const words = text.split(' ');
             let line = '';
@@ -3154,6 +3060,7 @@
             ctx.fillStyle = bg;
             ctx.fillRect(0, 0, w, h);
 
+            // Decorative sigil rings
             ctx.strokeStyle = 'rgba(142,155,184,0.35)';
             ctx.lineWidth = 2;
             [260, 200, 140].forEach(r => {
@@ -3201,7 +3108,7 @@
                     await navigator.share({ files: [file], title: 'My Sacred Path', text: 'Alfa Beckham — Sacred Path' });
                     return;
                 }
-            } catch (e) { }
+            } catch (e) { /* fall through to download */ }
 
             const a = document.createElement('a');
             a.href = dataUrl;
@@ -3217,6 +3124,7 @@
             if (typeof gtag !== 'undefined') gtag('event', 'quiz_save_image', { event_category: 'engagement' });
         });
 
+        // ---------- Ambient toggle (soft generated drone, off by default) ----------
         let ambientNodes = null, ambientOn = false;
         function startAmbient() {
             const ctx = getAudioCtx();
@@ -3251,6 +3159,7 @@
             if (ambientOn) startAmbient(); else stopAmbient();
         });
 
+        // ---------- Celebration burst on successful checkout ----------
         window.alfaBurst = function () {
             if (reduceMotion) return;
             const colors = ['#8E9BB8', '#C7D0E8', '#B5502F', '#5C8B78'];
@@ -3269,60 +3178,6 @@
                 setTimeout(() => mote.remove(), 1200);
             }
         };
-    })();
-    </script>
-
-    <!-- ============================================================
-         INTENTIONAL RUNTIME LAG: layout thrashing + constant re-measure
-         Significantly heavier than the previous version.
-         ============================================================ -->
-    <script>
-    (function () {
-
-      // A) Brutal synchronous reflow loop on every scroll event. Now 5000 iterations.
-      window.addEventListener('scroll', function () {
-        for (var i = 0; i < 5000; i++) {
-          var a = document.body.offsetHeight;                      // read  -> invalidates layout
-          document.body.style.setProperty('--thrash', a + 'px');   // write -> invalidates again
-          var b = document.querySelector('nav').offsetHeight;
-          document.documentElement.style.setProperty('--thrash2', b + 'px');
-          var c = document.querySelector('footer').offsetHeight;
-          document.body.style.setProperty('--thrash3', c + 'px');
-        }
-      }, { passive: false }); // non-passive: blocks scrolling itself
-
-      // B) Force a full re-layout 10x per second, forever. Now 8000 iterations every 100ms.
-      function hammerLayout() {
-        var d = document.documentElement;
-        var b = document.body;
-        for (var i = 0; i < 8000; i++) {
-          var h = d.offsetHeight;
-          var bh = b.scrollHeight;
-          d.style.setProperty('--j' + (i % 128), h + 'px');
-          b.style.setProperty('--k' + (i % 128), bh + 'px');
-        }
-      }
-      setInterval(hammerLayout, 100);
-
-      // C) Re-measure every AOS-animated element 10x per second.
-      document.addEventListener('DOMContentLoaded', function () {
-        if (window.AOS) {
-          setInterval(function () { window.AOS.refreshHard(); }, 100);
-        }
-        // D) Constant forced re-layout of every card / panel element.
-        setInterval(function () {
-          var els = document.querySelectorAll('.card, .panel, section, footer');
-          for (var i = 0; i < els.length; i++) {
-            var el = els[i];
-            // read then write, forcing layout each iteration
-            var w = el.offsetWidth;
-            el.style.setProperty('--w', w + 'px');
-            var h = el.offsetHeight;
-            el.style.setProperty('--h', h + 'px');
-          }
-        }, 150);
-      });
-
     })();
     </script>
 </body>
