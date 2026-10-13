@@ -1167,6 +1167,55 @@
             text-transform: uppercase;
             animation: introRise 800ms 650ms both;
         }
+
+        .dev-credit {
+            position: absolute;
+            bottom: max(3.4rem, calc(env(safe-area-inset-bottom) + 2rem));
+            left: 50%; transform: translateX(-50%);
+            width: max-content; max-width: calc(100% - 2rem);
+            text-align: center;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.72rem; line-height: 1.5;
+            color: var(--txt-mute);
+            animation: introRise 800ms 800ms both;
+        }
+        .dev-credit a {
+            color: var(--brass-text); text-decoration: none; font-weight: 600;
+            border-bottom: 1px solid var(--hairline); white-space: nowrap;
+        }
+        .dev-credit a:hover { border-bottom-color: var(--brass-light); }
+        .dev-credit .fa-whatsapp { color: #25D366; margin-right: 0.25rem; }
+        .dev-credit-footer { margin-top: 0.6rem; }
+        .dev-credit-footer a { color: var(--brass-text); text-decoration: none; font-weight: 600; }
+
+        #devToast {
+            position: fixed; left: 1.25rem; bottom: 1.5rem; z-index: 9990;
+            width: min(21rem, calc(100% - 2.5rem));
+            display: flex; gap: 0.8rem; align-items: flex-start;
+            padding: 0.9rem 2.2rem 0.9rem 0.9rem;
+            background: var(--panel-bg); backdrop-filter: blur(14px);
+            border: 1px solid var(--hairline); border-radius: 0.9rem;
+            box-shadow: var(--shadow-lift);
+            font-family: 'Inter', sans-serif; font-size: 0.8rem; line-height: 1.45; color: var(--txt-soft);
+            opacity: 0; transform: translateY(18px); visibility: hidden;
+            transition: opacity 400ms ease, transform 400ms ease, visibility 400ms;
+        }
+        #devToast.is-visible { opacity: 1; transform: translateY(0); visibility: visible; }
+        #devToast .dt-icon {
+            flex: none; width: 2.3rem; height: 2.3rem; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            background: #25D366; color: #fff; font-size: 1.2rem;
+        }
+        #devToast strong { display: block; color: var(--brass-text); font-size: 0.82rem; margin-bottom: 0.15rem; }
+        #devToast a.dt-link { display: inline-block; margin-top: 0.35rem; color: var(--brass-text); font-weight: 600; text-decoration: none; border-bottom: 1px solid var(--hairline); }
+        #devToast a.dt-link:hover { border-bottom-color: var(--brass-light); }
+        #devToast .dt-close {
+            position: absolute; top: 0.4rem; right: 0.5rem; width: 1.6rem; height: 1.6rem;
+            background: none; border: none; cursor: pointer; color: var(--txt-faint); font-size: 0.85rem;
+        }
+        #devToast .dt-close:hover { color: var(--txt-soft); }
+        @media (max-width: 768px) { #devToast { left: 0.75rem; bottom: calc(5.2rem + env(safe-area-inset-bottom)); } }
+        @media (prefers-reduced-motion: reduce) { #devToast { transition: none; transform: none; } }
         @keyframes introRise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
         @keyframes introMarkIn { from { opacity: 0; transform: scale(0.82); } to { opacity: 1; transform: scale(1); } }
         @keyframes introRuleIn { from { opacity: 0; transform: scaleX(0); } to { opacity: 1; transform: scaleX(1); } }
@@ -1257,6 +1306,7 @@
             </button>
         </div>
         <p class="intro-note" aria-hidden="true">Sacred Guidance</p>
+        <p class="dev-credit">Need a website like this, or any other type of website?<br><a href="https://wa.me/2349069320933?text=Hi%2C%20I%20saw%20the%20Alfa%20Beckham%20website%20and%20I%20need%20a%20website%20too." target="_blank" rel="noopener"><i class="fab fa-whatsapp" aria-hidden="true"></i>Chat with me on WhatsApp</a></p>
     </div>
 
     <!-- Navigation -->
@@ -1928,9 +1978,20 @@
                     </ul>
                 </div>
             </div>
-            <div class="text-center txt-faintest text-xs border-t border-soft mt-12 pt-6">© 2026 Alfa Beckham Spiritual Guidance — Divine Protection &amp; Sacred Restoration. Faith-based services.</div>
+            <div class="text-center txt-faintest text-xs border-t border-soft mt-12 pt-6">© 2026 Alfa Beckham Spiritual Guidance — Divine Protection &amp; Sacred Restoration. Faith-based services.<div class="dev-credit-footer">Website by me &middot; Need a website like this? <a href="https://wa.me/2349069320933?text=Hi%2C%20I%20saw%20the%20Alfa%20Beckham%20website%20and%20I%20need%20a%20website%20too." target="_blank" rel="noopener"><i class="fab fa-whatsapp" aria-hidden="true"></i> WhatsApp 09069320933</a></div></div>
         </div>
     </footer>
+
+    <!-- Developer credit popup -->
+    <aside id="devToast" role="status" aria-live="polite" aria-label="Website developer">
+        <span class="dt-icon" aria-hidden="true"><i class="fab fa-whatsapp"></i></span>
+        <div>
+            <strong>Like this website?</strong>
+            I can build one for your business too.
+            <a class="dt-link" href="https://wa.me/2349069320933?text=Hi%2C%20I%20saw%20the%20Alfa%20Beckham%20website%20and%20I%20need%20a%20website%20too." target="_blank" rel="noopener">Chat with me on WhatsApp</a>
+        </div>
+        <button type="button" class="dt-close" id="devToastClose" aria-label="Close notification"><i class="fas fa-xmark" aria-hidden="true"></i></button>
+    </aside>
 
     <button id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
 
@@ -2078,10 +2139,27 @@
 
         const intro = document.getElementById('preloader');
         const introEnter = document.getElementById('introEnter');
+        // Developer popup: shows a few seconds after the intro is closed, once per visit
+        const devToast = document.getElementById('devToast');
+        let devToastScheduled = false;
+        function scheduleDevToast() {
+            if (!devToast || devToastScheduled) return;
+            devToastScheduled = true;
+            try { if (sessionStorage.getItem('devToastSeen')) return; } catch (e) {}
+            window.setTimeout(() => {
+                devToast.classList.add('is-visible');
+                try { sessionStorage.setItem('devToastSeen', '1'); } catch (e) {}
+                window.setTimeout(hideDevToast, 15000);
+            }, 5000);
+        }
+        function hideDevToast() { devToast?.classList.remove('is-visible'); }
+        document.getElementById('devToastClose')?.addEventListener('click', hideDevToast);
+
         let introDismissed = false;
         function dismissIntro(restoreFocus = false) {
             if (!intro || introDismissed) return;
             introDismissed = true;
+            scheduleDevToast();
             document.removeEventListener('keydown', handleIntroKeydown);
             intro.classList.add('is-leaving');
             if (restoreFocus) document.querySelector('#home h1')?.focus({ preventScroll: true });
@@ -2095,12 +2173,16 @@
             if (event.key === 'Escape') dismissIntro(true);
             if (event.key === 'Tab') {
                 event.preventDefault();
-                introEnter?.focus();
+                const creditLink = intro.querySelector('.dev-credit a');
+                const focusables = [introEnter, creditLink].filter(Boolean);
+                const i = focusables.indexOf(document.activeElement);
+                const next = event.shiftKey ? (i <= 0 ? focusables.length - 1 : i - 1) : (i + 1) % focusables.length;
+                focusables[next]?.focus();
             }
         }
         introEnter?.addEventListener('click', () => dismissIntro(true));
         document.addEventListener('keydown', handleIntroKeydown);
-        window.setTimeout(dismissIntro, 4500);
+        // Intro stays until the visitor clicks Enter (or presses Escape).
 
         // Light / dark mode toggle
         function setTheme(theme) {

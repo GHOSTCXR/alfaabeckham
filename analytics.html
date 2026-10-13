@@ -1,0 +1,993 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Alfa Beckham — Live Traffic & System Analytics</title>
+<meta name="robots" content="noindex, nofollow">
+<meta name="description" content="Real-time traffic and system performance for alfabeckam.com.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root{
+  --ink:#0C120D;
+  --ink-2:#121A14;
+  --panel:rgba(24,34,26,0.82);
+  --panel-2:rgba(30,42,32,0.7);
+  --brass:#B49A63;
+  --brass-light:#E2D2A5;
+  --brass-dark:#76603A;
+  --ember:#A95D43;
+  --ember-light:#D18A67;
+  --verdigris:#66866D;
+  --verdigris-light:#9DB89C;
+  --bone:#F1EBDD;
+  --bone-dim:#B7B09F;
+  --faint:#918D80;
+  --hairline:rgba(190,166,111,0.22);
+  --soft:rgba(226,210,165,0.055);
+  --soft-2:rgba(226,210,165,0.095);
+  --danger:#D05C3D;
+  --danger-glow:rgba(208,92,61,0.35);
+  --ok:#7FB48A;
+  --warn:#E0B679;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  font-family:'Inter',system-ui,sans-serif;
+  background:
+    radial-gradient(ellipse at 50% -10%, rgba(115,137,91,0.10), transparent 45%),
+    radial-gradient(ellipse at 90% 100%, rgba(169,93,67,0.08), transparent 40%),
+    var(--ink);
+  color:var(--bone);
+  min-height:100vh;
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{font-family:'Fraunces',Georgia,serif;font-weight:600;letter-spacing:-0.01em;line-height:1.15}
+a{color:inherit;text-decoration:none}
+::selection{background:var(--brass);color:#14110C}
+::-webkit-scrollbar{width:9px;height:9px}
+::-webkit-scrollbar-track{background:var(--ink-2)}
+::-webkit-scrollbar-thumb{background:var(--brass-dark);border-radius:8px}
+::-webkit-scrollbar-thumb:hover{background:var(--brass)}
+
+/* ============ HEADER ============ */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:rgba(12,18,13,0.85);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--hairline);
+}
+.topbar-inner{
+  max-width:1500px;margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;gap:18px;justify-content:space-between;
+}
+.brand{display:flex;align-items:center;gap:12px;min-width:0}
+.brand-sigil{
+  width:40px;height:40px;border-radius:50%;
+  border:1px solid var(--brass);
+  display:flex;align-items:center;justify-content:center;
+  color:var(--brass-light);flex-shrink:0;
+  background:radial-gradient(circle,rgba(180,154,99,0.15),transparent 70%);
+}
+.brand-text{min-width:0}
+.brand-text h1{font-size:1.15rem;line-height:1.1;color:var(--brass-light);letter-spacing:0.01em;white-space:nowrap}
+.brand-text p{
+  font-family:'Space Mono',monospace;font-size:0.62rem;letter-spacing:0.22em;
+  text-transform:uppercase;color:var(--bone-dim);margin-top:2px;white-space:nowrap;
+}
+.topbar-right{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.status-pill{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:7px 14px;border-radius:999px;font-size:0.76rem;font-weight:600;
+  border:1px solid rgba(208,92,61,0.5);
+  background:rgba(208,92,61,0.12);color:var(--ember-light);
+  font-family:'Space Mono',monospace;letter-spacing:0.04em;
+}
+.status-pill .dot{
+  width:8px;height:8px;border-radius:50%;background:var(--danger);
+  box-shadow:0 0 0 0 var(--danger-glow);
+  animation:pulseDot 1.8s ease-out infinite;
+}
+@keyframes pulseDot{0%{box-shadow:0 0 0 0 var(--danger-glow)}70%,100%{box-shadow:0 0 0 10px rgba(208,92,61,0)}}
+.back-link{
+  display:inline-flex;align-items:center;gap:8px;
+  padding:8px 16px;border-radius:8px;font-size:0.82rem;font-weight:500;
+  border:1px solid var(--hairline);color:var(--brass-light);
+  background:var(--soft);transition:all .2s ease;
+}
+.back-link:hover{border-color:var(--brass);background:var(--soft-2);transform:translateY(-1px)}
+.clock{
+  font-family:'Space Mono',monospace;font-size:0.78rem;
+  color:var(--bone-dim);letter-spacing:0.06em;
+  padding:7px 12px;border-radius:8px;border:1px solid var(--hairline);background:var(--soft);
+  white-space:nowrap;
+}
+
+/* ============ ALERT BANNER ============ */
+.alert-banner{
+  max-width:1500px;margin:22px auto 0;padding:0 24px;
+}
+.alert-inner{
+  display:flex;align-items:flex-start;gap:16px;
+  padding:20px 24px;border-radius:14px;
+  border:1px solid rgba(208,92,61,0.45);
+  background:
+    linear-gradient(120deg,rgba(208,92,61,0.16),rgba(169,93,67,0.08)),
+    var(--panel);
+  box-shadow:0 18px 50px -22px rgba(208,92,61,0.35);
+  position:relative;overflow:hidden;
+}
+.alert-inner::before{
+  content:"";position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,rgba(208,92,61,0.05) 0 12px,transparent 12px 24px);
+  pointer-events:none;opacity:.6;
+}
+.alert-icon{
+  width:52px;height:52px;flex-shrink:0;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;font-size:1.5rem;
+  background:rgba(208,92,61,0.22);color:var(--ember-light);
+  border:1px solid rgba(208,92,61,0.4);
+  animation:alertPulse 2.4s ease-in-out infinite;
+}
+@keyframes alertPulse{0%,100%{box-shadow:0 0 0 0 rgba(208,92,61,0.4)}50%{box-shadow:0 0 0 8px rgba(208,92,61,0)}}
+.alert-text{position:relative;z-index:1}
+.alert-text h2{font-size:1.15rem;color:#F4E3D8;margin-bottom:5px;letter-spacing:0}
+.alert-text p{font-size:0.9rem;color:#E0C8BE;line-height:1.55}
+.alert-text strong{color:#FFF0E4}
+
+/* ============ LAYOUT ============ */
+.wrap{max-width:1500px;margin:0 auto;padding:26px 24px 80px}
+.section-title{
+  font-family:'Space Mono',monospace;font-size:0.68rem;letter-spacing:0.24em;
+  text-transform:uppercase;color:var(--brass-light);margin:34px 0 14px;
+  display:flex;align-items:center;gap:12px;
+}
+.section-title::after{
+  content:"";flex:1;height:1px;
+  background:linear-gradient(90deg,var(--hairline),transparent);
+}
+.section-title i{color:var(--brass);font-size:0.85rem}
+
+/* ============ KPI GRID ============ */
+.kpi-grid{
+  display:grid;gap:16px;
+  grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+}
+.kpi{
+  background:var(--panel);border:1px solid var(--hairline);border-radius:12px;
+  padding:18px 18px 16px;position:relative;overflow:hidden;
+  transition:border-color .3s,transform .3s;
+  box-shadow:0 10px 34px -24px rgba(0,0,0,0.6);
+}
+.kpi:hover{border-color:var(--brass);transform:translateY(-3px)}
+.kpi::after{
+  content:"";position:absolute;top:0;right:0;width:70px;height:70px;
+  background:radial-gradient(circle at top right,rgba(180,154,99,0.14),transparent 70%);
+  pointer-events:none;
+}
+.kpi-label{
+  font-family:'Space Mono',monospace;font-size:0.63rem;letter-spacing:0.14em;
+  text-transform:uppercase;color:var(--bone-dim);display:flex;align-items:center;gap:8px;
+  margin-bottom:10px;
+}
+.kpi-label i{color:var(--brass);font-size:0.8rem}
+.kpi-value{
+  font-family:'Fraunces',serif;font-size:2.05rem;font-weight:600;line-height:1;
+  color:var(--brass-light);letter-spacing:-0.02em;display:flex;align-items:baseline;gap:6px;
+  font-variant-numeric:tabular-nums;
+}
+.kpi-value small{font-size:0.85rem;color:var(--bone-dim);font-family:'Inter',sans-serif;font-weight:500}
+.kpi-delta{
+  margin-top:9px;font-size:0.75rem;font-family:'Space Mono',monospace;
+  display:flex;align-items:center;gap:6px;
+}
+.kpi-delta.up{color:var(--ember-light)}
+.kpi-delta.down{color:var(--ok)}
+.kpi-delta.warn{color:var(--warn)}
+.kpi-spark{height:26px;margin-top:10px;display:block;width:100%}
+
+/* ============ CHART ROW ============ */
+.chart-row{display:grid;gap:16px;grid-template-columns:1.7fr 1fr}
+@media (max-width:1000px){.chart-row{grid-template-columns:1fr}}
+.panel{
+  background:var(--panel);border:1px solid var(--hairline);border-radius:12px;
+  padding:18px 20px 20px;box-shadow:0 10px 34px -24px rgba(0,0,0,0.6);
+}
+.panel-head{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  margin-bottom:14px;flex-wrap:wrap;
+}
+.panel-head h3{font-size:1rem;color:var(--brass-light);display:flex;align-items:center;gap:9px}
+.panel-head h3 i{color:var(--brass);font-size:0.9rem}
+.legend{display:flex;gap:16px;font-size:0.72rem;color:var(--bone-dim);font-family:'Space Mono',monospace;flex-wrap:wrap}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend .swatch{width:11px;height:3px;border-radius:2px;display:inline-block}
+canvas{display:block;width:100%;height:auto}
+
+/* ============ THREE COL ============ */
+.col-3{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.list{list-style:none}
+.list li{
+  display:flex;align-items:center;gap:12px;padding:11px 0;
+  border-bottom:1px dashed rgba(226,210,165,0.10);font-size:0.86rem;
+}
+.list li:last-child{border-bottom:none}
+.list .rank{
+  font-family:'Space Mono',monospace;font-size:0.72rem;color:var(--brass);
+  width:22px;flex-shrink:0;
+}
+.list .name{flex:1;color:var(--bone);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.list .val{
+  font-family:'Space Mono',monospace;font-size:0.78rem;color:var(--bone-dim);
+  font-variant-numeric:tabular-nums;
+}
+.list .bar{
+  width:66px;height:5px;border-radius:3px;background:var(--soft-2);overflow:hidden;flex-shrink:0;
+}
+.list .bar span{
+  display:block;height:100%;border-radius:3px;
+  background:linear-gradient(90deg,var(--brass-dark),var(--brass-light));
+}
+.flag{
+  width:24px;height:16px;border-radius:2px;flex-shrink:0;
+  display:inline-block;border:1px solid var(--hairline);
+}
+
+/* ============ ACTIVITY + STATUS ============ */
+.two-col{display:grid;gap:16px;grid-template-columns:1.4fr 1fr}
+@media (max-width:1000px){.two-col{grid-template-columns:1fr}}
+.feed{
+  max-height:400px;overflow-y:auto;padding-right:6px;
+  scrollbar-width:thin;scrollbar-color:var(--brass-dark) transparent;
+}
+.feed-item{
+  display:flex;gap:12px;align-items:flex-start;
+  padding:11px 4px;border-bottom:1px dashed rgba(226,210,165,0.08);
+  font-size:0.83rem;animation:feedIn .35s ease;
+}
+@keyframes feedIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+.feed-item .ft{
+  font-family:'Space Mono',monospace;font-size:0.68rem;color:var(--faint);
+  flex-shrink:0;padding-top:2px;width:56px;font-variant-numeric:tabular-nums;
+}
+.feed-item .fi{
+  width:26px;height:26px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;font-size:0.7rem;
+  background:var(--soft);border:1px solid var(--hairline);color:var(--brass);
+}
+.feed-item .ftext{flex:1;color:var(--bone);line-height:1.4}
+.feed-item .ftext em{font-style:normal;color:var(--brass-light);font-weight:600}
+.feed-item .ftext b{color:var(--ember-light);font-weight:500;font-size:0.78rem}
+
+.status-list{list-style:none}
+.status-list li{
+  display:flex;align-items:center;justify-content:space-between;gap:12px;
+  padding:12px 0;border-bottom:1px dashed rgba(226,210,165,0.10);font-size:0.85rem;
+}
+.status-list li:last-child{border-bottom:none}
+.status-list .svc{display:flex;align-items:center;gap:10px;color:var(--bone)}
+.status-list .svc i{color:var(--brass);width:16px;text-align:center}
+.tag{
+  font-family:'Space Mono',monospace;font-size:0.65rem;letter-spacing:0.08em;
+  text-transform:uppercase;padding:4px 9px;border-radius:999px;font-weight:700;
+}
+.tag.ok{background:rgba(127,180,138,0.14);color:var(--ok);border:1px solid rgba(127,180,138,0.35)}
+.tag.warn{background:rgba(224,182,121,0.14);color:var(--warn);border:1px solid rgba(224,182,121,0.4)}
+.tag.bad{background:rgba(208,92,61,0.16);color:var(--ember-light);border:1px solid rgba(208,92,61,0.45)}
+.tag.warn::before,.tag.bad::before,.tag.ok::before{
+  content:"";display:inline-block;width:6px;height:6px;border-radius:50%;
+  margin-right:6px;background:currentColor;vertical-align:middle;
+}
+
+/* ============ GAUGE ROW ============ */
+.gauge-row{display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+.gauge{
+  background:var(--panel);border:1px solid var(--hairline);border-radius:12px;
+  padding:18px;text-align:center;
+}
+.gauge h4{
+  font-family:'Space Mono',monospace;font-size:0.64rem;letter-spacing:0.16em;
+  text-transform:uppercase;color:var(--bone-dim);margin-bottom:12px;
+}
+.gauge-ring{position:relative;width:130px;height:130px;margin:0 auto}
+.gauge-ring svg{transform:rotate(-90deg)}
+.gauge-num{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  font-family:'Fraunces',serif;font-size:1.5rem;font-weight:600;color:var(--brass-light);
+  font-variant-numeric:tabular-nums;
+}
+.gauge-num small{font-size:0.65rem;color:var(--bone-dim);font-family:'Space Mono',monospace;letter-spacing:0.1em;margin-top:2px}
+
+/* ============ EXPLAINER ============ */
+.explainer{
+  margin-top:44px;background:var(--panel);border:1px solid var(--hairline);
+  border-radius:14px;padding:30px 30px 26px;position:relative;overflow:hidden;
+}
+.explainer::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--ember),var(--brass),var(--verdigris));
+}
+.explainer h2{font-size:1.5rem;color:var(--brass-light);margin-bottom:8px}
+.explainer p.lead{color:var(--bone-dim);margin-bottom:22px;font-size:0.95rem}
+.explainer-grid{display:grid;gap:18px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.explain-card{
+  padding:18px 18px 16px;border-radius:11px;
+  background:var(--soft);border:1px solid var(--hairline);
+}
+.explain-card i{font-size:1.3rem;color:var(--brass);margin-bottom:10px;display:block}
+.explain-card h4{font-size:0.98rem;color:var(--bone);margin-bottom:6px}
+.explain-card p{font-size:0.83rem;color:var(--bone-dim);line-height:1.55}
+
+/* ============ FOOTER ============ */
+.foot{
+  max-width:1500px;margin:0 auto;padding:26px 24px 40px;
+  border-top:1px solid var(--hairline);
+  display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;
+  font-size:0.78rem;color:var(--faint);
+}
+.foot .dot-sep{color:var(--brass-dark);margin:0 8px}
+.foot a{color:var(--brass-light)}
+.foot a:hover{color:var(--brass)}
+
+@media (max-width:640px){
+  .wrap{padding:20px 16px 70px}
+  .alert-banner{padding:0 16px}
+  .alert-inner{padding:16px 18px}
+  .kpi-value{font-size:1.7rem}
+  .brand-text h1{font-size:1rem}
+  .brand-text p{font-size:0.55rem}
+  .clock{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ============ TOPBAR ============ -->
+<header class="topbar">
+  <div class="topbar-inner">
+    <div class="brand">
+      <div class="brand-sigil"><i class="fas fa-chart-line"></i></div>
+      <div class="brand-text">
+        <h1>Alfa Beckham — Live Analytics</h1>
+        <p>Realtime Traffic &amp; Infrastructure Monitor</p>
+      </div>
+    </div>
+    <div class="topbar-right">
+      <span class="clock" id="liveClock">--:--:-- UTC+1</span>
+      <span class="status-pill"><span class="dot"></span> DEGRADED — HIGH TRAFFIC</span>
+      <a class="back-link" href="index.html"><i class="fas fa-arrow-left"></i> Back to site</a>
+    </div>
+  </div>
+</header>
+
+<!-- ============ ALERT BANNER ============ -->
+<div class="alert-banner">
+  <div class="alert-inner">
+    <div class="alert-icon"><i class="fas fa-triangle-exclamation"></i></div>
+    <div class="alert-text">
+      <h2>Unprecedented traffic — the website is running slowly right now.</h2>
+      <p>
+        We are currently serving <strong id="alertUsers">—</strong> concurrent visitors, peaking at
+        <strong id="alertPeak">—</strong> requests per second. Response times have risen to
+        <strong id="alertRt">—</strong> while our servers operate at
+        <strong id="alertCpu">—</strong> capacity. Pages may load slowly or timeout.
+        We are actively scaling capacity — thank you for your patience.
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+  <!-- ============ KPI GRID ============ -->
+  <div class="section-title"><i class="fas fa-gauge-high"></i> Key Metrics — Last 5 Minutes</div>
+  <div class="kpi-grid" id="kpiGrid">
+    <!-- injected -->
+  </div>
+
+  <!-- ============ CHARTS ============ -->
+  <div class="section-title"><i class="fas fa-wave-square"></i> Traffic Over Time</div>
+  <div class="chart-row">
+    <div class="panel">
+      <div class="panel-head">
+        <h3><i class="fas fa-chart-area"></i> Concurrent Visitors (60 min)</h3>
+        <div class="legend">
+          <span><span class="swatch" style="background:#B49A63"></span>Visitors</span>
+          <span><span class="swatch" style="background:#A95D43"></span>Requests/s</span>
+        </div>
+      </div>
+      <canvas id="lineChart" width="1000" height="260"></canvas>
+    </div>
+    <div class="panel">
+      <div class="panel-head">
+        <h3><i class="fas fa-server"></i> Server Response Time</h3>
+        <div class="legend"><span><span class="swatch" style="background:#D05C3D"></span>Avg latency</span></div>
+      </div>
+      <canvas id="latencyChart" width="440" height="260"></canvas>
+    </div>
+  </div>
+
+  <!-- ============ GAUGES ============ -->
+  <div class="section-title"><i class="fas fa-microchip"></i> Infrastructure Load</div>
+  <div class="gauge-row" id="gaugeRow"><!-- injected --></div>
+
+  <!-- ============ THREE COL ============ -->
+  <div class="section-title"><i class="fas fa-layer-group"></i> Traffic Breakdown</div>
+  <div class="col-3">
+    <div class="panel">
+      <div class="panel-head"><h3><i class="fas fa-share-nodes"></i> Sources</h3></div>
+      <ul class="list" id="sourcesList"></ul>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3><i class="fas fa-fire"></i> Top Pages Right Now</h3></div>
+      <ul class="list" id="pagesList"></ul>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3><i class="fas fa-globe"></i> Regions</h3></div>
+      <ul class="list" id="regionsList"></ul>
+    </div>
+  </div>
+
+  <!-- ============ ACTIVITY + STATUS ============ -->
+  <div class="section-title"><i class="fas fa-tower-broadcast"></i> Realtime Activity &amp; Status</div>
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-head">
+        <h3><i class="fas fa-bolt"></i> Live Visitor Feed</h3>
+        <span class="legend" style="color:var(--brass)"><span class="swatch" style="background:#7FB48A"></span>streaming</span>
+      </div>
+      <div class="feed" id="feed"><!-- injected --></div>
+    </div>
+    <div class="panel">
+      <div class="panel-head"><h3><i class="fas fa-heart-pulse"></i> System Status</h3></div>
+      <ul class="status-list" id="statusList"><!-- injected --></ul>
+    </div>
+  </div>
+
+  <!-- ============ EXPLAINER ============ -->
+  <section class="explainer">
+    <h2>Why is the website slow right now?</h2>
+    <p class="lead">A short, honest explanation of the current delays.</p>
+    <div class="explainer-grid">
+      <div class="explain-card">
+        <i class="fas fa-users"></i>
+        <h4>Massive surge in visitors</h4>
+        <p>A recent campaign and viral shares have driven far more people to the site than usual — up to <strong id="expUsers">—</strong> at once, roughly 40× our normal peak.</p>
+      </div>
+      <div class="explain-card">
+        <i class="fas fa-database"></i>
+        <h4>Servers near capacity</h4>
+        <p>CPU is hovering above <strong id="expCpu">—</strong> and database queues are backed up. Requests are being processed, but with noticeable delay.</p>
+      </div>
+      <div class="explain-card">
+        <i class="fas fa-clock"></i>
+        <h4>Higher response times</h4>
+        <p>Average response time has climbed from ~180ms to <strong id="expRt">—</strong>. Some requests are timing out and retrying, which adds to the backlog.</p>
+      </div>
+      <div class="explain-card">
+        <i class="fas fa-arrow-trend-up"></i>
+        <h4>What we're doing</h4>
+        <p>Auto-scaling additional servers, enabling edge caching, and rate-limiting abusive traffic. Normal speed should return as load subsides.</p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<footer class="foot">
+  <span>
+    <i class="fas fa-circle" style="color:var(--ok);font-size:0.55rem;vertical-align:middle"></i>
+    Monitoring active
+    <span class="dot-sep">·</span>
+    Region: lagos-1
+    <span class="dot-sep">·</span>
+    Build 2026.10.11
+  </span>
+  <span>
+    <a href="index.html">← Return to Alfa Beckham</a>
+    <span class="dot-sep">·</span>
+    © 2026 Alfa Beckham
+  </span>
+</footer>
+
+<script>
+/* =====================================================================
+   Alfa Beckham — Live Analytics (simulated realtime)
+   ===================================================================== */
+(function(){
+'use strict';
+
+const $  = (s,el=document)=>el.querySelector(s);
+const $$ = (s,el=document)=>[...el.querySelectorAll(s)];
+const rnd  = (a,b)=>a+Math.random()*(b-a);
+const ri   = (a,b)=>Math.floor(rnd(a,b+1));
+const clamp=(v,a,b)=>Math.max(a,Math.min(b,v));
+const fmtInt=n=>Math.round(n).toLocaleString('en-US');
+const fmtSec=n=>n.toFixed(2)+'s';
+const fmtMb =n=>n.toFixed(0)+' Mbps';
+
+/* ---------- LIVE CLOCK ---------- */
+function tickClock(){
+  const d=new Date();
+  const utc1=new Date(d.getTime()+d.getTimezoneOffset()*60000+3600000);
+  const p=n=>String(n).padStart(2,'0');
+  $('#liveClock').textContent=`${p(utc1.getHours())}:${p(utc1.getMinutes())}:${p(utc1.getSeconds())} UTC+1`;
+}
+setInterval(tickClock,1000); tickClock();
+
+/* ---------- STATE ---------- */
+const S = {
+  visitors:   rnd(11200,13400),
+  peakVis:    rnd(14200,15600),
+  rps:        rnd(2600,3050),
+  rt:         rnd(4.1,5.4),
+  cpu:        rnd(94,98.5),
+  mem:        rnd(86,93),
+  db:         rnd(82,91),
+  bw:         rnd(780,920),
+  err:        rnd(2.4,4.1),
+  uptime:     99.21,
+  // series for the line chart
+  visitorsHist: Array.from({length:60},(_,i)=> 6000+i*90 + rnd(-600,600)),
+  rpsHist:      Array.from({length:60},(_,i)=> 1400+i*26 + rnd(-150,150)),
+  latencyHist:  Array.from({length:24},(_,i)=> rnd(3.6,5.6)),
+};
+
+/* ---------- KPI CARDS ---------- */
+const KPIS=[
+  {id:'visitors', icon:'fa-users',       label:'Concurrent Visitors', unit:'online', get:()=>fmtInt(S.visitors),          delta:()=>['up',`▲ ${(rnd(4,12)).toFixed(1)}% vs 1h ago`]},
+  {id:'rps',      icon:'fa-bolt',        label:'Requests / Second',   unit:'req/s',  get:()=>fmtInt(S.rps),               delta:()=>['up',`▲ ${(rnd(6,15)).toFixed(1)}% vs 1h ago`]},
+  {id:'rt',       icon:'fa-stopwatch',   label:'Avg Response Time',   unit:'',       get:()=>fmtSec(S.rt),                delta:()=>['warn',`▲ ${(rnd(40,80)).toFixed(0)}% above baseline`]},
+  {id:'err',      icon:'fa-triangle-exclamation', label:'Error Rate', unit:'',       get:()=>S.err.toFixed(2)+'%',        delta:()=>['warn','Timeouts & retries rising']},
+  {id:'cpu',      icon:'fa-microchip',   label:'Server CPU',          unit:'',       get:()=>S.cpu.toFixed(1)+'%',        delta:()=>['up','Load average 82.4']},
+  {id:'bw',       icon:'fa-signal',      label:'Bandwidth Out',       unit:'',       get:()=>fmtMb(S.bw),                 delta:()=>['up','Near egress ceiling']},
+];
+$('#kpiGrid').innerHTML = KPIS.map(k=>`
+  <div class="kpi" data-kpi="${k.id}">
+    <div class="kpi-label"><i class="fas ${k.icon}"></i>${k.label}</div>
+    <div class="kpi-value"><span data-v>—</span>${k.unit?`<small>${k.unit}</small>`:''}</div>
+    <div class="kpi-delta" data-d>—</div>
+    <canvas class="kpi-spark" data-spark width="300" height="52"></canvas>
+  </div>`).join('');
+
+/* ---------- GAUGES ---------- */
+const GAUGES=[
+  {id:'cpu', label:'CPU Utilisation',  color:'#D05C3D', val:()=>S.cpu},
+  {id:'mem', label:'Memory Pressure',  color:'#E0B679', val:()=>S.mem},
+  {id:'db',  label:'Database Load',    color:'#B49A63', val:()=>S.db},
+  {id:'err', label:'Error Rate',       color:'#A95D43', val:()=>S.err*8, real:()=>S.err.toFixed(2)+'%'},
+];
+$('#gaugeRow').innerHTML = GAUGES.map(g=>`
+  <div class="gauge">
+    <h4>${g.label}</h4>
+    <div class="gauge-ring">
+      <svg width="130" height="130" viewBox="0 0 130 130">
+        <circle cx="65" cy="65" r="54" fill="none" stroke="rgba(226,210,165,0.10)" stroke-width="10"/>
+        <circle cx="65" cy="65" r="54" fill="none" stroke="${g.color}" stroke-width="10"
+                stroke-linecap="round" stroke-dasharray="339.29" stroke-dashoffset="339.29"
+                data-gauge="${g.id}"/>
+      </svg>
+      <div class="gauge-num"><span data-gv="${g.id}">—</span><small>${g.id==='err'?'rate':'usage'}</small></div>
+    </div>
+  </div>`).join('');
+
+/* ---------- SOURCES / PAGES / REGIONS ---------- */
+const SOURCES=[
+  {name:'Organic Search', v:42},
+  {name:'Direct',         v:27},
+  {name:'Social — X',     v:12},
+  {name:'Social — IG',    v:9},
+  {name:'WhatsApp Shares',v:6},
+  {name:'Referral',       v:4},
+];
+const PAGES=[
+  {name:'/  (Home)',           v:3840, icon:'fa-house'},
+  {name:'/combo  (Combo Deal)',v:2960, icon:'fa-fire-flame-curved'},
+  {name:'/services  (Offerings)',v:1840, icon:'fa-hand-sparkles'},
+  {name:'/booking  (Book a Session)',v:1210, icon:'fa-feather-alt'},
+  {name:'/quiz  (Find Your Path)',v:980,  icon:'fa-compass'},
+  {name:'/testimonials  (Soul Stories)',v:640,icon:'fa-quote-left'},
+];
+const REGIONS=[
+  {cc:'ng', name:'Nigeria',       v:5820},
+  {cc:'gb', name:'United Kingdom',v:2140},
+  {cc:'us', name:'United States', v:1560},
+  {cc:'ae', name:'UAE',           v:890},
+  {cc:'gh', name:'Ghana',         v:640},
+  {cc:'za', name:'South Africa',  v:410},
+  {cc:'ca', name:'Canada',        v:290},
+];
+const flag = cc => {
+  const base=0x1F1E6;
+  return String.fromCodePoint(...[...cc.toUpperCase()].map(c=>base+c.charCodeAt(0)-65));
+};
+
+function renderList(el, rows, {max=null, spark=false, flagEmoji=false}={}){
+  el.innerHTML = rows.map((r,i)=>{
+    const m = max ?? Math.max(...rows.map(x=>x.v));
+    const pct = (r.v/m*100).toFixed(0);
+    const left = flagEmoji
+      ? `<span class="rank">${flag(r.cc)}</span>`
+      : `<span class="rank">${String(i+1).padStart(2,'0')}</span>`;
+    const iconPre = r.icon ? `<i class="fas ${r.icon}" style="color:var(--brass);width:14px;text-align:center"></i>` : '';
+    return `<li>
+      ${left}
+      ${iconPre}
+      <span class="name">${r.name}</span>
+      <span class="bar"><span style="width:${pct}%"></span></span>
+      <span class="val">${fmtInt(r.v)}</span>
+    </li>`;
+  }).join('');
+}
+renderList($('#sourcesList'), SOURCES);
+renderList($('#pagesList'),   PAGES);
+renderList($('#regionsList'), REGIONS, {flagEmoji:true});
+
+/* ---------- STATUS LIST ---------- */
+const STATUS=[
+  {name:'Web Server (web-01..12)', icon:'fa-server',     level:'bad',  text:'Degraded — CPU 96%'},
+  {name:'Database Cluster',        icon:'fa-database',   level:'warn', text:'High load — query queue'},
+  {name:'CDN / Edge',              icon:'fa-globe',      level:'ok',   text:'Operational'},
+  {name:'Payments (Moniepoint)',   icon:'fa-credit-card',level:'ok',   text:'Operational'},
+  {name:'API (v2)',                icon:'fa-plug',       level:'warn', text:'Slower than normal'},
+  {name:'Email / WhatsApp Bridge', icon:'fa-envelope',   level:'ok',   text:'Operational'},
+  {name:'Background Jobs',         icon:'fa-gears',      level:'warn', text:'Backlog clearing'},
+];
+$('#statusList').innerHTML = STATUS.map(s=>`
+  <li>
+    <span class="svc"><i class="fas ${s.icon}"></i>${s.name}</span>
+    <span class="tag ${s.level}">${s.text}</span>
+  </li>`).join('');
+
+/* ---------- LIVE FEED ---------- */
+const FEED_TEMPLATES = [
+  {t:'visitor', icon:'fa-eye',      text:(p)=>`Visitor from <em>${p.region}</em> viewed <em>${p.page}</em>`},
+  {t:'cart',    icon:'fa-cart-plus',text:(p)=>`<em>${p.region}</em> — added <em>${p.item}</em> to cart`},
+  {t:'booking', icon:'fa-feather',  text:(p)=>`New booking request — <em>${p.service}</em> from ${p.region}`},
+  {t:'whatsapp',icon:'fa-whatsapp', text:(p)=>`WhatsApp click from <em>${p.region}</em>`},
+  {t:'timeout', icon:'fa-hourglass',text:(p)=>`Request timeout — retry after ${p.ms}ms (${p.route})`},
+  {t:'quiz',    icon:'fa-compass',  text:(p)=>`<em>${p.region}</em> — quiz answered: <em>${p.quiz}</em>`},
+];
+const REGION_NAMES=['Lagos, NG','Abuja, NG','London, UK','Manchester, UK','New York, US','Houston, US','Dubai, AE','Accra, GH','Cape Town, ZA','Toronto, CA'];
+const ROUTES=['/','/combo','/services','/booking','/quiz','/testimonials','/faq'];
+const ITEMS=['Badluck Cleansing','Cashout Combo','Cashout Combo Plus','Big Bag Package','Dream Protection Soap','Soap for Market Selling'];
+const SERVICES=['Sacred Consultation','Spiritual Protection','Badluck Cleansing','Eyonu','CL Locking'];
+const QUIZ=['Ending bad luck','Peaceful sleep','Business prosperity','Protection'];
+
+function feedRow(){
+  // 70% normal, 20% commerce, 10% error
+  const r=Math.random();
+  let tpl, payload;
+  if (r<0.10){
+    tpl = FEED_TEMPLATES.find(x=>x.t==='timeout');
+    payload = {ms:ri(4800,12000), route:ROUTES[ri(0,ROUTES.length-1)]};
+  } else if (r<0.30){
+    tpl = FEED_TEMPLATES[Math.random()<0.5?'cart':'booking'];
+    payload = {
+      region:REGION_NAMES[ri(0,REGION_NAMES.length-1)],
+      item:ITEMS[ri(0,ITEMS.length-1)],
+      service:SERVICES[ri(0,SERVICES.length-1)],
+    };
+  } else if (r<0.45){
+    tpl = FEED_TEMPLATES.find(x=>x.t==='quiz');
+    payload = {region:REGION_NAMES[ri(0,REGION_NAMES.length-1)], quiz:QUIZ[ri(0,QUIZ.length-1)]};
+  } else if (r<0.60){
+    tpl = FEED_TEMPLATES.find(x=>x.t==='whatsapp');
+    payload = {region:REGION_NAMES[ri(0,REGION_NAMES.length-1)]};
+  } else {
+    tpl = FEED_TEMPLATES.find(x=>x.t==='visitor');
+    payload = {region:REGION_NAMES[ri(0,REGION_NAMES.length-1)], page:ROUTES[ri(0,ROUTES.length-1)]};
+  }
+  const now=new Date();
+  const p=n=>String(n).padStart(2,'0');
+  const timeStr = `${p(now.getHours())}:${p(now.getMinutes())}:${p(now.getSeconds())}`;
+  return `<div class="feed-item">
+    <span class="ft">${timeStr}</span>
+    <span class="fi"><i class="fas ${tpl.icon}"></i></span>
+    <span class="ftext">${tpl.text(payload)} <b>• ${ri(8,320)}ms</b></span>
+  </div>`;
+}
+
+const feedEl = $('#feed');
+function seedFeed(){
+  let html='';
+  for(let i=0;i<14;i++) html += feedRow();
+  feedEl.innerHTML = html;
+}
+seedFeed();
+
+function pushFeed(){
+  feedEl.insertAdjacentHTML('afterbegin', feedRow());
+  while (feedEl.children.length > 40) feedEl.removeChild(feedEl.lastChild);
+}
+setInterval(pushFeed, ri(900,1800));
+
+/* ---------- CANVAS CHARTS ---------- */
+function setupCanvas(cv){
+  const dpr = window.devicePixelRatio||1;
+  const w = cv.clientWidth, h = cv.clientHeight||260;
+  cv.width = w*dpr; cv.height = h*dpr;
+  cv.style.height = h+'px';
+  const ctx = cv.getContext('2d');
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  return {ctx, w, h};
+}
+
+function drawLineChart(){
+  const cv = $('#lineChart');
+  if(!cv) return;
+  const {ctx,w,h} = setupCanvas(cv);
+  const pad = {l:48,r:16,t:14,b:28};
+  const iw = w-pad.l-pad.r, ih = h-pad.t-pad.b;
+
+  ctx.clearRect(0,0,w,h);
+
+  const vMax = Math.max(...S.visitorsHist)*1.08;
+  const rMax = Math.max(...S.rpsHist)*1.08;
+
+  // grid
+  ctx.strokeStyle='rgba(226,210,165,0.08)';
+  ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){
+    const y = pad.t + ih*(i/4);
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+iw,y); ctx.stroke();
+  }
+  // y-axis labels (visitors)
+  ctx.fillStyle='rgba(183,176,159,0.9)';
+  ctx.font='11px "Space Mono", monospace';
+  ctx.textAlign='right'; ctx.textBaseline='middle';
+  for(let i=0;i<=4;i++){
+    const y = pad.t + ih*(i/4);
+    const val = vMax*(1-i/4);
+    ctx.fillText(val>=1000?(val/1000).toFixed(1)+'k':Math.round(val), pad.l-8, y);
+  }
+
+  // line helper
+  function line(data, max, color, fill){
+    const pts = data.map((v,i)=>({
+      x: pad.l + iw*(i/(data.length-1)),
+      y: pad.t + ih*(1 - v/max),
+    }));
+    if (fill){
+      ctx.beginPath();
+      ctx.moveTo(pts[0].x, pad.t+ih);
+      pts.forEach(p=>ctx.lineTo(p.x,p.y));
+      ctx.lineTo(pts[pts.length-1].x, pad.t+ih);
+      ctx.closePath();
+      const grad = ctx.createLinearGradient(0,pad.t,0,pad.t+ih);
+      grad.addColorStop(0, fill);
+      grad.addColorStop(1, 'rgba(0,0,0,0)');
+      ctx.fillStyle = grad;
+      ctx.fill();
+    }
+    ctx.beginPath();
+    pts.forEach((p,i)=> i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.lineJoin='round';
+    ctx.stroke();
+    // last point dot
+    const last=pts[pts.length-1];
+    ctx.beginPath();
+    ctx.arc(last.x,last.y,3.5,0,Math.PI*2);
+    ctx.fillStyle=color;
+    ctx.fill();
+  }
+
+  line(S.rpsHist, rMax, '#A95D43', 'rgba(169,93,67,0.22)');
+  line(S.visitorsHist, vMax, '#B49A63', 'rgba(180,154,99,0.28)');
+}
+
+function drawLatencyChart(){
+  const cv = $('#latencyChart');
+  if(!cv) return;
+  const {ctx,w,h} = setupCanvas(cv);
+  const pad = {l:40,r:14,t:14,b:28};
+  const iw = w-pad.l-pad.r, ih = h-pad.t-pad.b;
+
+  ctx.clearRect(0,0,w,h);
+
+  const max = 7;
+  // grid + y labels
+  ctx.strokeStyle='rgba(226,210,165,0.08)';
+  for(let i=0;i<=4;i++){
+    const y=pad.t+ih*(i/4);
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+iw,y); ctx.stroke();
+  }
+  ctx.fillStyle='rgba(183,176,159,0.9)';
+  ctx.font='11px "Space Mono", monospace';
+  ctx.textAlign='right'; ctx.textBaseline='middle';
+  for(let i=0;i<=4;i++){
+    const y=pad.t+ih*(i/4);
+    ctx.fillText((max*(1-i/4)).toFixed(1)+'s', pad.l-6, y);
+  }
+
+  // bars
+  const n = S.latencyHist.length;
+  const bw = iw/n * 0.68;
+  const gap = iw/n - bw;
+  S.latencyHist.forEach((v,i)=>{
+    const bh = ih*(v/max);
+    const x = pad.l + iw*(i/n) + gap/2;
+    const y = pad.t + ih - bh;
+    const grad = ctx.createLinearGradient(0,y,0,pad.t+ih);
+    grad.addColorStop(0,'#D05C3D');
+    grad.addColorStop(1,'rgba(208,92,61,0.15)');
+    ctx.fillStyle=grad;
+    ctx.beginPath();
+    const r=3;
+    ctx.moveTo(x, y+r);
+    ctx.arcTo(x, y, x+r, y, r);
+    ctx.lineTo(x+bw-r, y);
+    ctx.arcTo(x+bw, y, x+bw, y+r, r);
+    ctx.lineTo(x+bw, pad.t+ih);
+    ctx.lineTo(x, pad.t+ih);
+    ctx.closePath();
+    ctx.fill();
+  });
+
+  // threshold line at 2s (slow) and 5s (very slow)
+  [2,5].forEach(th=>{
+    const y = pad.t + ih*(1 - th/max);
+    ctx.setLineDash([4,4]);
+    ctx.strokeStyle = th===5?'rgba(208,92,61,0.55)':'rgba(224,182,121,0.4)';
+    ctx.beginPath(); ctx.moveTo(pad.l,y); ctx.lineTo(pad.l+iw,y); ctx.stroke();
+    ctx.setLineDash([]);
+  });
+}
+
+function drawSpark(cv, data, color){
+  const {ctx,w,h} = setupCanvas(cv);
+  ctx.clearRect(0,0,w,h);
+  const min=Math.min(...data), max=Math.max(...data);
+  const range=max-min||1;
+  const pts = data.map((v,i)=>({
+    x: (w*(i/(data.length-1))),
+    y: h - ((v-min)/range)*h*0.85 - h*0.075,
+  }));
+  // fill
+  ctx.beginPath();
+  ctx.moveTo(0,h);
+  pts.forEach(p=>ctx.lineTo(p.x,p.y));
+  ctx.lineTo(w,h); ctx.closePath();
+  const g = ctx.createLinearGradient(0,0,0,h);
+  g.addColorStop(0, color.replace('rgb','rgba').replace(')',',0.35)'));
+  g.addColorStop(1, 'rgba(0,0,0,0)');
+  ctx.fillStyle=g; ctx.fill();
+  // line
+  ctx.beginPath();
+  pts.forEach((p,i)=> i?ctx.lineTo(p.x,p.y):ctx.moveTo(p.x,p.y));
+  ctx.strokeStyle=color; ctx.lineWidth=1.5; ctx.lineJoin='round';
+  ctx.stroke();
+}
+
+/* Store spark history per KPI */
+const SPARK = {
+  visitors: Array.from({length:20},()=>rnd(10000,13000)),
+  rps:      Array.from({length:20},()=>rnd(2400,3000)),
+  rt:       Array.from({length:20},()=>rnd(3.8,5.6)),
+  err:      Array.from({length:20},()=>rnd(2.2,4.2)),
+  cpu:      Array.from({length:20},()=>rnd(92,99)),
+  bw:       Array.from({length:20},()=>rnd(760,940)),
+};
+const SPARK_COLOR = {
+  visitors:'rgb(180,154,99)',
+  rps:'rgb(169,93,67)',
+  rt:'rgb(208,92,61)',
+  err:'rgb(224,182,121)',
+  cpu:'rgb(208,92,61)',
+  bw:'rgb(157,184,156)',
+};
+
+function updateKPIs(){
+  KPIS.forEach(k=>{
+    const card = document.querySelector(`.kpi[data-kpi="${k.id}"]`);
+    if(!card) return;
+    card.querySelector('[data-v]').textContent = k.get();
+    const [kind,text] = k.delta();
+    const d = card.querySelector('[data-d]');
+    d.className = 'kpi-delta '+kind;
+    d.innerHTML = `<i class="fas ${kind==='down'?'fa-arrow-down':'fa-arrow-up'}"></i>${text}`;
+  });
+  // sparks
+  $$('.kpi-spark').forEach(cv=>{
+    const key = cv.closest('[data-kpi]').dataset.kpi;
+    const arr = SPARK[key];
+    arr.push(parseFloat(({
+      visitors:S.visitors, rps:S.rps, rt:S.rt, err:S.err, cpu:S.cpu, bw:S.bw
+    })[key]));
+    if(arr.length>20) arr.shift();
+    drawSpark(cv, arr, SPARK_COLOR[key]);
+  });
+}
+
+/* ---------- GAUGE UPDATE ---------- */
+function updateGauges(){
+  GAUGES.forEach(g=>{
+    const ring = document.querySelector(`[data-gauge="${g.id}"]`);
+    const valEl = document.querySelector(`[data-gv="${g.id}"]`);
+    if(!ring||!valEl) return;
+    const pct = clamp(g.val(), 0, 100);
+    const C = 2*Math.PI*54; // 339.29
+    ring.setAttribute('stroke-dashoffset', C*(1 - pct/100));
+    valEl.textContent = g.real ? g.real() : pct.toFixed(1)+'%';
+  });
+}
+
+/* ---------- ALERT + EXPLAINER TEXT ---------- */
+function updateAlert(){
+  $('#alertUsers').textContent = fmtInt(S.visitors)+' concurrent users';
+  $('#alertPeak').textContent  = fmtInt(S.rps)+' requests/second';
+  $('#alertRt').textContent    = fmtSec(S.rt);
+  $('#alertCpu').textContent   = S.cpu.toFixed(0)+'%';
+  $('#expUsers').textContent   = fmtInt(S.visitors)+' visitors';
+  $('#expCpu').textContent     = S.cpu.toFixed(0)+'%';
+  $('#expRt').textContent      = fmtSec(S.rt);
+}
+
+/* ---------- HISTORIES UPDATE (every ~1.5s) ---------- */
+function stepHistories(){
+  const lastV = S.visitorsHist[S.visitorsHist.length-1];
+  const lastR = S.rpsHist[S.rpsHist.length-1];
+  S.visitorsHist.push(clamp(lastV + rnd(-420, 420), 9000, 15500));
+  S.rpsHist.push(clamp(lastR + rnd(-160, 160), 2100, 3400));
+  if (S.visitorsHist.length>60) S.visitorsHist.shift();
+  if (S.rpsHist.length>60) S.rpsHist.shift();
+
+  S.latencyHist.push(clamp(S.rt + rnd(-0.6,0.6), 2.4, 6.8));
+  if (S.latencyHist.length>24) S.latencyHist.shift();
+}
+
+/* ---------- STATE JITTER ---------- */
+function jitter(){
+  S.visitors = clamp(S.visitors + rnd(-260, 300), 10500, 15200);
+  S.rps      = clamp(S.rps + rnd(-90, 110), 2400, 3400);
+  S.rt       = clamp(S.rt + rnd(-0.22,0.28), 3.2, 6.6);
+  S.cpu      = clamp(S.cpu + rnd(-1.1,1.1), 90, 99.4);
+  S.mem      = clamp(S.mem + rnd(-1.4,1.4), 82, 96);
+  S.db       = clamp(S.db + rnd(-2.2,2.2), 76, 95);
+  S.bw       = clamp(S.bw + rnd(-24,26), 720, 960);
+  S.err      = clamp(S.err + rnd(-0.4,0.45), 1.8, 5.4);
+  S.peakVis  = Math.max(S.peakVis, S.visitors);
+}
+
+/* ---------- MASTER TICK ---------- */
+function fullRefresh(){
+  updateAlert();
+  updateKPIs();
+  updateGauges();
+}
+function tickFast(){
+  jitter();
+  updateKPIs();
+  updateAlert();
+}
+function tickSlow(){
+  stepHistories();
+  drawLineChart();
+  drawLatencyChart();
+  updateGauges();
+}
+
+/* init */
+fullRefresh();
+drawLineChart();
+drawLatencyChart();
+requestAnimationFrame(()=>{ drawLineChart(); drawLatencyChart(); updateKPIs(); updateGauges(); });
+
+setInterval(tickFast, 1500);
+setInterval(tickSlow, 2200);
+window.addEventListener('resize', ()=>{ drawLineChart(); drawLatencyChart(); });
+
+})();
+</script>
+</body>
+</html>
