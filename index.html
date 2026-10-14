@@ -417,6 +417,9 @@
         }
 
         /* Combo Deal */
+        .prod-img { width: 100%; max-width: 260px; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 0.75rem; border: 1px solid var(--hairline); margin: 0 auto 1.25rem; display: block; }
+        .prod-img.wide { aspect-ratio: 16 / 9; max-width: 100%; }
+        .save-chip { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--verdigris-light); border: 1px solid var(--verdigris); border-radius: 999px; padding: 0.15rem 0.6rem; margin-left: 0.4rem; vertical-align: middle; }
         .combo-grid { display: grid; gap: 1.5rem; grid-template-columns: 1fr; max-width: 64rem; margin: 0 auto; text-align: left; }
         @media (min-width: 768px) { .combo-grid { grid-template-columns: repeat(3, 1fr); } }
         .combo-card { position: relative; height: 100%; }
@@ -1605,6 +1608,7 @@
                     <button class="tab-btn" data-tab="consultation" role="tab">Consultations</button>
                     <button class="tab-btn" data-tab="cleansing" role="tab">Cleansing &amp; Protection</button>
                     <button class="tab-btn" data-tab="bespoke" role="tab">Bespoke &amp; Ritual Work</button>
+                    <button class="tab-btn" data-tab="turare" role="tab">Turare &amp; Perfume</button>
                 </div>
             </div>
 
@@ -1699,6 +1703,36 @@
                     <h3 class="text-xl font-semibold brass-text mb-3">Customize Your Work Yourself</h3>
                     <p class="txt-mute text-sm">Describe exactly what you need — Alfa Beckham crafts a bespoke spiritual work tailored precisely to your request.</p>
                     <div class="mt-5 eyebrow text-[10px] border-t border-[#8E9BB8]/20 inline-block pt-3">Bespoke ritual</div>
+                    </div>
+                </div>
+                <div class="card svc-card tab-show" data-cat="turare" id="svc-turare" data-aos="fade-up" data-aos-delay="0">
+                    <div class="p-7 text-center">
+                    <img class="prod-img" src="alfa-turare.jpg" alt="Alfa Beckham Turare in a jar with a wooden lid" width="260" height="260" loading="lazy">
+                    <h3 class="text-xl font-semibold brass-text mb-3">Turare</h3>
+                    <p class="txt-mute text-sm">Supports spiritual cleansing rituals and is used in traditional practices associated with protection. Complements prayer, meditation and personal reflection.</p>
+                    <div class="price-tag">₦50,000</div>
+                    <button type="button" class="add-to-cart-btn" data-id="turare" data-name="Turare" data-price="50000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+                    <div class="mt-5 eyebrow text-[10px] border-t border-[#8E9BB8]/20 inline-block pt-3">Cleansing &amp; peace</div>
+                    </div>
+                </div>
+                <div class="card svc-card tab-show" data-cat="turare" id="svc-good-fortune-perfume" data-aos="fade-up" data-aos-delay="80">
+                    <div class="p-7 text-center">
+                    <img class="prod-img" src="alfa-good-fortune.jpg" alt="Alfa Beckham Good Fortune roll-on perfume, 10ml" width="260" height="260" loading="lazy">
+                    <h3 class="text-xl font-semibold brass-text mb-3">Good Fortune Perfume</h3>
+                    <p class="txt-mute text-sm">A 10ml roll-on that symbolizes welcoming positive intentions and new possibilities. Encourages confidence and a positive mindset.</p>
+                    <div class="price-tag">₦50,000</div>
+                    <button type="button" class="add-to-cart-btn" data-id="good-fortune-perfume" data-name="Good Fortune Perfume" data-price="50000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+                    <div class="mt-5 eyebrow text-[10px] border-t border-[#8E9BB8]/20 inline-block pt-3">Good fortune &amp; blessings</div>
+                    </div>
+                </div>
+                <div class="card svc-card tab-show" data-cat="turare" id="svc-turare-perfume-combo" data-aos="fade-up" data-aos-delay="160">
+                    <div class="p-7 text-center">
+                    <img class="prod-img" src="alfa-turare-combo.jpg" alt="Alfa Beckham Turare and Good Fortune Perfume combo" width="260" height="260" loading="lazy">
+                    <h3 class="text-xl font-semibold brass-text mb-3">Turare + Good Fortune Combo</h3>
+                    <p class="txt-mute text-sm">Get both together: Turare for cleansing and protection, Good Fortune Perfume to wear your intentions and walk confidently toward better days.</p>
+                    <div class="price-tag">₦80,000</div>
+                    <button type="button" class="add-to-cart-btn" data-id="turare-perfume-combo" data-name="Turare + Good Fortune Combo" data-price="80000"><i class="fas fa-shopping-bag"></i> Add to Cart</button>
+                    <div class="mt-5 eyebrow text-[10px] border-t border-[#8E9BB8]/20 inline-block pt-3">Combo of 2 · save ₦20,000</div>
                     </div>
                 </div>
                 <div class="card svc-card tab-show md:col-span-2 lg:col-span-4" data-cat="cleansing" id="svc-badluck-cleansing" data-aos="fade-up">
