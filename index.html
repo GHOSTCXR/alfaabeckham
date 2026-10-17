@@ -1543,15 +1543,15 @@
         </div>
     </section>
 
-    <!-- Combo Deal (Oct 11-18, 2026) -->
+    <!-- Combo Deal (Oct 11-17, 2026) -->
     <section id="combo" class="section section-tint relative">
         <div class="adire-watermark"></div>
         <div class="container mx-auto px-6 lg:px-12 text-center content">
             <p class="eyebrow mb-3">Limited Time</p>
             <h2 class="text-4xl md:text-5xl font-semibold brass-text mb-4">🔥 Combo Deal Is Back! 🔥</h2>
             <div class="sigil-divider"><span class="line"></span><i class="fas fa-star-of-life txt-brass text-xs"></i><span class="line right"></span></div>
-            <p class="txt-mute max-w-2xl mx-auto mb-4 text-lg">Available <strong class="brass-text">October 11th – 18th only</strong></p>
-            <div><span class="combo-status" id="comboStatus"><i class="fas fa-hourglass-half"></i> <span id="comboStatusText">⏳ 8 days only — don’t miss out!</span></span></div>
+            <p class="txt-mute max-w-2xl mx-auto mb-4 text-lg">Available <strong class="brass-text">October 11th – 17th only</strong></p>
+            <div><span class="combo-status" id="comboStatus"><i class="fas fa-hourglass-half"></i> <span id="comboStatusText">⏳ 7 days only — don’t miss out!</span></span></div>
 
             <div class="combo-grid">
                 <div class="card combo-card" id="combo-cashout" data-aos="fade-up" data-aos-delay="0">
@@ -2482,10 +2482,9 @@
     <script>
     (function () {
         // ===== DEAL WINDOW (Africa/Lagos, UTC+1) =====
-        // Opens exactly 12:00am on Oct 11. Closes exactly 12:00am when Oct 18 ends (= 00:00 Oct 19),
-        // which makes the full 8 days (Oct 11,12,13,14,15,16,17,18).
+        // Opens at 12:00am on Oct 11 and locks at 12:00am on Oct 18.
         const OPENS  = new Date('2026-10-11T00:00:00+01:00');
-        const CLOSES = new Date('2026-10-19T00:00:00+01:00');
+        const CLOSES = new Date('2026-10-18T00:00:00+01:00');
         const COMBO_IDS = ['combo-cashout', 'combo-cashout-plus', 'combo-big-bag'];
 
         // Clock-skew correction: use the server's clock so a wrong phone/PC clock can't open or close the deal early/late.
@@ -2593,17 +2592,17 @@
             out.push(line); return out.join('\r\n');
         }
 
-        const DESC = 'COMBO DEAL IS BACK! Available Oct 11-18 only.\n' +
+        const DESC = 'COMBO DEAL IS BACK! Available Oct 11-17 only.\n' +
             '₦100,000 Cashout Combo: Badluck Cleansing + Cashout Soap\n' +
             '₦150,000 Cashout Combo Plus: Badluck Cleansing + Cleansing Soap + Bead\n' +
             '₦350,000 Big Bag Package: Premium Big Bag Soap Package\n' +
-            '8 days only - dont miss out!';
+            '7 days only - dont miss out!';
 
-        // Events: opening (Oct 11, 8:00 WAT), last day (Oct 18, 9:00 WAT)
+        // Events: opening (Oct 11, 12:00am WAT), last day (Oct 17, 9:00am WAT)
         const EVENTS = [
             { uid: 'alfa-combo-open-2026@alfabeckham', title: '🔥 Alfa Beckham Combo Deal OPENS today', start: new Date('2026-10-11T00:00:00+01:00'), end: new Date('2026-10-11T00:30:00+01:00'),
               alarms: [['-P1D', 'Combo Deal opens tomorrow at 12am'], ['-PT1H', 'Combo Deal opens in 1 hour'], ['PT0S', 'Combo Deal is open now']] },
-            { uid: 'alfa-combo-last-2026@alfabeckham', title: '⏳ LAST DAY — Alfa Beckham Combo Deal ends tonight', start: new Date('2026-10-18T09:00:00+01:00'), end: new Date('2026-10-18T09:30:00+01:00'),
+            { uid: 'alfa-combo-last-2026@alfabeckham', title: '⏳ LAST DAY — Alfa Beckham Combo Deal ends tonight', start: new Date('2026-10-17T09:00:00+01:00'), end: new Date('2026-10-17T09:30:00+01:00'),
               alarms: [['PT0S', 'Last day of the Combo Deal'], ['PT8H', 'Combo Deal ends tonight at 12am']] }
         ];
 
@@ -2922,11 +2921,11 @@
                     }
                 }
 
-                // Block checkout if a combo deal item is in the cart outside its Oct 11-18 window
+                // Block checkout if a combo deal item is in the cart outside its Oct 11-17 window
                 if (window.comboDeal && !window.comboDeal.isOpen()) {
                     const comboItem = cart.find(i => window.comboDeal.ids.includes(i.id));
                     if (comboItem) {
-                        alert(`"${comboItem.name}" is only available October 11th–18th. Please remove it from your cart.`);
+                        alert(`"${comboItem.name}" was only available October 11th–17th. Please remove it from your cart.`);
                         if (submitBtn) { submitBtn.disabled = false; submitBtn.innerHTML = originalBtnHtml; }
                         return;
                     }
