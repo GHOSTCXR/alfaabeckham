@@ -212,13 +212,6 @@
             border-radius: 4px;
         }
 
-        .skip-link {
-            position: fixed; top: -60px; left: 12px; z-index: 100000;
-            background: var(--brass); color: #14110C; font-weight: 700;
-            padding: 0.7rem 1.1rem; border-radius: 0.5rem; transition: top 0.2s ease;
-        }
-        .skip-link:focus { top: 12px; }
-
         /* Scroll progress bar */
         #scrollProgress {
             position: fixed; top: 0; left: 0; height: 3px; width: 0%;
@@ -1042,154 +1035,18 @@
         .intro-screen {
             position: fixed;
             inset: 0;
-            z-index: 100020;
+            z-index: 2147483647;
             display: grid;
             place-items: center;
-            overflow: hidden;
-            padding: 2rem;
-            background:
-                radial-gradient(ellipse at 50% 42%, color-mix(in srgb, var(--verdigris) 22%, transparent), transparent 42%),
-                radial-gradient(ellipse at 50% 100%, color-mix(in srgb, var(--brass) 10%, transparent), transparent 55%),
-                var(--ink);
-            color: var(--bone);
-            text-align: center;
-            opacity: 1;
-            visibility: visible;
-            transition: opacity 700ms ease, visibility 0s linear 700ms;
+            background: #000;
         }
-        .intro-screen::before, .intro-screen::after {
-            position: absolute;
-            content: "";
-            width: min(78vw, 36rem);
-            aspect-ratio: 1;
-            border: 1px solid color-mix(in srgb, var(--brass) 18%, transparent);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-        .intro-screen::after {
-            width: min(62vw, 28rem);
-            border-color: color-mix(in srgb, var(--brass) 11%, transparent);
-        }
-        .intro-screen.is-leaving { opacity: 0; visibility: hidden; pointer-events: none; }
-        .intro-content { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; }
-        .intro-mark {
-            display: grid;
-            place-items: center;
-            width: 5.5rem;
-            aspect-ratio: 1;
-            margin-bottom: 2rem;
-            border: 1px solid color-mix(in srgb, var(--brass) 65%, transparent);
-            border-radius: 50%;
-            color: var(--brass-light);
-            box-shadow: 0 0 50px color-mix(in srgb, var(--brass) 12%, transparent), inset 0 0 24px color-mix(in srgb, var(--brass) 8%, transparent);
-            animation: introMarkIn 1s cubic-bezier(0.2, 0.7, 0.2, 1) both;
-        }
-        .intro-mark svg { width: 2.7rem; height: 2.7rem; animation: introSigilTurn 22s linear infinite; }
-        .intro-kicker {
-            margin-bottom: 0.9rem;
-            color: var(--brass-light);
-            font-family: 'Space Mono', monospace;
-            font-size: 0.65rem;
-            letter-spacing: 0.24em;
-            text-transform: uppercase;
-            animation: introRise 700ms 120ms both;
-        }
-        .intro-signature {
-            position: relative;
-            display: inline-block;
-            max-width: 100%;
-            margin: -0.65rem 0 -0.4rem;
-            padding: 0 0.08em 0.12em;
-            color: var(--brass-light);
-            font-family: 'Allura', 'Brush Script MT', 'Segoe Script', cursive;
-            font-size: clamp(5.1rem, 14vw, 9rem);
-            font-weight: 400;
-            letter-spacing: 0.005em;
-            line-height: 1.08;
-            white-space: nowrap;
-            filter: drop-shadow(0 5px 24px color-mix(in srgb, var(--brass) 15%, transparent));
-            clip-path: inset(-0.18em 100% -0.12em 0);
-            animation: signatureWrite 2.25s cubic-bezier(0.2, 0.65, 0.18, 1) 650ms both;
-        }
-        .intro-signature::after {
-            position: absolute;
-            right: 5%;
-            bottom: 0.08em;
-            left: 5%;
-            height: 1px;
-            content: "";
-            background: linear-gradient(90deg, transparent, var(--brass) 15%, var(--brass-light) 82%, transparent);
-            opacity: 0.7;
-            transform: scaleX(0);
-            transform-origin: left;
-            animation: signatureFlourish 700ms ease-out 2.7s both;
-        }
-        .intro-title {
-            margin: 0;
-            font-size: inherit;
-            font-weight: inherit;
-            letter-spacing: inherit;
-            line-height: inherit;
-        }
-        .intro-rule { width: 3rem; height: 1px; margin: 1.5rem 0; background: var(--brass); animation: introRuleIn 700ms 450ms both; }
-        .intro-description {
-            max-width: 27rem;
-            color: var(--txt-mute);
-            font-family: 'Fraunces', serif;
-            font-size: clamp(1.1rem, 3vw, 1.4rem);
-            line-height: 1.65;
-            animation: introRise 800ms 380ms both;
-        }
-        .intro-enter {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.7rem;
-            margin-top: 2.3rem;
-            padding: 0.85rem 1.35rem;
-            border: 1px solid color-mix(in srgb, var(--brass) 58%, transparent);
-            border-radius: 999px;
-            background: color-mix(in srgb, var(--brass) 9%, transparent);
-            color: var(--brass-light);
+        .developer-notice {
+            padding: 0.65rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            border-radius: 0.5rem;
+            background: #111;
+            color: #d0d0d0;
             font-size: 0.8rem;
-            font-weight: 600;
-            letter-spacing: 0.12em;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: background 180ms ease, border-color 180ms ease, transform 180ms ease;
-            animation: introRise 800ms 520ms both;
-        }
-        .intro-enter:hover { transform: translateY(-2px); border-color: var(--brass-light); background: color-mix(in srgb, var(--brass) 16%, transparent); }
-        .intro-enter i { font-size: 0.72rem; }
-        .intro-note {
-            position: absolute;
-            bottom: max(1.5rem, env(safe-area-inset-bottom));
-            color: var(--txt-faint);
-            font-family: 'Space Mono', monospace;
-            font-size: 0.58rem;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-            animation: introRise 800ms 650ms both;
-        }
-
-        @keyframes introRise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes introMarkIn { from { opacity: 0; transform: scale(0.82); } to { opacity: 1; transform: scale(1); } }
-        @keyframes introRuleIn { from { opacity: 0; transform: scaleX(0); } to { opacity: 1; transform: scaleX(1); } }
-        @keyframes signatureWrite { to { clip-path: inset(-0.18em 0 -0.12em 0); } }
-        @keyframes signatureFlourish { to { transform: scaleX(1); } }
-        @keyframes introSigilTurn { to { transform: rotate(360deg); } }
-        @media (max-width: 480px) {
-            .intro-screen { padding: 1.5rem; }
-            .intro-mark { width: 4.75rem; margin-bottom: 1.6rem; }
-            .intro-signature { font-size: clamp(2.75rem, 14.5vw, 4.25rem); }
-            .intro-description { max-width: 21rem; }
-            .intro-enter { margin-top: 1.8rem; }
-        }
-        @media (prefers-reduced-motion: reduce) {
-            .intro-screen, .intro-screen *, .intro-screen::before, .intro-screen::after {
-                animation: none !important;
-                transition-duration: 0.01ms !important;
-            }
-            .intro-signature { clip-path: none; }
         }
         .float-tg, .float-wa {
             width: 48px;
@@ -1237,31 +1094,13 @@
     </style>
 </head>
 <body class="antialiased">
-    <a href="#home" class="skip-link">Skip to content</a>
+    <div id="preloader" class="intro-screen" aria-hidden="true">
+        <p class="developer-notice">Contact web developer</p>
+    </div>
+    <div id="siteContent" inert>
     <div id="scrollProgress"></div>
     <div id="toastStack" aria-live="polite"></div>
     <canvas id="particleCanvas"></canvas>
-
-    <!-- Welcome intro -->
-    <div id="preloader" class="intro-screen" role="dialog" aria-modal="true" aria-labelledby="introTitle" aria-describedby="introDescription">
-        <div class="intro-content">
-            <div class="intro-mark" aria-hidden="true">
-                <svg viewBox="0 0 56 56" fill="none">
-                    <circle cx="28" cy="28" r="23" stroke="currentColor" stroke-opacity=".45"/>
-                    <circle cx="28" cy="28" r="15" stroke="currentColor" stroke-opacity=".7"/>
-                    <path d="m28 10 4.7 13.3L46 28l-13.3 4.7L28 46l-4.7-13.3L10 28l13.3-4.7L28 10Z" fill="currentColor"/>
-                </svg>
-            </div>
-            <p class="intro-kicker">A moment to arrive</p>
-            <div class="intro-signature" aria-hidden="true"><span class="intro-title" id="introTitle">Alfa Beckham</span></div>
-            <div class="intro-rule" aria-hidden="true"></div>
-            <p class="intro-description" id="introDescription">Sacred guidance, ancestral wisdom, and a gentler path back to balance.</p>
-            <button type="button" class="intro-enter" id="introEnter" autofocus>
-                Enter the sanctuary <i class="fas fa-arrow-right" aria-hidden="true"></i>
-            </button>
-        </div>
-        <p class="intro-note" aria-hidden="true">Sacred Guidance</p>
-    </div>
 
     <!-- Navigation -->
     <nav class="fixed top-0 w-full z-50 nav-surface backdrop-blur-xl border-b border-soft">
@@ -2110,33 +1949,6 @@
         }
 
         AOS.init({ duration: 700, once: true, offset: 40 });
-
-        const intro = document.getElementById('preloader');
-        const introEnter = document.getElementById('introEnter');
-
-        let introDismissed = false;
-        function dismissIntro(restoreFocus = false) {
-            if (!intro || introDismissed) return;
-            introDismissed = true;
-            document.removeEventListener('keydown', handleIntroKeydown);
-            intro.classList.add('is-leaving');
-            if (restoreFocus) document.querySelector('#home h1')?.focus({ preventScroll: true });
-            window.setTimeout(() => {
-                intro.setAttribute('aria-hidden', 'true');
-                intro.setAttribute('inert', '');
-            }, 750);
-        }
-        function handleIntroKeydown(event) {
-            if (introDismissed) return;
-            if (event.key === 'Escape') dismissIntro(true);
-            if (event.key === 'Tab') {
-                event.preventDefault();
-                introEnter?.focus();
-            }
-        }
-        introEnter?.addEventListener('click', () => dismissIntro(true));
-        document.addEventListener('keydown', handleIntroKeydown);
-        // Intro stays until the visitor clicks Enter (or presses Escape).
 
         // Light / dark mode toggle
         function setTheme(theme) {
@@ -3215,5 +3027,6 @@
         };
     })();
     </script>
+    </div>
 </body>
 </html>
