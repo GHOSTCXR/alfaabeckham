@@ -1032,22 +1032,6 @@
         .countdown-bar.is-live { background: linear-gradient(100deg, #294536, #405D43 58%, #76613A); }
         .countdown-bar.is-closing { background: linear-gradient(100deg, #774633, #985C3F 58%, #774633); }
         .countdown-bar.is-closed { background: #343B32; }
-        .intro-screen {
-            position: fixed;
-            inset: 0;
-            z-index: 2147483647;
-            display: grid;
-            place-items: center;
-            background: #000;
-        }
-        .developer-notice {
-            padding: 0.65rem 1rem;
-            border: 1px solid rgba(255, 255, 255, 0.14);
-            border-radius: 0.5rem;
-            background: #111;
-            color: #d0d0d0;
-            font-size: 0.8rem;
-        }
         .float-tg, .float-wa {
             width: 48px;
             height: 48px;
@@ -1094,10 +1078,7 @@
     </style>
 </head>
 <body class="antialiased">
-    <div id="preloader" class="intro-screen" aria-hidden="true">
-        <p class="developer-notice">Contact web developer</p>
-    </div>
-    <div id="siteContent" inert>
+    <div id="siteContent">
     <div id="scrollProgress"></div>
     <div id="toastStack" aria-live="polite"></div>
     <canvas id="particleCanvas"></canvas>
